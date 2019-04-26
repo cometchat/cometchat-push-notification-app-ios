@@ -24,7 +24,9 @@
 
 3. [Running the sample app](#Running-the-sample-app)
 
-4. [Contributing](#Contributing)
+4. [Troubleshoot](#Troubleshoot)
+
+5. [Contributing](#Contributing)
 
 
 # Screenshots
@@ -85,7 +87,9 @@
    
    - Enter **toUserUID** for which you wants to send the push notification.
     
+# Troubleshoot  
 
+Facing any issues while running or installing the app.[Click here](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/troubleshoot.md)
 
 # Contribute 
    
