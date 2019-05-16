@@ -1,4 +1,6 @@
 PODS:
+  - CometChatPro (1.4.3):
+    - JitsiMeetSDK (= 2.1.0)
   - Firebase/Core (5.20.2):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.8.1)
@@ -56,19 +58,24 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.8.0):
     - GoogleUtilities/Logger
+  - JitsiMeetSDK (2.1.0)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Pro-Ext-PN (1.0.0):
+    - CometChatPro (~> 1.4.0)
   - Protobuf (3.7.0)
 
 DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
+  - Pro-Ext-PN (~> 1.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - CometChatPro
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -77,10 +84,13 @@ SPEC REPOS:
     - FirebaseMessaging
     - GoogleAppMeasurement
     - GoogleUtilities
+    - JitsiMeetSDK
     - nanopb
+    - Pro-Ext-PN
     - Protobuf
 
 SPEC CHECKSUMS:
+  CometChatPro: cf3142ac71fdd9841dab6747107b35b6a0f8c487
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
   FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
@@ -89,9 +99,11 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 4235f949ce1c4e827aeb19705ba5c53f9b85aa10
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
+  JitsiMeetSDK: 3e66564af7f38a19142338955dd7f581801852b3
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Pro-Ext-PN: 4e824504c7180a2f42030a58ab1d602277f5be2c
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
 
-PODFILE CHECKSUM: 577a237bded402bfbf8b2bf1a3d2a4ce570fda81
+PODFILE CHECKSUM: 03941c70f689c036c1ec04a4e757c5801ccddad7
 
 COCOAPODS: 1.6.1

@@ -10,6 +10,7 @@ import UIKit
 import CometChatPro
 import Firebase
 import UserNotifications
+import PNExtension
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -129,17 +130,22 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let userInfo = notification.request.content.userInfo
-        print( "userInfo: \(userInfo)")
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
-        // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print( "Message ID: \(messageID)")
-        }
         
-        // Print full message.
-        print(userInfo)
+        if let userInfo = (notification.request.content.userInfo as? [String : Any]){
+            
+            let messageObject = userInfo["message"]
+            print("userInfo : \(userInfo)")
+            print("messageObject : \(String(describing: messageObject))")
+            
+            PNExtension.getMessageFrom(json: messageObject as! [String : Any] , onSuccess: { (baseMessage) in
+                
+                print("Base Message object Received : \(baseMessage)")
+                
+            }, onError: { (error) in
+                
+                print("failed retrieve the BaseMessage object : \(error)")
+            })
+        }
         
         // Change this to your preferred presentation option
          completionHandler([.alert, .badge, .sound])

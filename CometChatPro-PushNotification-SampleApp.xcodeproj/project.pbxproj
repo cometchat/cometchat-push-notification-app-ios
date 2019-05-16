@@ -7,15 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B23D26812272005100CC1CCB /* CometChatPro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23D26802272005100CC1CCB /* CometChatPro.framework */; };
-		B23D26822272005F00CC1CCB /* CometChatPro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23D26802272005100CC1CCB /* CometChatPro.framework */; };
-		B23D26832272005F00CC1CCB /* CometChatPro.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23D26802272005100CC1CCB /* CometChatPro.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B23D26872272013C00CC1CCB /* JitsiMeet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23D26852272013400CC1CCB /* JitsiMeet.framework */; };
-		B23D26882272013C00CC1CCB /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23D26862272013B00CC1CCB /* WebRTC.framework */; };
-		B23D2689227201A100CC1CCB /* JitsiMeet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23D26852272013400CC1CCB /* JitsiMeet.framework */; };
-		B23D268A227201A100CC1CCB /* JitsiMeet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23D26852272013400CC1CCB /* JitsiMeet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B23D268B227201A100CC1CCB /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23D26862272013B00CC1CCB /* WebRTC.framework */; };
-		B23D268C227201A100CC1CCB /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23D26862272013B00CC1CCB /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B23D268E2272EDFA00CC1CCB /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23D268D2272EDFA00CC1CCB /* Toast.swift */; };
 		B260F1F5224DE99D00CDCDBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */; };
 		B260F1F7224DE99D00CDCDBA /* startupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F6224DE99D00CDCDBA /* startupVC.swift */; };
@@ -35,9 +26,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B23D26832272005F00CC1CCB /* CometChatPro.framework in Embed Frameworks */,
-				B23D268A227201A100CC1CCB /* JitsiMeet.framework in Embed Frameworks */,
-				B23D268C227201A100CC1CCB /* WebRTC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,9 +35,6 @@
 /* Begin PBXFileReference section */
 		6073CD23C26ADC14C558675D /* libPods-CometChatPro-PushNotification-SampleApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CometChatPro-PushNotification-SampleApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB3EF9B83B36FB8BE89C2DA6 /* Pods-CometChatPro-PushNotification-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CometChatPro-PushNotification-SampleApp.debug.xcconfig"; path = "Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
-		B23D26802272005100CC1CCB /* CometChatPro.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CometChatPro.framework; sourceTree = "<group>"; };
-		B23D26852272013400CC1CCB /* JitsiMeet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JitsiMeet.framework; sourceTree = "<group>"; };
-		B23D26862272013B00CC1CCB /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
 		B23D268D2272EDFA00CC1CCB /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		B260F1F1224DE99D00CDCDBA /* CometChatPro-PushNotification-SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CometChatPro-PushNotification-SampleApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,12 +56,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B34AC734BF046F689E516155 /* libPods-CometChatPro-PushNotification-SampleApp.a in Frameworks */,
-				B23D26872272013C00CC1CCB /* JitsiMeet.framework in Frameworks */,
-				B23D26812272005100CC1CCB /* CometChatPro.framework in Frameworks */,
-				B23D268B227201A100CC1CCB /* WebRTC.framework in Frameworks */,
-				B23D2689227201A100CC1CCB /* JitsiMeet.framework in Frameworks */,
-				B23D26882272013C00CC1CCB /* WebRTC.framework in Frameworks */,
-				B23D26822272005F00CC1CCB /* CometChatPro.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,9 +91,6 @@
 		B260F1F3224DE99D00CDCDBA /* iOS-PushNotification */ = {
 			isa = PBXGroup;
 			children = (
-				B23D26852272013400CC1CCB /* JitsiMeet.framework */,
-				B23D26862272013B00CC1CCB /* WebRTC.framework */,
-				B23D26802272005100CC1CCB /* CometChatPro.framework */,
 				B2A8EBCC224E239000E22217 /* iOS-PushNotification.entitlements */,
 				B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */,
 				B260F20A224DF86800CDCDBA /* Constants.swift */,
@@ -151,6 +127,7 @@
 				B260F1EE224DE99D00CDCDBA /* Frameworks */,
 				B260F1EF224DE99D00CDCDBA /* Resources */,
 				B23D26842272005F00CC1CCB /* Embed Frameworks */,
+				13CEE85EA24E804A8359C30A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -220,6 +197,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		13CEE85EA24E804A8359C30A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp-frameworks.sh",
+				"${PODS_ROOT}/CometChatPro/CometChatPro.framework",
+				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/JitsiMeet.framework",
+				"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.framework",
+				"${PODS_ROOT}/Pro-Ext-PN/PNExtension.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CometChatPro.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PNExtension.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3BB9736B034DAED082BF0377 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

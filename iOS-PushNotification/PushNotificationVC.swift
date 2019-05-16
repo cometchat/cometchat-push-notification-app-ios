@@ -18,10 +18,12 @@ class PushNotificationVC: UIViewController , UITextViewDelegate{
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var UIDTextField: UITextField!
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet weak var customMessageBtn: UIButton!
     
     //Variable Declarations
     var activeTextview: UITextView?
     var textMessage: TextMessage?
+    var customMessage: CustomMessage?
     var receiverType:CometChat.ReceiverType = .user
     var UID:String?
     
@@ -95,6 +97,43 @@ class PushNotificationVC: UIViewController , UITextViewDelegate{
     }
 }
     
+    @IBAction func sendCustomMessge(_ sender: Any) {
+        
+        if segmentControl.selectedSegmentIndex == 0 {
+            UID = (UIDTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "nil")
+        }else{
+            UID = Constants.toGroupUID
+        }
+        
+            let customNotificationDisplayText = ["pushNotification": "Custom Notification Received"]
+        
+        customMessage = CustomMessage(receiverUid: UID!, receiverType: receiverType, customData: ["customMessage":"Hello World"])
+            customMessage?.metaData = customNotificationDisplayText
+        
+            CometChat.sendCustomMessage(message: customMessage!, onSuccess: { (customMessage) in
+                
+                print("sendCustomMessage onSuccess \(customMessage.stringValue())")
+                DispatchQueue.main.async{
+                    self.textMessageField.text = ""
+                    self.customMessageBtn.setTitle("Push Notification Sent", for: .normal)
+                    self.customMessageBtn.backgroundColor = #colorLiteral(red: 0.3361090664, green: 0.8566188135, blue: 0.01250887299, alpha: 1)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.customMessageBtn.setTitle("Send Custom Message", for: .normal)
+                    self.customMessageBtn.backgroundColor = #colorLiteral(red: 0.4784313725, green: 0.3529411765, blue: 0.6509803922, alpha: 1)
+                }
+                
+            }) { (error) in
+                print("sendCustomMessage failure \(String(describing: error?.errorDescription))")
+                DispatchQueue.main.async{
+                    self.view.makeToast("\(String(describing: error!.errorDescription))")
+                    self.customMessageBtn.setTitle("Push Notification failure", for: .normal)
+                    self.customMessageBtn.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                }
+            }
+    }
+    
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         view.endEditing(true)
         self.sendButton.setTitle("Send Push Notification", for: .normal)
@@ -107,8 +146,8 @@ class PushNotificationVC: UIViewController , UITextViewDelegate{
     }
     
     @IBAction func logoutPressed(_ sender: Any) {
-        
-        let alert = UIAlertController(title: "Logout", message: "Are you sure you want to Logout?", preferredStyle: .alert)
+        let UID = UserDefaults.standard.object(forKey: "LoggedInUserID")
+        let alert = UIAlertController(title: "Logout", message: "Are you sure you want to Logout \(String(describing: UID!)) ?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             switch action.style{
             case .default:

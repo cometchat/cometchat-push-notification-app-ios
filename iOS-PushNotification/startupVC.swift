@@ -75,6 +75,7 @@ class startupVC: UIViewController {
             let userID:String = current_user.uid!
             let userTopic: String = Constants.appID + "_user_" + userID + "_ios"
             self.activityIndicator.stopAnimating()
+            UserDefaults.standard.set(current_user.uid, forKey: "LoggedInUserID")
             UserDefaults.standard.set(userTopic, forKey: "firebase_user_topic")
             Messaging.messaging().subscribe(toTopic: userTopic) { error in
                 print("Subscribed to \(userTopic) topic")

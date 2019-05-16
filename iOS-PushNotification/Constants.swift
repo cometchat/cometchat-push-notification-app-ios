@@ -9,8 +9,8 @@
 import Foundation
 
 class Constants {
-    static var apiKey = "ENTER API KEY"
-    static var appID = "ENTER APP ID"
+    static var apiKey = "ENETER API KEY"
+    static var appID = "ENETER APP ID"
     static var toGroupUID = "supergroup"  // Enter the GUID Of the group for which you want to send push notification.
 }
 
