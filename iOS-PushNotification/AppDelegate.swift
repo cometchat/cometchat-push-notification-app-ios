@@ -131,25 +131,52 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
+       
+        
         if let userInfo = (notification.request.content.userInfo as? [String : Any]){
             
             let messageObject = userInfo["message"]
-            print("userInfo : \(userInfo)")
-            print("messageObject : \(String(describing: messageObject))")
-            
-            PNExtension.getMessageFrom(json: messageObject as! [String : Any] , onSuccess: { (baseMessage) in
+          
+            if let someString = messageObject as? String {
                 
-                print("Base Message object Received : \(baseMessage)")
-                
-            }, onError: { (error) in
-                
-                print("failed retrieve the BaseMessage object : \(error)")
-            })
+                if let dict = someString.stringTodict(){
+                    
+                    PNExtension.getMessageFrom(json: dict, onSuccess: { (message) in
+                        
+                        switch message.messageType{
+                        case .text:
+                            print("received text Message Object: \(String(describing: (message as? TextMessage)?.stringValue()))")
+                            print("received text Message \(String(describing: (message as? TextMessage)?.text))");
+                            
+                        case .image:
+                            print("received image Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
+                            print("received text Message \(String(describing: (message as? MediaMessage)?.url))");
+                        case .video:
+                            print("received video Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
+                            print("received video Message \(String(describing: (message as? MediaMessage)?.url))");
+                        case .audio:
+                            print("received audio Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
+                            print("received audio Message \(String(describing: (message as? MediaMessage)?.url))");
+                        case .file:
+                            print("received file Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
+                            print("received file Message \(String(describing: (message as? MediaMessage)?.url))");
+                        case .groupMember: break
+                        case .custom:
+                            print("received custom Message Object:\(String(describing: (message as? CustomMessage)?.stringValue()))")
+                            print("received custom Message \(String(describing: (message as? CustomMessage)?.customData))")
+                        @unknown default: break
+                        }
+                    }) { (error) in
+                        
+                        print("error %@",error.errorDescription);
+                    }
+                }
+            }
         }
         
         // Change this to your preferred presentation option
          completionHandler([.alert, .badge, .sound])
-    }
+        }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
@@ -177,3 +204,27 @@ extension AppDelegate : MessagingDelegate {
     // [END ios_10_data_message]
 }
 
+extension String {
+    
+    
+    func stringTodict() -> [String:Any]? {
+        
+        var dictonary:[String:Any]?
+        
+        if let data = self.data(using: .utf8) {
+            
+            do {
+                dictonary =  try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
+                
+                if let myDictionary = dictonary
+                {
+                    return myDictionary;
+                }
+            } catch let error as NSError {
+                print(error)
+            }
+            
+        }
+        return dictonary;
+    }
+}
