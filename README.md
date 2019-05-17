@@ -45,8 +45,6 @@
    ```
    Build and run the Sample App.
    
-   ### Note : 
-   If you are using Swift v4.2 then use pod ```CometChatPro_Swift4.2``` or using Swift v5.0 then use pod ```CometChatPro``` inside the project's podfile.
    
    ### Add CometChatPro SDK in project
    
