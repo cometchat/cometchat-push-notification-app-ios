@@ -31,7 +31,7 @@
 
 # Screenshots
 
-<img align="left" src="https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/Screenshots/Artboard.png">
+<img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/Screenshot.png">
    
 <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
