@@ -5,20 +5,20 @@
 
 This sevice grabs the data from the push notification payload and user can modify it's content and display the customized data on to the push notification.
 
-Here, we are modifying the data or hiding the push notification for users which are blocked from the loggedInUser.
+In our case, we are modifying the data or hiding the push notification for those users which are blocked from the loggedInUser.
 
 ## Implementation: 
 
 ### Add  UNNotificationServiceExtension inside the app:
 
-1. Click on 'File' --> 'New' --> 'Targets'  --> 'Application Extension' --> 'Notification Service Extension'.
+1. Click on `File` --> `New` --> `Targets`  --> `Application Extension` --> `Notification Service Extension`.
 
-2. Add  'Product Name' and click on Finish. 
+2. Add  `Product Name` and click on `Finish`. 
 
 
 ###  WorkFlow:
 
-1. When the user login, fetch the blockedUsersList using  'blockedUserRequest'. 
+1. When the user login, fetch the blockedUsersList using  `blockedUserRequest`. 
 
 ```
 let blockedUserRequest = BlockedUserRequest.BlockedUserRequestBuilder(limit: 20).build()
@@ -37,7 +37,7 @@ print("error while fetching the blocked user request :  \(String(describing: err
 }
 ```
 
- 2. Store the 'blockedUsersList' in UserDefaults with key 'blockedUsers'.
+ 2. Store the `'blockedUsersList` in UserDefaults with key `blockedUsers`.
  
  ```
  
@@ -47,7 +47,7 @@ print("error while fetching the blocked user request :  \(String(describing: err
  
  ```
  
- 3. Grab the value of push notification 'sender' from push notification using PNExtension data.
+ 3. Grab the value of push notification `sender` from push notification using PNExtension data.
  
   ```
   PNExtension.getMessageFrom(json: json, onSuccess: { (message) in
@@ -63,9 +63,9 @@ print("error while fetching the blocked user request :  \(String(describing: err
   
   ```
   
- 4. Check the same user is contains in the 'blockedUsersList'.
+ 4. Check the same user is contains in the `blockedUsersList`.
  
- 5. If the user contains in the 'blockedUsersList' then modify the playload if you want to show custom message for eg.'New Message from Blocked User' and provide the 'bestAttemptContent' UNNotificationRequest to contentHandler.
+ 5. If the user contains in the `blockedUsersList` then modify the playload if you want to show custom message for eg. `New Message from Blocked User` and provide the `bestAttemptContent` UNNotificationRequest to contentHandler.
  
   ```
   bestAttemptContent.title = ""
@@ -74,9 +74,9 @@ print("error while fetching the blocked user request :  \(String(describing: err
   
    ```
 
- 5. If you want hide the push notification from blocked user then simply don't provide the bestAttemptContent' UNNotificationRequest to contentHandler.This will not trigger the modified push notification but system automatically sends defult notification after 30 seconds if custom  notification dosent trigger.
+ 5. If you want hide the push notification from blocked user then simply don't provide the `bestAttemptContent` UNNotificationRequest to contentHandler.This will not trigger the modified push notification but system automatically sends defult notification after 30 seconds if custom  notification dosen't trigger.
  
- 6. to avoid the system generated push notification use 'removePendingNotificationRequests(withIdentifiers:)' and provide the push notifcation identifier to it. It will remove pendingNotificationRequests with same identifier. Kindly, refer ' willPresent notification:' from app delegate.
+ 6. To avoid the system generated push notification use `removePendingNotificationRequests(withIdentifiers:)` and provide the push notifcation identifier to it. It will remove pendingNotificationRequests with same identifier.
  
  
  ```
