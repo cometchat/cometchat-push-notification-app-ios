@@ -91,11 +91,11 @@
    
 # Customize Push Notification
 
-Want to Customize or hide push Notification .[Click here](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/Customize.md)
+Want to Customize or hide push Notification. [Click here](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/Customize.md)
     
 # Troubleshoot  
 
-Facing any issues while running or installing the app.[Click here](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/troubleshoot.md)
+Facing any issues while running or installing the app. [Click here](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/troubleshoot.md)
 
 # Contribute 
    
