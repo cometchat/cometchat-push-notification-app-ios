@@ -1,5 +1,5 @@
 
-# Modify or Hide the Push Notification Content.
+# Modify or Hide the Push Notification Banner.
 
 ## UNNotificationServiceExtension: 
 
