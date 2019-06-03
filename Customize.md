@@ -76,7 +76,7 @@ print("error while fetching the blocked user request :  \(String(describing: err
 
  5. If you want hide the push notification from blocked user then simply don't provide the `bestAttemptContent` UNNotificationRequest to contentHandler.This will not trigger the modified push notification but system automatically sends defult notification after 30 seconds if custom  notification dosen't trigger.
  
- 6. To avoid the system generated push notification use `removePendingNotificationRequests(withIdentifiers:)` and provide the push notifcation identifier to it. It will remove pendingNotificationRequests with same identifier.
+ 6. To stop the system generated push notification use `removePendingNotificationRequests(withIdentifiers:)` and provide the push notifcation identifier to it. It will remove pendingNotificationRequests with same identifier.
  
  
  ```
