@@ -24,9 +24,12 @@
 
 3. [Running the sample app](#Running-the-sample-app)
 
+3. [Customize Push Notification](#Customize-Push-Notification)
+
 4. [Troubleshoot](#Troubleshoot)
 
 5. [Contributing](#Contributing)
+
 
 
 # Screenshots
@@ -84,6 +87,11 @@
    - modify *apiKey* and *appID* with your own **apiKey** and **appID**.
    
    - Enter **toUserUID** for which you wants to send the push notification.
+   
+   
+# Customize Push Notification
+
+Want to Customize or hide push Notification .[Click here](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/Customize.md)
     
 # Troubleshoot  
 
