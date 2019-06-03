@@ -7,7 +7,12 @@
 		<key>CometChatPro-PushNotification-SampleApp.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>28</integer>
+		</dict>
+		<key>PNServiceExtension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>29</integer>
 		</dict>
 	</dict>
 </dict>

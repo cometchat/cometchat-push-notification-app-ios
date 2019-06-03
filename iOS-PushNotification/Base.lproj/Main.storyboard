@@ -140,7 +140,7 @@
         <!--Push Notification-->
         <scene sceneID="Zap-Lu-wmC">
             <objects>
-                <viewController id="wmh-aH-8qT" customClass="PushNotificationVC" customModule="CometChatPro_PushNotification_SampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="pushNotificationVC" id="wmh-aH-8qT" customClass="PushNotificationVC" customModule="CometChatPro_PushNotification_SampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qPt-95-LwR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -263,7 +263,7 @@
         <!--Navigation Controller-->
         <scene sceneID="D5g-rR-2sV">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TNt-BT-XAl" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigationController" automaticallyAdjustsScrollViewInsets="NO" id="TNt-BT-XAl" customClass="NavigationController" customModule="CometChatPro_PushNotification_SampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="aJa-DA-RJo">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

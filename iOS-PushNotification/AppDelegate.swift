@@ -14,15 +14,26 @@ import PNExtension
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
-
+    var blockedUsersArray = [String]()
+    let blockedUserRequest = BlockedUserRequest.BlockedUserRequestBuilder(limit: 20).build();
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         self.initialization()
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         
+        if((UserDefaults.standard.object(forKey: "LoggedInUserID")) != nil){
+            
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyBoard.instantiateViewController(withIdentifier: "navigationController") as! NavigationController
+            self.window?.rootViewController = viewController
+            self.window?.makeKeyAndVisible()
+            getBlockedUser()
+        }
         // [START register_for_notifications]
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
@@ -46,13 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func initialization(){
         
         CometChat(appId: Constants.appID, onSuccess: { (Success) in
-           print("Initialization Sucess \(Success)")
+            print("Initialization Sucess \(Success)")
         }) { (error) in
             print("Initialization Sucess \(error)")
         }
     }
     
-
+    
     
     
     // [START receive_message]
@@ -84,6 +95,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print( "Unable to register for remote notifications: \(error.localizedDescription)")
     }
     
+    
+    func getBlockedUser(){
+        
+        blockedUserRequest.fetchNext(onSuccess : { (users) in
+            print("blocked users : \(String(describing: users))")
+            
+            for user in users! {
+                
+                self.blockedUsersArray.append(user.uid!)
+            }
+            var defaults = UserDefaults.standard
+            defaults = UserDefaults(suiteName: "group.com.inscripts.comatchat.dev2")!
+            defaults.set(self.blockedUsersArray, forKey: "blockedUsers")
+            print("blockedUSersArray: \(self.blockedUsersArray)")
+        }, onError : { (error) in
+            print("error while fetching the blocked user request :  \(String(describing: error?.errorDescription))")
+        })
+        
+        
+    }
     // This function is added here only for debugging purposes, and can be removed if swizzling is enabled.
     // If swizzling is disabled then this function must be implemented so that the APNs token can be paired to
     // the FCM registration token.
@@ -99,28 +130,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillResignActive(_ application: UIApplication) {
         
-         CometChat.startServices()
+        CometChat.startServices()
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         
-         CometChat.startServices()
+        CometChat.startServices()
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
-       
+        
     }
-
-
+    
+    
 }
+
+
 
 // [START ios_10_message_handling]
 @available(iOS 10, *)
@@ -131,39 +164,52 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-       
         
+        var sender:String = String()
         if let userInfo = (notification.request.content.userInfo as? [String : Any]){
             
             let messageObject = userInfo["message"]
-          
+
             if let someString = messageObject as? String {
                 
-                if let dict = someString.stringTodict(){
+                if let dict = someString.stringTodictionary(){
+                    
+                    sender = dict["sender"] as? String ?? ""
+
+                    // This method converts the JSON Data into CometChat 'BaseMessage' Object.
                     
                     PNExtension.getMessageFrom(json: dict, onSuccess: { (message) in
                         
                         switch message.messageType{
                         case .text:
+                            
                             print("received text Message Object: \(String(describing: (message as? TextMessage)?.stringValue()))")
-                            print("received text Message \(String(describing: (message as? TextMessage)?.text))");
+                            print("received text Message \(String(describing: (message as? TextMessage)?.text))")
                             
                         case .image:
+                            
                             print("received image Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
-                            print("received text Message \(String(describing: (message as? MediaMessage)?.url))");
+                            print("received text Message \(String(describing: (message as? MediaMessage)?.url))")
+                        
                         case .video:
+                            
                             print("received video Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
-                            print("received video Message \(String(describing: (message as? MediaMessage)?.url))");
+                            print("received video Message \(String(describing: (message as? MediaMessage)?.url))")
+                            
                         case .audio:
+                            
                             print("received audio Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
-                            print("received audio Message \(String(describing: (message as? MediaMessage)?.url))");
+                            print("received audio Message \(String(describing: (message as? MediaMessage)?.url))")
+                            
                         case .file:
                             print("received file Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
-                            print("received file Message \(String(describing: (message as? MediaMessage)?.url))");
+                            print("received file Message \(String(describing: (message as? MediaMessage)?.url))")
                         case .groupMember: break
                         case .custom:
+                            
                             print("received custom Message Object:\(String(describing: (message as? CustomMessage)?.stringValue()))")
                             print("received custom Message \(String(describing: (message as? CustomMessage)?.customData))")
+                            
                         @unknown default: break
                         }
                     }) { (error) in
@@ -174,9 +220,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             }
         }
         
-        // Change this to your preferred presentation option
-         completionHandler([.alert, .badge, .sound])
+        
+        if(blockedUsersArray.contains(sender)){
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(notification.request.identifier)"])
+        }else{
+            completionHandler([.alert, .badge, .sound])
         }
+    }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
@@ -185,7 +235,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Print message ID.
         completionHandler()
     }
-    
 }
 // [END ios_10_message_handling]
 

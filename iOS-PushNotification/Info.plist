@@ -40,6 +40,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>CometChatPro</key>
-	<string></string>
+	<string>1111</string>
+	<key>AppGroupIdentifier</key>
+	<string>group.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 </dict>
 </plist>
