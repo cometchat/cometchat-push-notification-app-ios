@@ -24,7 +24,7 @@
 
 3. [Running the sample app](#Running-the-sample-app)
 
-3. [Customize Push Notification](#Customize-Push-Notification)
+3. [Hide Push Notifications from Blocked Users(#Hide-Push-Notifications-from-Blocked-Users)
 
 4. [Troubleshoot](#Troubleshoot)
 
@@ -89,7 +89,7 @@
    - Enter **toUserUID** for which you wants to send the push notification.
    
    
-# Customize Push Notification
+# Hide Push Notifications from Blocked Users
 
 Want to Customize or hide push Notification. [Click here](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/Customize.md)
     

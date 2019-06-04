@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
     var blockedUsersArray = [String]()
-    let blockedUserRequest = BlockedUserRequest.BlockedUserRequestBuilder(limit: 20).build();
+    let blockedUserRequest = BlockedUserRequest.BlockedUserRequestBuilder(limit: 100).build();
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         self.initialization()

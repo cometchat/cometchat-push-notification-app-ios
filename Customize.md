@@ -1,5 +1,5 @@
 
-# Modify or Hide the Push Notification Banner.
+# Hide Push Notifications from Blocked Users
 
 ## UNNotificationServiceExtension: 
 
