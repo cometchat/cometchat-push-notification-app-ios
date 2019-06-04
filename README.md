@@ -24,7 +24,7 @@
 
 3. [Running the sample app](#Running-the-sample-app)
 
-3. [Hide Push Notifications from Blocked Users(#Hide-Push-Notifications-from-Blocked-Users)
+3. [Hide Push Notifications from Blocked Users](#Hide-Push-Notifications-from-Blocked-Users)
 
 4. [Troubleshoot](#Troubleshoot)
 
