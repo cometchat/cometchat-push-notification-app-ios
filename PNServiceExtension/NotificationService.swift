@@ -9,6 +9,7 @@
 import UserNotifications
 import CometChatPro
 import PNExtension
+import UIKit
 
 //UNNotificationServiceExtension:  This sevice grabs the data from the push notification payload and we can modify it and display the customized data on to the push notification.
 
@@ -50,8 +51,8 @@ class NotificationService: UNNotificationServiceExtension{
                     if(blockedUsers.contains(sender as! String)){
                         bestAttemptContent.title = ""
                         bestAttemptContent.body = "New Message from Blocked User"
-                        //If you don't want to hide the notification and want to show cutom message for blocked user then uncomment below line.
-                        //contentHandler(bestAttemptContent)
+//                        If you don't want to hide the notification and want to show cutom message for blocked user then uncomment below line.
+                        contentHandler(bestAttemptContent)
                     }
                 }else{
                     if let aps = userInfo["aps"] as? NSDictionary {
@@ -68,6 +69,7 @@ class NotificationService: UNNotificationServiceExtension{
                     contentHandler(bestAttemptContent)
                 }
             }
+              contentHandler(bestAttemptContent)
         }
     }
     

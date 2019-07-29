@@ -19,6 +19,8 @@ class PushNotificationVC: UIViewController , UITextViewDelegate{
     @IBOutlet weak var UIDTextField: UITextField!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var customMessageBtn: UIButton!
+    @IBOutlet weak var audioCallBtn: UIButton!
+    @IBOutlet weak var videoCallBtn: UIButton!
     
     //Variable Declarations
     var activeTextview: UITextView?
@@ -44,6 +46,9 @@ class PushNotificationVC: UIViewController , UITextViewDelegate{
         //ButtonAppearance
         textMessageField.layer.cornerRadius = 5
         sendButton.layer.cornerRadius = 5
+        customMessageBtn.layer.cornerRadius = 5
+        audioCallBtn.layer.cornerRadius = 5
+        videoCallBtn.layer.cornerRadius = 5
         
     }
     
@@ -78,11 +83,11 @@ class PushNotificationVC: UIViewController , UITextViewDelegate{
             print("sendTextMessage onSuccess \(message.stringValue())")
             DispatchQueue.main.async{
                 self.textMessageField.text = ""
-                self.sendButton.setTitle("Push Notification Sent", for: .normal)
+                self.sendButton.setTitle("Notification Sent", for: .normal)
                 self.sendButton.backgroundColor = #colorLiteral(red: 0.3361090664, green: 0.8566188135, blue: 0.01250887299, alpha: 1)
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.sendButton.setTitle("Send Push Notification", for: .normal)
+                self.sendButton.setTitle("Text Message", for: .normal)
                 self.sendButton.backgroundColor = #colorLiteral(red: 0.4784313725, green: 0.3529411765, blue: 0.6509803922, alpha: 1)
             }
             
@@ -90,7 +95,7 @@ class PushNotificationVC: UIViewController , UITextViewDelegate{
             print("sendTextMessage failure \(String(describing: error?.errorDescription))")
             DispatchQueue.main.async{
                 self.view.makeToast("\(String(describing: error!.errorDescription))")
-                self.sendButton.setTitle("Push Notification failure", for: .normal)
+                self.sendButton.setTitle("Notification failure", for: .normal)
                 self.sendButton.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
             }
         }
@@ -115,11 +120,11 @@ class PushNotificationVC: UIViewController , UITextViewDelegate{
                 print("sendCustomMessage onSuccess \(customMessage.stringValue())")
                 DispatchQueue.main.async{
                     self.textMessageField.text = ""
-                    self.customMessageBtn.setTitle("Push Notification Sent", for: .normal)
+                    self.customMessageBtn.setTitle("Notification Sent", for: .normal)
                     self.customMessageBtn.backgroundColor = #colorLiteral(red: 0.3361090664, green: 0.8566188135, blue: 0.01250887299, alpha: 1)
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.customMessageBtn.setTitle("Send Custom Message", for: .normal)
+                    self.customMessageBtn.setTitle("Custom Message", for: .normal)
                     self.customMessageBtn.backgroundColor = #colorLiteral(red: 0.4784313725, green: 0.3529411765, blue: 0.6509803922, alpha: 1)
                 }
                 
@@ -127,16 +132,61 @@ class PushNotificationVC: UIViewController , UITextViewDelegate{
                 print("sendCustomMessage failure \(String(describing: error?.errorDescription))")
                 DispatchQueue.main.async{
                     self.view.makeToast("\(String(describing: error!.errorDescription))")
-                    self.customMessageBtn.setTitle("Push Notification failure", for: .normal)
+                    self.customMessageBtn.setTitle("Notification failure", for: .normal)
                     self.customMessageBtn.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
                 }
             }
     }
     
+    @IBAction func audioCallBtnPressed(_ sender: Any) {
+        
+        if segmentControl.selectedSegmentIndex == 0 {
+            UID = (UIDTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "nil")
+        }else{
+            UID = Constants.toGroupUID
+        }
+        
+        let newCall = Call(receiverId: UID!, callType: .audio, receiverType: receiverType)
+        
+        CometChat.initiateCall(call: newCall, onSuccess: { (ongoing_call) in
+            
+            print("Call initiated successfully: " + ongoing_call!.stringValue());
+            
+        }) { (error) in
+            
+            print("Call initialization failed with error:  " + error!.errorDescription);
+            
+        }
+        
+    }
+    
+    
+    @IBAction func videoCallBtnPressed(_ sender: Any) {
+        
+        if segmentControl.selectedSegmentIndex == 0 {
+            UID = (UIDTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "nil")
+        }else{
+            UID = Constants.toGroupUID
+        }
+        
+        let newCall = Call(receiverId: UID!, callType: .video, receiverType: receiverType)
+        
+        CometChat.initiateCall(call: newCall, onSuccess: { (ongoing_call) in
+            
+            print("Call initiated successfully " + ongoing_call!.stringValue());
+            
+        }) { (error) in
+            
+            print("Call initialization failed with error:  " + error!.errorDescription);
+            
+        }
+        
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         view.endEditing(true)
-        self.sendButton.setTitle("Send Push Notification", for: .normal)
+        self.sendButton.setTitle("Text Message", for: .normal)
         self.sendButton.backgroundColor = #colorLiteral(red: 0.4784313725, green: 0.3529411765, blue: 0.6509803922, alpha: 1)
         super.touchesBegan(touches, with: event)
     }

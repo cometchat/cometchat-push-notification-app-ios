@@ -74,7 +74,10 @@ class startupVC: UIViewController {
         CometChat.login(UID: UID, apiKey: Constants.apiKey, onSuccess: { (current_user) in
             let userID:String = current_user.uid!
             let userTopic: String = Constants.appID + "_user_" + userID + "_ios"
-            self.activityIndicator.stopAnimating()
+            DispatchQueue.main.async {
+                 self.activityIndicator.stopAnimating()
+            }
+           
             UserDefaults.standard.set(current_user.uid, forKey: "LoggedInUserID")
             UserDefaults.standard.set(userTopic, forKey: "firebase_user_topic")
             Messaging.messaging().subscribe(toTopic: userTopic) { error in
@@ -86,9 +89,11 @@ class startupVC: UIViewController {
             Messaging.messaging().subscribe(toTopic: groupTopic) { error in
                 print("Subscribed to \(groupTopic) topic")
             }
-            DispatchQueue.main.async {self.activityIndicator.stopAnimating()}
-            print("login Sucess with Superhero4: \(current_user.stringValue())")
-            self.performSegue(withIdentifier: "presentPushNotificationVC", sender: nil)
+            DispatchQueue.main.async {self.activityIndicator.stopAnimating()
+                print("login Sucess with Superhero4: \(current_user.stringValue())")
+                self.performSegue(withIdentifier: "presentPushNotificationVC", sender: nil)
+            }
+          
             
         }) { (error) in
             DispatchQueue.main.async { self.activityIndicator.stopAnimating()}

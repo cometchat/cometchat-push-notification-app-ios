@@ -11,6 +11,7 @@ import CometChatPro
 import Firebase
 import UserNotifications
 import PNExtension
+import PushKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.initialization()
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
-        
+        CometChat.calldelegate = self
+        CometChat.messagedelegate = self
         if((UserDefaults.standard.object(forKey: "LoggedInUserID")) != nil){
             
             self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -64,7 +66,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        
+        
+    }
     
+//    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+//
+//        register for voip notifications
+//        let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
+//        voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
+//        voipRegistry.delegate = self
+//    }
     
     // [START receive_message]
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
@@ -82,7 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
         if let messageID = userInfo[gcmMessageIDKey] {
             print( "Message ID: \(messageID)")
         }
@@ -126,6 +138,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print( "deviceToken: \(tokenString)")
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
+        
+        let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
+                voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
+                voipRegistry.delegate = self
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -150,8 +166,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    func presentCall(){
+        DispatchQueue.main.async {
+            if let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "incomingCall") as? IncomingCall {
+                if let window = self.window, let rootViewController = window.rootViewController {
+                    var currentController = rootViewController
+                    while let presentedController = currentController.presentedViewController {
+                        currentController = presentedController
+                    }
+                    currentController.present(controller, animated: true, completion: nil)
+                }
+            }
+        }
+        
+        
+    }
+    
     
 }
+
+extension AppDelegate : CometChatCallDelegate {
+    
+    
+    func onIncomingCallReceived(incomingCall: Call?, error: CometChatException?) {
+        
+        print("incoming Call Received : \(String(describing: incomingCall?.stringValue()))")
+        
+        self.presentCall()
+        
+    }
+    
+    func onOutgoingCallAccepted(acceptedCall: Call?, error: CometChatException?) {
+        
+    }
+    
+    func onOutgoingCallRejected(rejectedCall: Call?, error: CometChatException?) {
+        
+    }
+    
+    func onIncomingCallCancelled(canceledCall: Call?, error: CometChatException?) {
+        
+    }
+    
+    
+}
+
+
 
 
 
@@ -166,19 +226,23 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         
         
         var sender:String = String()
+        var type :String = String()
+        
         if let userInfo = (notification.request.content.userInfo as? [String : Any]){
-            
+            print("userInfo : \(userInfo)")
             let messageObject = userInfo["message"]
-
+            
             if let someString = messageObject as? String {
                 
                 if let dict = someString.stringTodictionary(){
                     
                     sender = dict["sender"] as? String ?? ""
-
+                    type = dict["type"] as! String
                     // This method converts the JSON Data into CometChat 'BaseMessage' Object.
                     
                     PNExtension.getMessageFrom(json: dict, onSuccess: { (message) in
+                        
+                        print("message is : \(message)")
                         
                         switch message.messageType{
                         case .text:
@@ -190,7 +254,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                             
                             print("received image Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
                             print("received text Message \(String(describing: (message as? MediaMessage)?.url))")
-                        
+                            
                         case .video:
                             
                             print("received video Message Object:\(String(describing: (message as? MediaMessage)?.stringValue()))")
@@ -223,6 +287,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         
         if(blockedUsersArray.contains(sender)){
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(notification.request.identifier)"])
+        }else if(type == "audio") || (type == "video"){
+        
         }else{
             completionHandler([.alert, .badge, .sound])
         }
@@ -231,9 +297,19 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
-        _ = response.notification.request.content.userInfo
-        // Print message ID.
-        completionHandler()
+        let userInfo = response.notification.request.content.userInfo
+        
+        let messageObject = userInfo["message"]
+        if let someString = messageObject as? String {
+            
+            if let dict = someString.stringTodictionary(){
+                let type: String = dict["type"] as! String
+                if(type == "audio") || (type == "video") {
+                    presentCall()
+                }
+            }
+            completionHandler()
+        }
     }
 }
 // [END ios_10_message_handling]
@@ -251,6 +327,64 @@ extension AppDelegate : MessagingDelegate {
         print("Received data message: \(remoteMessage.appData)")
     }
     // [END ios_10_data_message]
+}
+
+extension AppDelegate : CometChatMessageDelegate {
+    
+    func onTextMessageReceived(textMessage: TextMessage) {
+        
+        print("message is: \(textMessage.stringValue())")
+    }
+}
+
+
+extension AppDelegate : PKPushRegistryDelegate {
+    
+    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
+        
+        if pushCredentials.token.count == 0 {
+            print("voip token NULL")
+            return
+        }
+        //print out the VoIP token. We will use this to test the notification.
+         let   tokenString = pushCredentials.token.reduce("", {$0 + String(format: "%02X",    $1)})
+        print("voip token \(tokenString)")
+    }
+    
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
+        
+        let payloadDict = payload.dictionaryPayload["aps"] as? Dictionary<String, String>
+        let message = payloadDict?["alert"]
+        
+        //present a local notifcation to visually see when we are recieving a VoIP Notification
+        if UIApplication.shared.applicationState == UIApplication.State.background {
+            
+            let localNotification = UILocalNotification()
+            localNotification.alertBody = message
+            localNotification.applicationIconBadgeNumber = 1
+            localNotification.soundName = UILocalNotificationDefaultSoundName
+            
+            UIApplication.shared.presentLocalNotificationNow(localNotification);
+        }
+            
+        else {
+            DispatchQueue.main.async {
+                
+                let alert = UIAlertView(title: "VoIP Notification", message: message, delegate: nil, cancelButtonTitle: "Ok");
+                alert.show()
+            }
+        }
+        NSLog("incoming voip notfication: \(payload.dictionaryPayload)")
+    }
+    
+   
+    func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
+          NSLog("token invalidated")
+    }
+    
+    
+    
+    
 }
 
 extension String {

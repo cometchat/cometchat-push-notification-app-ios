@@ -1,72 +1,71 @@
 PODS:
-  - CometChatPro (1.4.3):
-    - JitsiMeetSDK (= 2.1.0)
-  - Firebase/Core (5.20.2):
+  - CometChatPro (1.8.4)
+  - Firebase/Core (6.5.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.8.1)
-  - Firebase/CoreOnly (5.20.2):
-    - FirebaseCore (= 5.4.1)
-  - Firebase/Messaging (5.20.2):
+    - FirebaseAnalytics (= 6.0.4)
+  - Firebase/CoreOnly (6.5.0):
+    - FirebaseCore (= 6.1.0)
+  - Firebase/Messaging (6.5.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (= 3.5.0)
-  - FirebaseAnalytics (5.8.1):
-    - FirebaseCore (~> 5.4)
-    - FirebaseInstanceID (~> 3.8)
-    - GoogleAppMeasurement (= 5.8.1)
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
-    - GoogleUtilities/MethodSwizzler (~> 5.2)
-    - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - FirebaseMessaging (~> 4.1.1)
+  - FirebaseAnalytics (6.0.4):
+    - FirebaseCore (~> 6.1)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleAppMeasurement (= 6.0.4)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
   - FirebaseAnalyticsInterop (1.2.0)
-  - FirebaseCore (5.4.1):
-    - GoogleUtilities/Environment (~> 5.2)
-    - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseInstanceID (3.8.1):
-    - FirebaseCore (~> 5.2)
-    - GoogleUtilities/Environment (~> 5.2)
-    - GoogleUtilities/UserDefaults (~> 5.2)
-  - FirebaseMessaging (3.5.0):
+  - FirebaseCore (6.1.0):
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/Logger (~> 6.0)
+  - FirebaseInstanceID (4.2.2):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseMessaging (4.1.1):
     - FirebaseAnalyticsInterop (~> 1.1)
-    - FirebaseCore (~> 5.2)
-    - FirebaseInstanceID (~> 3.6)
-    - GoogleUtilities/Environment (~> 5.3)
-    - GoogleUtilities/Reachability (~> 5.3)
-    - GoogleUtilities/UserDefaults (~> 5.3)
+    - FirebaseCore (~> 6.0)
+    - FirebaseInstanceID (~> 4.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Reachability (~> 6.2)
+    - GoogleUtilities/UserDefaults (~> 6.2)
     - Protobuf (~> 3.1)
-  - GoogleAppMeasurement (5.8.1):
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
-    - GoogleUtilities/MethodSwizzler (~> 5.2)
-    - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+  - GoogleAppMeasurement (6.0.4):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (5.8.0):
+  - GoogleUtilities/AppDelegateSwizzler (6.2.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.8.0)
-  - GoogleUtilities/Logger (5.8.0):
+  - GoogleUtilities/Environment (6.2.3)
+  - GoogleUtilities/Logger (6.2.3):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.8.0):
+  - GoogleUtilities/MethodSwizzler (6.2.3):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.8.0):
+  - GoogleUtilities/Network (6.2.3):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.8.0)"
-  - GoogleUtilities/Reachability (5.8.0):
+  - "GoogleUtilities/NSData+zlib (6.2.3)"
+  - GoogleUtilities/Reachability (6.2.3):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.8.0):
+  - GoogleUtilities/UserDefaults (6.2.3):
     - GoogleUtilities/Logger
-  - JitsiMeetSDK (2.1.0)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Pro-Ext-PN (1.0.0):
-    - CometChatPro (~> 1.4.0)
-  - Protobuf (3.7.0)
+    - CometChatPro
+  - Protobuf (3.9.0)
 
 DEPENDENCIES:
   - Firebase/Core
@@ -84,25 +83,23 @@ SPEC REPOS:
     - FirebaseMessaging
     - GoogleAppMeasurement
     - GoogleUtilities
-    - JitsiMeetSDK
     - nanopb
     - Pro-Ext-PN
     - Protobuf
 
 SPEC CHECKSUMS:
-  CometChatPro: cf3142ac71fdd9841dab6747107b35b6a0f8c487
-  Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
-  FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
+  CometChatPro: 63b5a9cce48bfeca18c0d6ab20b9a9fff3c7cd7c
+  Firebase: dedc9e48ea3f3649ad5f6b982f8a0c73508a14b5
+  FirebaseAnalytics: 3fb375bc9d13779add4039716f868d233a473fad
   FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
-  FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
-  FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
-  FirebaseMessaging: 4235f949ce1c4e827aeb19705ba5c53f9b85aa10
-  GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
-  GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
-  JitsiMeetSDK: 3e66564af7f38a19142338955dd7f581801852b3
+  FirebaseCore: aecf02fb2274ec361b9bebeac112f5daa18273bd
+  FirebaseInstanceID: 662b8108a09fe9ed01aafdedba100fde8536b0f6
+  FirebaseMessaging: 6bb0bdaf64c55fef7a219b7bb1e94e94a0855ced
+  GoogleAppMeasurement: 183bd916af7f80deb67c01888368f1108d641832
+  GoogleUtilities: d2b0e277a95962e09bb27f5cd42f5f0b6a506c7d
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Pro-Ext-PN: 4e824504c7180a2f42030a58ab1d602277f5be2c
-  Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
+  Pro-Ext-PN: a70fcc848e8cf284ee1e5761f3a2ed2b676ef87e
+  Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
 
 PODFILE CHECKSUM: 129a36fe708da242def83faa2a4ea8321276f93f
 
