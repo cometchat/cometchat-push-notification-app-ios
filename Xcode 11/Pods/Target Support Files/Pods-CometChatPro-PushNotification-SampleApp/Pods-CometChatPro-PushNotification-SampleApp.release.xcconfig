@@ -1,0 +1,10 @@
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/CometChatPro" "${PODS_ROOT}/CometChatPro/Vendors" "${PODS_ROOT}/FirebaseAnalytics/Frameworks" "${PODS_ROOT}/GoogleAppMeasurement/Frameworks" "${PODS_ROOT}/Pro-Ext-PN"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 $(inherited) GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1 $(inherited) PB_FIELD_32BIT=1 PB_NO_PACKED_STRUCTS=1 PB_ENABLE_MALLOC=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Firebase" "${PODS_ROOT}/Headers/Public/FirebaseAnalyticsInterop" "${PODS_ROOT}/Headers/Public/FirebaseCore" "${PODS_ROOT}/Headers/Public/FirebaseInstanceID" "${PODS_ROOT}/Headers/Public/FirebaseMessaging" "${PODS_ROOT}/Headers/Public/GoogleUtilities" "${PODS_ROOT}/Headers/Public/Protobuf" "${PODS_ROOT}/Headers/Public/nanopb" $(SDKROOT)/usr/include/libxml2 $(inherited) ${PODS_ROOT}/Firebase/CoreOnly/Sources
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore-iOS12.1" "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstanceID-iOS12.1" "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseMessaging-iOS12.1" "${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities-iOS12.1" "${PODS_CONFIGURATION_BUILD_DIR}/Protobuf-iOS12.1" "${PODS_CONFIGURATION_BUILD_DIR}/nanopb-iOS12.1"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"FirebaseCore-iOS12.1" -l"FirebaseInstanceID-iOS12.1" -l"FirebaseMessaging-iOS12.1" -l"GoogleUtilities-iOS12.1" -l"Protobuf-iOS12.1" -l"c++" -l"nanopb-iOS12.1" -l"sqlite3" -l"xml2.2" -l"z" -framework "CometChatPro" -framework "FIRAnalyticsConnector" -framework "FirebaseAnalytics" -framework "FirebaseCoreDiagnostics" -framework "Foundation" -framework "GoogleAppMeasurement" -framework "JitsiMeet" -framework "PNExtension" -framework "Security" -framework "StoreKit" -framework "SystemConfiguration" -framework "WebRTC" -weak_framework "UserNotifications"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods
