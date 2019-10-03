@@ -76,7 +76,7 @@
 
 # Running the sample app
 
-   To Run to sample App you have to do the following changes by Adding **APP_ID** and **API_KEY** and s user's **UID** for which you wants to send the push notification.
+   To Run to sample App you have to do the following changes by Adding **APP_ID**, **API_KEY**and **REGION CODE** and s user's **UID** for which you wants to send the push notification.
    
    You can obtain your  *APP_ID* and *API_KEY* from [CometChat-Pro Dashboard](https://app.cometchat.com/)
           
