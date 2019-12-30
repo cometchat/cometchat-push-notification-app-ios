@@ -1,14 +1,14 @@
 
 
 target 'CometChatPro-PushNotification-SampleApp' do
-        pod 'CometChatPro','2.0.5-Xcode11'
+        pod 'CometChatPro','2.0.5'
         pod 'Firebase/Core'
 	pod 'Firebase/Messaging'
 
 end
 
 target 'PNServiceExtension' do
-        pod 'CometChatPro','2.0.5-Xcode11'
+        pod 'CometChatPro','2.0.5'
         pod 'Firebase/Core'
 	pod 'Firebase/Messaging'
 end

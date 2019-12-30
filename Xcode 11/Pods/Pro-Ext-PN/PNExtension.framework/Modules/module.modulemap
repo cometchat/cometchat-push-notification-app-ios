@@ -1,4 +1,0 @@
-framework module PNExtension {
-  header "PNExtension-Swift.h"
-  requires objc
-}
