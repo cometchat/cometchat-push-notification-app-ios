@@ -15,6 +15,7 @@
 [![Platform](https://img.shields.io/badge/Platform-iOS-orange.svg)](https://cocoapods.org/pods/CometChatPro)
 [![Languages](https://img.shields.io/badge/Language-Swift-orange.svg)](https://github.com/cometchat-pro/ios-swift-chat-app)
 
+___
 
 ## Table of Contents
 
@@ -24,13 +25,15 @@
 
 3. [Running the sample app](#Running-the-sample-app)
 
-3. [Hide Push Notifications from Blocked Users](#Hide-Push-Notifications-from-Blocked-Users)
+4. [Increment Badge Count](#Increment-Badge-Count)
 
-4. [Troubleshoot](#Troubleshoot)
+5. [Hide Push Notifications from Blocked Users](#Hide-Push-Notifications-from-Blocked-Users)
 
-5. [Contributing](#Contributing)
+6. [Troubleshooting](#Troubleshooting)
 
+7. [Contributing](#Contributing)
 
+___
 
 # Screenshots
 
@@ -38,6 +41,7 @@
    
 <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 
+___
 
 # Installation 
       
@@ -87,20 +91,30 @@
    - modify *apiKey* and *appID* with your own **apiKey** and **appID**.
    
    - Enter **toUserUID** for which you wants to send the push notification.
-   
-   
+
+___
+
+# Increment Badge Count
+
+Learn more about how to [Increment Badge Count](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/IncrementBadgeCount.md) using Notification service Extension.
+___
+
 # Hide Push Notifications from Blocked Users
 
-Want to Customize or hide push Notification. [Click here](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/Customize.md)
+Learn more about how to [hide push notification](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/Customize.md) for blocked users using Notification service Extension.
     
-# Troubleshoot  
+___   
 
-Facing any issues while running or installing the app. [Click here](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/troubleshoot.md)
+# Troubleshooting
+
+Facing any issues while integrating or installing the sample app please <a href="https://forum.cometchat.com/"> visit our forum</a>.
+
+___
 
 # Contribute 
    
    Feel free to make a suggestion by creating a pull request.
 
-
+___
 
 
