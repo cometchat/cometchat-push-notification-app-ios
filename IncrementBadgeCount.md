@@ -37,7 +37,7 @@ ___
 
 ___
 
-### Step 2. Add  Setup App Groups.
+### Step 2. Setup App Groups.
 
 1 . Click on `Project` --> `Targets` --> `Your app Target`  --> `Signing & Capabilities` --> `[+]` --> `App Groups`.
 
