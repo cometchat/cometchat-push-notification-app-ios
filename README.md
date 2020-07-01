@@ -1,27 +1,18 @@
 
-<div style="width:100%">
-	<div style="width:50%; display:inline-block">
-		<p align="center">
-		<img align="center" width="180" height="180" alt="" src="https://github.com/cometchat-pro/ios-swift-chat-app/blob/master/Screenshots/CometChat%20Logo.png">	
-		</p>	
-	</div>	
-</div>
-</br>
-</br>
-</div>
+<div>
+<img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/Screenshot.png">
 
+<br></br><br></br>
 
+CometChat Push Notification Sample App (built using **CometChat Pro SDK**) is a fully functional push notification app capable of **one-on-one** (private) and **group** messaging as well as Calling. This sample app enables users to send and receive push notifications for  **text** and **multimedia messages like  images, videos, documents** as well as ** Custom Messages** . Also, users can make  push notifications for **Audio** and **Video** calls to other users or groups.
 
-[![Platform](https://img.shields.io/badge/Platform-iOS-orange.svg)](https://cocoapods.org/pods/CometChatPro)
-[![Languages](https://img.shields.io/badge/Language-Swift-orange.svg)](https://github.com/cometchat-pro/ios-swift-chat-app)
 
 ___
 
 ## Table of Contents
 
-1. [Screenshots](#Screenshots)
 
-2. [Installation](#Installation)
+1. [Installation](#Installation)
 
 3. [Running the sample app](#Running-the-sample-app)
 
@@ -31,25 +22,22 @@ ___
 
 6. [Troubleshooting](#Troubleshooting)
 
-7. [Contributing](#Contributing)
 
-___
-
-# Screenshots
-
-<img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/Screenshot.png">
-   
-<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-
-___
 
 # Installation 
       
-   Simply clone the project from iOS-swift-chat-app repository. After cloning the repository navigate to project's folder and use below command to install the require pods.
+   Simply clone the project from ios-swift-push-notification-app repository. After cloning the repository navigate to project's folder and use below command to install the require pods.
    
    ```
    $ pod install
-   ```
+  ```
+  
+  2. Select the appropriate version as per your Xcode version.
+
+  3. Navigate to project's folder and use below command to install the require pods.
+  
+  4. Create certificates for your bundle ID and replace `GoogleService-Info.plist` and  bundle ID.
+  
    Build and run the Sample App.
    
    
@@ -83,6 +71,15 @@ ___
    To Run to sample App you have to do the following changes by Adding **APP_ID**, **API_KEY**and **REGION CODE** and s user's **UID** for which you wants to send the push notification.
    
    You can obtain your  *APP_ID* and *API_KEY* from [CometChat-Pro Dashboard](https://app.cometchat.com/)
+   
+   - Enable to Push notification Extension from  [CometChat-Pro Dashboard] . To Enable Push notification extension, please navigate to Extensions --> Push Notification --> Add Extension. 
+   
+   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/addExtension.png">
+   
+   - Add Title and Firebase Server Key received from Firebase Console. 
+   
+   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/settings.png">
+   
           
    - Open the project in Xcode. 
           
