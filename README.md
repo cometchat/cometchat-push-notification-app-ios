@@ -21,10 +21,10 @@ ___
 
 5. [Hide Push Notifications from Blocked Users](#Hide-Push-Notifications-from-Blocked-Users)
 
-6. [Troubleshooting](#Troubleshooting)
+6. [Documentation](#Documentation)
 
 
-# Pre-requisite
+## Pre-requisite
 1. Login to the <a href="https://app.cometchat.io/" target="_blank">CometChat Dashboard</a>.
 2. Select an existing app or create a new one.
 3. Go to "API & Auth Keys" section and copy the `REST API` key from the "REST API Keys" tab.
@@ -33,7 +33,7 @@ ___
 6. Also, save the `REST API` key in the Settings and click on Save.
 7. Copy the `APP_ID`, `REGION` and `AUTH_KEY` for your app.
 
-# Installation 
+## Installation 
       
    Simply clone the project from ios-swift-push-notification-app repository. After cloning the repository navigate to project's folder and use below command to install the require pods.
    
@@ -69,7 +69,7 @@ ___
  <br></br>  
 
 
-# Running the sample app
+## Running the sample app
 
    To run the Sample App follow the below steps:
          
@@ -83,12 +83,12 @@ ___
 
 ___
 
-# Increment Badge Count
+## Increment Badge Count
 
 Learn more about how to [Increment Badge Count](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/IncrementBadgeCount.md) using Notification service Extension.
 ___
 
-# Hide Push Notifications from Blocked Users
+## Hide Push Notifications from Blocked Users
 
 Learn more about how to [hide push notification](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/Customize.md) for blocked users using Notification service Extension.
     
