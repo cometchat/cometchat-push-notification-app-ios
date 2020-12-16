@@ -11,8 +11,9 @@ ___
 
 ## Table of Contents
 
+1. [Pre-requisite](#Pre-requisite)
 
-1. [Installation](#Installation)
+2. [Installation](#Installation)
 
 3. [Running the sample app](#Running-the-sample-app)
 
@@ -23,6 +24,14 @@ ___
 6. [Troubleshooting](#Troubleshooting)
 
 
+# Pre-requisite
+1. Login to the <a href="https://app.cometchat.io/" target="_blank">CometChat Dashboard</a>.
+2. Select an existing app or create a new one.
+3. Go to "API & Auth Keys" section and copy the `REST API` key from the "REST API Keys" tab.
+4. Go to the "Extensions" section and Enable the Push Notifications extension.
+5. Go to the "Installed" tab in the same section and open the settings for this extension and Set the version to `V2`.
+6. Also, save the `REST API` key in the Settings and click on Save.
+7. Copy the `APP_ID`, `REGION` and `AUTH_KEY` for your app.
 
 # Installation 
       
@@ -57,37 +66,20 @@ ___
    pod install --repo-update
    ```
    
-   ### Manually:
-   
-   You can download the CometChatPro SDK from link below and manually add it in the project.
-   
-   Download CometChatPro SDK from [ios-chat-sdk](https://github.com/cometchat-pro/ios-chat-sdk)
-   
  <br></br>  
 
 
 # Running the sample app
 
-   To Run to sample App you have to do the following changes by Adding **APP_ID**, **API_KEY**and **REGION CODE** and s user's **UID** for which you wants to send the push notification.
-   
-   You can obtain your  *APP_ID* and *API_KEY* from [CometChat-Pro Dashboard](https://app.cometchat.com/)
-   
-   - Enable to Push notification Extension from  [CometChat-Pro Dashboard] . To Enable Push notification extension, please navigate to Extensions --> Push Notification --> Add Extension. 
-   
-   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/addExtension.png">
-   
-   - Add Title and Firebase Server Key received from Firebase Console. 
-   
-   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/settings.png">
-   
-          
+   To run the Sample App follow the below steps:
+         
    - Open the project in Xcode. 
           
    - Go to CometChatPro-PushNotification-SampleApp -->  **Constants.swift**.
                   
-   - modify *apiKey* and *appID* with your own **apiKey** and **appID**.
+   - modify **apiKey** **appID** and **region** with your own **apiKey** **appID** and **region**.
    
-   - Enter **toUserUID** for which you wants to send the push notification.
+   - Enter **toUserUID**(receiver's UID) or **toGroupUID**(receiver's GUID) to whom you want to send the push notifications.
 
 ___
 
@@ -102,16 +94,8 @@ Learn more about how to [hide push notification](https://github.com/cometchat-pr
     
 ___   
 
-# Troubleshooting
+## Documentation
+​
+<a href="https://prodocs.cometchat.com/docs/ios-extensions-enhanced-push-notification" target="_blank">Token-based Push Notifications</a>
 
-Facing any issues while integrating or installing the sample app please <a href="https://forum.cometchat.com/"> visit our forum</a>.
-
-___
-
-# Contribute 
-   
-   Feel free to make a suggestion by creating a pull request.
-
-___
-
-
+___ 
