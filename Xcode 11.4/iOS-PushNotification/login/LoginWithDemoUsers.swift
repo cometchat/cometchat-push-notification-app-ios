@@ -17,6 +17,7 @@ class LoginWithDemoUsers: UIViewController {
     @IBOutlet weak var superHero2View: UIView!
     @IBOutlet weak var superHero3View: UIView!
     @IBOutlet weak var superHero4View: UIView!
+    @IBOutlet weak var typePN: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,32 +71,59 @@ class LoginWithDemoUsers: UIViewController {
         }else{
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
+            
             CometChat.login(UID: UID, apiKey: Constants.apiKey, onSuccess: { (current_user) in
-                let userID:String = current_user.uid!
-                let userTopic: String = Constants.appID + "_user_" + userID + "_ios"
+               
+                
                 DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
+                if self.typePN.selectedSegmentIndex == 0 {
+                    let userID:String = current_user.uid!
+                    let userTopic: String = Constants.appID + "_user_" + userID + "_ios"
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                    }
+                    
+                    UserDefaults.standard.set(current_user.uid, forKey: "LoggedInUserID")
+                    UserDefaults.standard.set(userTopic, forKey: "firebase_user_topic")
+                    Messaging.messaging().subscribe(toTopic: userTopic) { error in
+                        print("Subscribed to \(userTopic) topic")
+                    }
+                    let groupTopic: String = Constants.appID + "_group_" + Constants.toGroupUID + "_ios"
+                    
+                    UserDefaults.standard.set(groupTopic, forKey: "firebase_group_topic")
+                    Messaging.messaging().subscribe(toTopic: groupTopic) { error in
+                        print("Subscribed to \(groupTopic) topic")
+                    }
+                    
+                    DispatchQueue.main.async {self.activityIndicator.stopAnimating()
+                        print("login Sucess with Superhero4: \(current_user.stringValue())")
+                        self.performSegue(withIdentifier: "presentPushNotification", sender: nil)
+                    }
+                }else{
+                    
+                    if let token = UserDefaults.standard.value(forKey: "fcmToken") as?  String {
+                        print("Reached here for token: \(token)")
+                        CometChat.registerTokenForPushNotification(token: token, onSuccess: { (success) in
+                            print("onSuccess to  registerTokenForPushNotification: \(success)")
+                            
+                            DispatchQueue.main.async {self.activityIndicator.stopAnimating()
+                                print("login Sucess with Superhero4: \(current_user.stringValue())")
+                                self.performSegue(withIdentifier: "presentPushNotification", sender: nil)
+                            }
+                            
+                        }) { (error) in
+                            print("error to registerTokenForPushNotification")
+                        }
+                    }
                 }
-                
-                UserDefaults.standard.set(current_user.uid, forKey: "LoggedInUserID")
-                UserDefaults.standard.set(userTopic, forKey: "firebase_user_topic")
-                Messaging.messaging().subscribe(toTopic: userTopic) { error in
-                    print("Subscribed to \(userTopic) topic")
                 }
-                let groupTopic: String = Constants.appID + "_group_" + Constants.toGroupUID + "_ios"
-                
-                UserDefaults.standard.set(groupTopic, forKey: "firebase_group_topic")
-                Messaging.messaging().subscribe(toTopic: groupTopic) { error in
-                    print("Subscribed to \(groupTopic) topic")
-                }
-                DispatchQueue.main.async {self.activityIndicator.stopAnimating()
-                    print("login Sucess with Superhero4: \(current_user.stringValue())")
-                    self.performSegue(withIdentifier: "presentPushNotification", sender: nil)
-                }
-                
             }) { (error) in
+                
                 DispatchQueue.main.async { self.activityIndicator.stopAnimating()}
-                print("login failure \(error)")
+                DispatchQueue.main.async {
+                    let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: error.errorDescription, duration: .short)
+                    snackbar.show()
+                }
             }
         }
     }

@@ -1,14 +1,14 @@
 
 
 target 'CometChatPro-PushNotification-SampleApp' do
-        pod 'CometChatPro','2.0.11-Xcode11.4'
+        pod 'CometChatPro','2.1.4'
         pod 'Firebase/Core', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :branch => 'master'
 	pod 'Firebase/Messaging', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :branch => 'master'
 
 end
 
 target 'NotificationServiceExtension' do
-        pod 'CometChatPro','2.0.11-Xcode11.4'
+        pod 'CometChatPro','2.1.4'
         pod 'Firebase/Core', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :branch => 'master'
 	pod 'Firebase/Messaging', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :branch => 'master'
 end

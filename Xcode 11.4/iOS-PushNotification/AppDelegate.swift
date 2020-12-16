@@ -50,7 +50,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerUserNotificationSettings(settings)
         }
         
+        Messaging.messaging().isAutoInitEnabled = true
+        
         application.registerForRemoteNotifications()
+        
+//        Messaging.messaging().token { token, error in
+//          if let error = error {
+//            print("Error fetching FCM registration token: \(error)")
+//          } else if let token = token {
+//            print("FCM registration token: \(token)")
+//            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
+//          }
+//        }
         
         // [END register_for_notifications]
         return true
@@ -234,6 +245,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         var type :String = String()
         
         if let userInfo = (notification.request.content.userInfo as? [String : Any]){
+            
+
             let messageObject = userInfo["message"]
 //
 //            if let someString = messageObject as? String {
@@ -280,20 +293,43 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 // [END ios_10_message_handling]
 
 extension AppDelegate : MessagingDelegate {
-    // [START refresh_token]
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("Firebase registration token: \(fcmToken)")
-        print("Firebase registration token1: \(Messaging.messaging().fcmToken)")
-               
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+      print("Firebase registration token: \(String(describing: fcmToken))")
+
+      let dataDict:[String: String] = ["token": fcmToken ?? ""]
+      NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         
-       
-        let dataDict:[String: String] = ["token": fcmToken]
-        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+        UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
+        if let token = fcmToken {
+
+            CometChat.registerTokenForPushNotification(token: token, onSuccess: { (sucess) in
+                print("token registered \(sucess)")
+            }) { (error) in
+                print("token registered error \(String(describing: error?.errorDescription))")
+            }
+        }
     }
     
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print("Received data message: \(remoteMessage.appData)")
+    func application(application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+      Messaging.messaging().apnsToken = deviceToken
     }
+    
+//    // [START refresh_token]
+//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+//        print("Firebase registration token: \(fcmToken)")
+//        print("Firebase registration token1: \(Messaging.messaging().fcmToken)")
+//
+//
+//
+//        let dataDict:[String: String] = ["token": fcmToken]
+//        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+//    }
+//
+//    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+//        print("Received data message: \(remoteMessage.appData)")
+//    }
     // [END ios_10_data_message]
 }
 

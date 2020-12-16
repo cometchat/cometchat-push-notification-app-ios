@@ -96,15 +96,15 @@ class LoginWithUID: UIViewController, UITextFieldDelegate {
                     
                     UserDefaults.standard.set(current_user.uid, forKey: "LoggedInUserID")
                     UserDefaults.standard.set(userTopic, forKey: "firebase_user_topic")
-                    Messaging.messaging().subscribe(toTopic: userTopic) { error in
-                        print("Subscribed to \(userTopic) topic")
-                    }
+//                    Messaging.messaging().subscribe(toTopic: userTopic) { error in
+//                        print("Subscribed to \(userTopic) topic")
+//                    }
                     let groupTopic: String = Constants.appID + "_group_" + Constants.toGroupUID + "_ios"
                     
                     UserDefaults.standard.set(groupTopic, forKey: "firebase_group_topic")
-                    Messaging.messaging().subscribe(toTopic: groupTopic) { error in
-                        print("Subscribed to \(groupTopic) topic")
-                    }
+//                    Messaging.messaging().subscribe(toTopic: groupTopic) { error in
+//                        print("Subscribed to \(groupTopic) topic")
+//                    }
                     DispatchQueue.main.async {
                         self.activityIndicator.stopAnimating()
                          let mainVC = self.storyboard?.instantiateViewController(withIdentifier: "pushNotification") as! PushNotification

@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		583362AA2579480F0022F568 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583362A92579480F0022F568 /* PushNotification.swift */; };
 		B260F1F5224DE99D00CDCDBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */; };
 		B260F1F7224DE99D00CDCDBA /* LoginWithDemoUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F6224DE99D00CDCDBA /* LoginWithDemoUsers.swift */; };
 		B260F1FA224DE99D00CDCDBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B260F1F8224DE99D00CDCDBA /* Main.storyboard */; };
 		B260F1FC224DE99F00CDCDBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B260F1FB224DE99F00CDCDBA /* Assets.xcassets */; };
 		B260F1FF224DE99F00CDCDBA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B260F1FD224DE99F00CDCDBA /* LaunchScreen.storyboard */; };
 		B260F207224DE9C700CDCDBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B260F206224DE9C700CDCDBA /* GoogleService-Info.plist */; };
-		B260F209224DF0F900CDCDBA /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F208224DF0F900CDCDBA /* PushNotification.swift */; };
 		B260F20B224DF86800CDCDBA /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F20A224DF86800CDCDBA /* AppConstants.swift */; };
 		DB2345DF23DEA56D00CDBA2F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2345DE23DEA56D00CDBA2F /* NotificationService.swift */; };
 		DB2345E323DEA56D00CDBA2F /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DB2345DC23DEA56D00CDBA2F /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -59,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		583362A92579480F0022F568 /* PushNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotification.swift; path = "iOS-PushNotification/PushNotification.swift"; sourceTree = SOURCE_ROOT; };
 		B260F1F1224DE99D00CDCDBA /* Push Notification Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Push Notification Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B260F1F6224DE99D00CDCDBA /* LoginWithDemoUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithDemoUsers.swift; sourceTree = "<group>"; };
@@ -67,7 +68,6 @@
 		B260F1FE224DE99F00CDCDBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B260F200224DE99F00CDCDBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B260F206224DE9C700CDCDBA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B260F208224DF0F900CDCDBA /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PushNotification.swift; path = "../New Group/PushNotification.swift"; sourceTree = "<group>"; };
 		B260F20A224DF86800CDCDBA /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		B2A8EBCC224E239000E22217 /* iOS-PushNotification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "iOS-PushNotification.entitlements"; sourceTree = "<group>"; };
 		DB2345DC23DEA56D00CDBA2F /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,8 +124,8 @@
 				B2A8EBCC224E239000E22217 /* iOS-PushNotification.entitlements */,
 				DBBF8A3422E0BB4100248056 /* ring.wav */,
 				B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */,
+				583362A92579480F0022F568 /* PushNotification.swift */,
 				B260F20A224DF86800CDCDBA /* AppConstants.swift */,
-				FB920AF024A3D849006A11A5 /* PushNotification */,
 				FB920AEF24A3D836006A11A5 /* login */,
 				FB920AF124A3D86D006A11A5 /* Others */,
 				B260F206224DE9C700CDCDBA /* GoogleService-Info.plist */,
@@ -163,14 +163,6 @@
 			path = login;
 			sourceTree = "<group>";
 		};
-		FB920AF024A3D849006A11A5 /* PushNotification */ = {
-			isa = PBXGroup;
-			children = (
-				B260F208224DF0F900CDCDBA /* PushNotification.swift */,
-			);
-			path = PushNotification;
-			sourceTree = "<group>";
-		};
 		FB920AF124A3D86D006A11A5 /* Others */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +180,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B260F203224DE99F00CDCDBA /* Build configuration list for PBXNativeTarget "CometChatPro-PushNotification-SampleApp" */;
 			buildPhases = (
+				B39F7CC6E6C13FD215933176 /* [CP] Prepare Artifacts */,
 				B260F1ED224DE99D00CDCDBA /* Sources */,
 				B260F1EE224DE99D00CDCDBA /* Frameworks */,
 				B260F1EF224DE99D00CDCDBA /* Resources */,
@@ -294,6 +287,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B39F7CC6E6C13FD215933176 /* [CP] Prepare Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp-artifacts-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Prepare Artifacts";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp-artifacts-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp-artifacts.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B260F1ED224DE99D00CDCDBA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -305,7 +318,7 @@
 				FB920AEC24A33C02006A11A5 /* LoginWithUID.swift in Sources */,
 				DB5AAC6A22E04FB7007E7FC6 /* IncomingCall.swift in Sources */,
 				FB920AEE24A33C82006A11A5 /* CometChatSnackBar.swift in Sources */,
-				B260F209224DF0F900CDCDBA /* PushNotification.swift in Sources */,
+				583362AA2579480F0022F568 /* PushNotification.swift in Sources */,
 				B260F20B224DF86800CDCDBA /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,7 +510,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev1;
 				PRODUCT_NAME = "Push Notification Sample";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -537,7 +550,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev1;
 				PRODUCT_NAME = "Push Notification Sample";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -557,7 +570,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2.NotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev1.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -578,7 +591,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2.NotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev1.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>122431658736-9pe9sv70qm728lg8nkajgfvq3vfnplhc.apps.googleusercontent.com</string>
+	<string>2776904930-90d5slth6tpoevurv9a4rmphqq7schnm.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.122431658736-9pe9sv70qm728lg8nkajgfvq3vfnplhc</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>122431658736-ueprl78ecapv57p6vs9d9dkicndptspi.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.2776904930-90d5slth6tpoevurv9a4rmphqq7schnm</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDFu10yoEeiq8dpQZmgzGJVlEdSEHUNZC8</string>
+	<string>AIzaSyA2JQthbkaIiGAqTC0XjXafMPxOZnO8848</string>
 	<key>GCM_SENDER_ID</key>
-	<string>122431658736</string>
+	<string>2776904930</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.inscripts.cometchat.dev2</string>
+	<string>com.inscripts.cometchat.dev1</string>
 	<key>PROJECT_ID</key>
-	<string>pro-demo-229414</string>
+	<string>cometchat-86291</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pro-demo-229414.appspot.com</string>
+	<string>cometchat-86291.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:122431658736:ios:e31ba3d632dcf111</string>
+	<string>1:2776904930:ios:b792c734922b3d57</string>
 	<key>DATABASE_URL</key>
-	<string>https://pro-demo-229414.firebaseio.com</string>
+	<string>https://cometchat-86291.firebaseio.com</string>
 </dict>
 </plist>
