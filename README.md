@@ -58,7 +58,7 @@ ___
    
    - Add Title and Firebase Server Key received from Firebase Console. 
    
-   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/settings.png"><br></br> <br></br><br></br> <br></br><br></br> <br></br><br></br> <br></br><br></br> <br></br><br></br> <br></br><br></br><br></br> <br></br> 
+   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/settings.png"><br></br> <br></br><br></br> <br></br><br></br>
           
    - Open the project in Xcode. 
           
