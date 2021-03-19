@@ -1,6 +1,6 @@
 
 
-target 'CometChatPro-PushNotification-SampleApp' do
+target 'PushNotificationSample-APNS' do
         pod 'CometChatPro','2.2.1'
 end
 
