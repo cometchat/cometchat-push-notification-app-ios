@@ -1,9 +1,11 @@
 
 
 target 'PushNotificationSample-APNS' do
-        pod 'CometChatPro','2.2.1'
+        pod 'CometChatPro','2.4.1'
+        pod 'CometChatCalls','2.1.0'
 end
 
 target 'NotificationServiceExtension' do
-        pod 'CometChatPro','2.2.1'
+        pod 'CometChatPro','2.4.1'
+        pod 'CometChatCalls','2.1.0'
 end

@@ -239,13 +239,37 @@ class CometChatCreateGroup: UIViewController {
         switch  UIKitSettings.groupInMode {
             
         case .publicGroups:
-            actionSheetController.addAction(publicGroup)
+            
+            FeatureRestriction.isPublicGroupEnabled { (success) in
+                if success == .enabled {
+                    actionSheetController.addAction(publicGroup)
+                }
+            }
+            
         case .passwordProtectedGroups:
-            actionSheetController.addAction(passwordProtectedGroup)
+            FeatureRestriction.isPasswordGroupEnabled { (success) in
+                if success == .enabled {
+                    actionSheetController.addAction(passwordProtectedGroup)
+                }
+            }
         case .publicAndPasswordProtectedGroups:
-            actionSheetController.addAction(publicGroup)
-            actionSheetController.addAction(passwordProtectedGroup)
-            actionSheetController.addAction(privateGroup)
+            
+            FeatureRestriction.isPublicGroupEnabled { (success) in
+                if success == .enabled {
+                    actionSheetController.addAction(publicGroup)
+                }
+            }
+            FeatureRestriction.isPasswordGroupEnabled { (success) in
+                if success == .enabled {
+                    actionSheetController.addAction(passwordProtectedGroup)
+                }
+            }
+            
+            FeatureRestriction.isPrivateGroupEnabled { (success) in
+                if success == .enabled {
+                    actionSheetController.addAction(privateGroup)
+                }
+            }
         case .none: break
         }
         actionSheetController.addAction(cancelAction)
@@ -271,15 +295,14 @@ class CometChatCreateGroup: UIViewController {
     @IBAction func didCreateGroupPressed(_ sender: Any) {
         
         if selectedGroupType.text == "SELECT_GROUP_TYPE".localized() {
-            self.showAlert(title: "WARNING".localized(), msg: "SELECT_GROUP_TYPE".localized())
+            CometChatSnackBoard.display(message: "SELECT_GROUP_TYPE".localized(), mode: .error, duration: .short)
        
         }else if groupType == .password && password.text?.count == 0 {
-            self.showAlert(title: "WARNING".localized(), msg: "GROUP_PASSWORD_CANNOT_EMPTY".localized())
+            CometChatSnackBoard.display(message: "GROUP_PASSWORD_CANNOT_EMPTY".localized(), mode: .error, duration: .short)
         }else{
             
             guard let name = name.text else {
-                let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "ENTER_GROUP_NAME".localized(), duration: .short)
-                snackbar.show()
+                CometChatSnackBoard.display(message:  "ENTER_GROUP_NAME".localized(), mode: .error, duration: .short)
                 return
             }
             
@@ -300,9 +323,8 @@ class CometChatCreateGroup: UIViewController {
                     }
                 }) { (error) in
                     DispatchQueue.main.async {
-                        if let errorMessage = error?.errorDescription {
-                            let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: errorMessage, duration: .short)
-                            snackbar.show()
+                        if let error = error {
+                            CometChatSnackBoard.showErrorMessage(for: error)
                         }
                     }
                 }

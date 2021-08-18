@@ -69,19 +69,23 @@ class CometChatReceiverAudioMessageBubble: UITableViewCell {
             }
             if let avatarURL = audioMessage.sender?.avatar  {
                 avatar.set(image: avatarURL, with: audioMessage.sender?.name ?? "")
+            }else{
+                avatar.set(image: "", with: audioMessage.sender?.name ?? "")
             }
             
-            if audioMessage?.replyCount != 0 && UIKitSettings.threadedChats == .enabled {
-                replybutton.isHidden = false
-                if audioMessage?.replyCount == 1 {
-                    replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
-                }else{
-                    if let replies = audioMessage?.replyCount {
-                        replybutton.setTitle("\(replies) replies", for: .normal)
+            FeatureRestriction.isThreadedMessagesEnabled { (success) in
+                switch success {
+                case .enabled where self.audioMessage.replyCount != 0 :
+                    self.replybutton.isHidden = false
+                    if self.audioMessage.replyCount == 1 {
+                        self.replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
+                    }else{
+                        if let replies = self.audioMessage.replyCount as? Int {
+                            self.replybutton.setTitle("\(replies) replies", for: .normal)
+                        }
                     }
+                case .disabled, .enabled : self.replybutton.isHidden = true
                 }
-            }else{
-                replybutton.isHidden = true
             }
         }
     }
@@ -109,6 +113,8 @@ class CometChatReceiverAudioMessageBubble: UITableViewCell {
             }
             if let avatarURL = audioMessageinThread.sender?.avatar  {
                 avatar.set(image: avatarURL, with: audioMessageinThread.sender?.name ?? "")
+            }else{
+                avatar.set(image: "", with: audioMessageinThread.sender?.name ?? "")
             }
             
             if audioMessageinThread.readAt > 0 {

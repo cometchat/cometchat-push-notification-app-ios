@@ -20,6 +20,8 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Access Camera</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>
@@ -27,8 +29,6 @@
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).NotificationService</string>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Access Camera</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Access Microphone</string>
 </dict>

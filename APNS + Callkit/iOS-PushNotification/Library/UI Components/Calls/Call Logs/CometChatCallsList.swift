@@ -133,12 +133,11 @@ public class CometChatCallsList: UIViewController {
             
         }, onError: { (error) in
             DispatchQueue.main.async {
-                if let errorMessage = error?.errorDescription {
-                    let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: errorMessage, duration: .short)
-                    snackbar.show()
+                if let error = error {
+                    CometChatSnackBoard.showErrorMessage(for: error)
                 }
             }
-            
+
         })
     }
     
@@ -181,14 +180,12 @@ public class CometChatCallsList: UIViewController {
             }
         }, onError: { (error) in
             DispatchQueue.main.async {
-                if let errorMessage = error?.errorDescription {
-                    self.activityIndicator?.stopAnimating()
-                    self.tableView.tableFooterView?.isHidden = true
-                    let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: errorMessage, duration: .short)
-                    snackbar.show()
+                self.activityIndicator?.stopAnimating()
+                self.tableView.tableFooterView?.isHidden = true
+                if let error = error {
+                    CometChatSnackBoard.showErrorMessage(for: error)
                 }
             }
-           
         })
     }
     
@@ -386,7 +383,7 @@ extension CometChatCallsList: UITableViewDelegate , UITableViewDataSource {
     ///   - tableView: The table-view object requesting this information.
     ///   - section: An index number identifying a section of tableView .
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 0.5))
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 20, height: 0.5))
         return returnedView
     }
     
@@ -527,13 +524,13 @@ extension CometChatCallsList: UITableViewDelegate , UITableViewDataSource {
                         self.tableView.deleteRows(at: [indexPath], with: .automatic)
                         self.tableView.endUpdates()
                         
-                        let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "Call Deleted", duration: .short)
-                        snackbar.show()
+                        CometChatSnackBoard.display(message: "Call Deleted", mode: .info, duration: .short)
                     }
                 }) { (error) in
                     DispatchQueue.main.async {
-                    let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: error.errorDescription, duration: .short)
-                    snackbar.show()
+                        if let error = error as? CometChatException{
+                            CometChatSnackBoard.showErrorMessage(for: error)
+                        }
                     }
                 }
             }

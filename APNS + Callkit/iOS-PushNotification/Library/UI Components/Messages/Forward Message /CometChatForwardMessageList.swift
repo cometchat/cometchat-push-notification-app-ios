@@ -141,9 +141,8 @@ public class CometChatForwardMessageList: UIViewController {
             }
         }) { (error) in
             DispatchQueue.main.async {
-                if let errorMessage = error?.errorDescription {
-                    let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: errorMessage, duration: .short)
-                    snackbar.show()
+                if let error = error {
+                    CometChatSnackBoard.showErrorMessage(for: error)
                 }
             }
         }
@@ -257,8 +256,9 @@ public class CometChatForwardMessageList: UIViewController {
                                     }) { (error) in
                                         DispatchQueue.main.async {
                                             if let name = (conversation.conversationWith as? User)?.name {
-                                                let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "UNABLE_TO_FORWARD" .localized() + name, duration: .short)
-                                                snackbar.show()
+                                               
+                                                    CometChatSnackBoard.display(message:  "UNABLE_TO_FORWARD" .localized() + name, mode: .error, duration: .short)
+                                                
                                             }
                                         }
                                     }
@@ -275,8 +275,9 @@ public class CometChatForwardMessageList: UIViewController {
                                     }) { (error) in
                                         DispatchQueue.main.async {
                                             if let name = (conversation.conversationWith as? User)?.name {
-                                               let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "UNABLE_TO_FORWARD" .localized() + name, duration: .short)
-                                               snackbar.show()
+                                               
+                                                    CometChatSnackBoard.display(message:  "UNABLE_TO_FORWARD" .localized() + name, mode: .error, duration: .short)
+                                             
                                             }
                                         }
                                     }
@@ -305,8 +306,7 @@ public class CometChatForwardMessageList: UIViewController {
                                     }) { (error) in
                                         DispatchQueue.main.async {
                                             if let name = (conversation.conversationWith as? Group)?.name {
-                                                let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "UNABLE_TO_FORWARD" .localized() + name, duration: .short)
-                                                snackbar.show()
+                                                CometChatSnackBoard.display(message:  "UNABLE_TO_FORWARD" .localized() + name, mode: .error, duration: .short)
                                             }
                                         }
                                     }
@@ -322,8 +322,7 @@ public class CometChatForwardMessageList: UIViewController {
                                     }) { (error) in
                                         DispatchQueue.main.async {
                                             if let name = (conversation.conversationWith as? Group)?.name {
-                                               let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "UNABLE_TO_FORWARD" .localized() + name, duration: .short)
-                                                                                             snackbar.show()
+                                                CometChatSnackBoard.display(message:  "UNABLE_TO_FORWARD" .localized() + name, mode: .error, duration: .short)
                                             }
                                         }
                                     }
@@ -342,8 +341,7 @@ public class CometChatForwardMessageList: UIViewController {
                 }
             }
         }else{
-            let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "FORWARD_TO_5_AT_A_TIME".localized(), duration: .short)
-            snackbar.show()
+            CometChatSnackBoard.display(message: "FORWARD_TO_5_AT_A_TIME".localized(), mode: .error, duration: .short)
         }
     }
 }
@@ -367,7 +365,7 @@ extension CometChatForwardMessageList: UITableViewDelegate , UITableViewDataSour
     ///   - tableView: The table-view object requesting this information.
     ///   - section: An index number identifying a section of tableView .
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 0.5))
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 20, height: 0.5))
         return returnedView
     }
     

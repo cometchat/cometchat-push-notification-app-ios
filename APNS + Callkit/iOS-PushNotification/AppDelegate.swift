@@ -11,6 +11,8 @@ import CometChatPro
 import UserNotifications
 import PushKit
 import CallKit
+import AudioToolbox
+import AVKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -91,11 +93,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // [START receive_message]
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) { }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-       
-        completionHandler(UIBackgroundFetchResult.newData)
-    }
+//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+//                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+//       
+//        completionHandler(UIBackgroundFetchResult.newData)
+//    }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print( "Unable to register for remote notifications: \(error.localizedDescription)")
@@ -192,13 +194,49 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
+                    didReceive response: UNNotificationResponse,
+                    withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if let userInfo = response.notification.request.content.userInfo as? [String : Any], let messageObject = userInfo["message"] as? [String:Any] {
+           print("didReceive: \(userInfo)")
+          if let baseMessage = CometChat.processMessage(messageObject).0 {
+            switch baseMessage.messageCategory {
+            case .message:
+                print("Message Object Received: \(String(describing: (baseMessage as? TextMessage)?.stringValue()))")
+                
+                switch baseMessage.receiverType {
+                case .user:
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if let user = baseMessage.sender {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didReceivedMessageFromUser"), object: nil, userInfo: ["user":user])
+                        }
+                    }
+                case .group:
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if let group = baseMessage.receiver as? Group {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didReceivedMessageFromGroup"), object: nil, userInfo: ["group":group])
+                        }
+                    }
+                @unknown default: break
+                }
+                
+            case .action: break
+            case .call: break
+            case .custom: break
+            @unknown default: break
+            }
+          }
+        }
+        completionHandler()
+      }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceivent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         print("willPresent notification: \(notification.request.content.userInfo)")
         
-        
         if let userInfo = notification.request.content.userInfo as? [String : Any], let messageObject =
-            userInfo["message"], let str = messageObject as? String, let dict = str.stringTodictionary() {
+            userInfo["message"], let dict = messageObject as? [String : Any] {
 
                       if let baseMessage = CometChat.processMessage(dict).0 {
                           switch baseMessage.messageCategory {
@@ -292,7 +330,11 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
                                         let update = CXCallUpdate()
                                         update.remoteHandle = CXHandle(type: .generic, value: name)
                                         update.hasVideo = false
-                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in })
+                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in
+                                            if error == nil {
+                                                self.configureAudioSession()
+                                            }
+                                        })
                                     }
                                     
                                 case .audio where call.receiverType == .group:
@@ -308,7 +350,11 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
                                         update.remoteHandle = CXHandle(type: .generic, value: group)
                                         update.hasVideo = false
                                         
-                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in })
+                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in
+                                            if error == nil {
+                                                self.configureAudioSession()
+                                            }
+                                        })
                                     }
                                     
                                 case .video where call.receiverType == .user:
@@ -323,7 +369,11 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
                                         let update = CXCallUpdate()
                                         update.remoteHandle = CXHandle(type: .generic, value: name)
                                         update.hasVideo = true
-                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in })
+                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in
+                                            if error == nil {
+                                                self.configureAudioSession()
+                                            }
+                                        })
                                         
                                         
                                     }
@@ -339,7 +389,11 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
                                         let update = CXCallUpdate()
                                         update.remoteHandle = CXHandle(type: .generic, value: group)
                                         update.hasVideo = true
-                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in })
+                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in
+                                            if error == nil {
+                                                self.configureAudioSession()
+                                            }
+                                        })
                                     }
                                 case .audio: break
                                 case .video: break
@@ -359,6 +413,16 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
                       }
                   
                   }
+    }
+    
+    func configureAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.mixWithOthers, .allowBluetooth, .defaultToSpeaker])
+            try AVAudioSession.sharedInstance().setActive(true)
+
+        } catch let error as NSError {
+            print(error)
+        }
     }
     
     func providerDidReset(_ provider: CXProvider) {
@@ -382,26 +446,26 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
 // -------------------------------------------------------------------------------------------------------------//
 
 
-extension String {
-    
-    func stringTodictionary() -> [String:Any]? {
-        
-        var dictonary:[String:Any]?
-        
-        if let data = self.data(using: .utf8) {
-            
-            do {
-                dictonary = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-                
-                if let myDictionary = dictonary
-                {
-                    return myDictionary;
-                }
-            } catch let error as NSError {
-                print(error)
-            }
-            
-        }
-        return dictonary;
-    }
-}
+//extension String {
+//
+//    func stringTodictionary() -> [String:Any]? {
+//
+//        var dictonary:[String:Any]?
+//
+//        if let data = self.data(using: .utf8) {
+//
+//            do {
+//                dictonary = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
+//
+//                if let myDictionary = dictonary
+//                {
+//                    return myDictionary;
+//                }
+//            } catch let error as NSError {
+//                print(error)
+//            }
+//
+//        }
+//        return dictonary;
+//    }
+//}

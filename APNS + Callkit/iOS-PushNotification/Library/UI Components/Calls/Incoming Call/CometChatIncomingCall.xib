@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CometChatIncomingCall" customModule="Push_Notification_Sample" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CometChatIncomingCall" customModule="CometChat_KitchenSink" customModuleProvider="target">
             <connections>
                 <outlet property="acceptButton" destination="8Ko-AH-0oD" id="CmW-SR-Xib"/>
                 <outlet property="avatar" destination="3zg-F7-rUY" id="nkH-Vg-bPF"/>
@@ -26,7 +26,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IXn-Jx-v9E">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IXn-Jx-v9E">
                     <rect key="frame" x="10" y="64" width="394" height="160"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="1Vc-Dy-OS1">
@@ -61,7 +61,7 @@
                                         </stackView>
                                     </subviews>
                                 </stackView>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ironman" translatesAutoresizingMaskIntoConstraints="NO" id="3zg-F7-rUY" customClass="CometChatAvatar" customModule="Push_Notification_Sample" customModuleProvider="target">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ironman" translatesAutoresizingMaskIntoConstraints="NO" id="3zg-F7-rUY" customClass="CometChatAvatar" customModule="CometChat_KitchenSink" customModuleProvider="target">
                                     <rect key="frame" x="294" y="0.0" width="60" height="60"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="60" id="ZcE-l5-vQQ"/>

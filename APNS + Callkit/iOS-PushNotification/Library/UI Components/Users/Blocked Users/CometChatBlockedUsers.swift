@@ -175,10 +175,9 @@ class CometChatBlockedUsers: UIViewController {
             
         }, onError: { (error) in
             DispatchQueue.main.async {
-                    if let errorMessage = error?.errorDescription {
-                       let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: errorMessage, duration: .short)
-                        snackbar.show()
-                    }
+                if let error = error {
+                    CometChatSnackBoard.showErrorMessage(for: error)
+                }
                 self.activityIndicator?.stopAnimating()
                 self.tableView.tableFooterView?.isHidden = true
             }
@@ -272,19 +271,13 @@ extension CometChatBlockedUsers: UITableViewDelegate , UITableViewDataSource {
                     DispatchQueue.main.async {
                         self.blockedUsers.remove(at: indexPath.row)
                         tableView.deleteRows(at: [indexPath], with: .fade)
-                        
-                        if let name = selectedCell.user?.name {
-                            let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "\(name)" + " " + "UNBLOCKED_SUCCESSFULLY".localized(), duration: .short)
-                            snackbar.show()
-                        }
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didUserBlocked"), object: nil, userInfo: ["count": "\(self.blockedUsers.count)"])
                         
                     }
                 }) { (error) in
                     DispatchQueue.main.async {
-                        if let errorMessage = error?.errorDescription {
-                             let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: errorMessage, duration: .short)
-                             snackbar.show()
+                        if let error = error {
+                            CometChatSnackBoard.showErrorMessage(for: error)
                         }
                     }
                 }

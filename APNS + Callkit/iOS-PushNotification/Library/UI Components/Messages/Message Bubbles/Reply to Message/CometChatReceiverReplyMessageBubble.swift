@@ -71,9 +71,15 @@ class CometChatReceiverReplyMessageBubble: UITableViewCell {
                     }
                 }
                 receiptStack.isHidden = true
-                nameView.isHidden = false
+                if currentMessage.receiverType == .group {
+                    nameView.isHidden = false
+                }else {
+                    nameView.isHidden = true
+                }
                 if let avatarURL = currentMessage.sender?.avatar  {
                     avatar.set(image: avatarURL, with: currentMessage.sender?.name ?? "")
+                }else{
+                    avatar.set(image: "", with: currentMessage.sender?.name ?? "")
                 }
                 timeStamp.text = String().setMessageTime(time: currentMessage.sentAt)
                 replybutton.isHidden = true

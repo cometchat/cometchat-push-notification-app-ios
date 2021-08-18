@@ -90,7 +90,11 @@ class CometChatMessageInformation: UIViewController {
                 self.receipts = fetchedReceipts
                 DispatchQueue.main.async { self.tableView.reloadData() }
             }) { (error) in
-                
+                DispatchQueue.main.async {
+                    if let error = error {
+                        CometChatSnackBoard.showErrorMessage(for: error)
+                    }
+                }
             }
         }
     }
@@ -99,7 +103,7 @@ class CometChatMessageInformation: UIViewController {
         var detectedExtension: CometChatExtension?
         
         if let metaData = message.metaData , let type = metaData["type"] as? String {
-            if type == "reply" {
+            if type == "reply" || metaData["replyToMessage"] as? [String : Any] != nil {
                 detectedExtension = .reply
             }else{
                 detectedExtension = .none
@@ -738,7 +742,7 @@ extension CometChatMessageInformation: LocationCellDelegate {
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
+        actionSheet.view.tintColor = UIKitSettings.primaryColor
         self.present(actionSheet, animated: true, completion: nil)
     }
     

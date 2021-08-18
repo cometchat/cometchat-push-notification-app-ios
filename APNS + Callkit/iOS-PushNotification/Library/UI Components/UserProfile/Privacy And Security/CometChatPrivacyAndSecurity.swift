@@ -180,9 +180,8 @@ class CometChatPrivacyAndSecurity: UIViewController {
             }
         }, onError: { (error) in
             DispatchQueue.main.async {
-                if let errorMessage = error?.errorDescription {
-                     let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: errorMessage, duration: .short)
-                     snackbar.show()
+                if let error = error {
+                    CometChatSnackBoard.showErrorMessage(for: error)
                 }
             }
         })
@@ -220,8 +219,8 @@ extension CometChatPrivacyAndSecurity : UITableViewDelegate , UITableViewDataSou
        ///   - tableView: The table-view object requesting this information.
        ///   - section: An index number identifying a section of tableView .
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 25))
-        let sectionTitle = UILabel(frame: CGRect(x: 10, y: 2, width: view.frame.size.width, height: 20))
+        let returnedView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 20, height: 25))
+        let sectionTitle = UILabel(frame: CGRect(x: 10, y: 2, width: returnedView.frame.size.width, height: 20))
         if section == 0 {
             sectionTitle.text =  ""
         }else if section == 1{
@@ -243,11 +242,14 @@ extension CometChatPrivacyAndSecurity : UITableViewDelegate , UITableViewDataSou
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            if UIKitSettings.blockUser == .disabled {
-                 return 0
-            }else{
-                 return 1
+            var rows = 0
+            FeatureRestriction.isBlockUserEnabled { (success) in
+                switch success {
+                case .enabled: rows =  1
+                case .disabled: rows =  0
+                }
             }
+            return rows
         case 1: return 0
         default: return 0 }
     }
