@@ -100,6 +100,11 @@ class CometChatStickerKeyboard: UIViewController {
                 }
             }
         }) { (error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    CometChatSnackBoard.showErrorMessage(for: error)
+                }}
+            
             print("Error with fetching stickers: \(String(describing: error?.errorDescription))")
         }
     }
@@ -117,7 +122,7 @@ class CometChatStickerKeyboard: UIViewController {
             }
             
             for sticker in (customStickerSet as? [[String:Any]])! {
-                print("custom stickers: \(sticker)")
+           
                 let sticker = CometChatSticker(id: sticker["id"] as? String ?? "", name: sticker["stickerName"] as? String ?? "" , order: sticker["stickerOrder"] as? Int ?? 0, setID: sticker["stickerSetId"] as? String ?? "", setName: sticker["stickerSetName"] as? String ?? "", setOrder: sticker["stickerSetOrder"] as? Int ?? 0, url: sticker["stickerUrl"] as? String ?? "")
                
                 stickers.append(sticker)

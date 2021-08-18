@@ -71,17 +71,19 @@ class CometChatReceiverTextMessageBubble: UITableViewCell {
                         self.reactionView.isHidden = true
                     }
                 }
-                if textMessage?.replyCount != 0 && UIKitSettings.threadedChats == .enabled {
-                    replybutton.isHidden = false
-                    if textMessage?.replyCount == 1 {
-                        replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
-                    }else{
-                        if let replies = textMessage?.replyCount {
-                            replybutton.setTitle("\(replies) replies", for: .normal)
+                FeatureRestriction.isThreadedMessagesEnabled { (success) in
+                    switch success {
+                    case .enabled where currentMessage.replyCount != 0 :
+                        self.replybutton.isHidden = false
+                        if currentMessage.replyCount == 1 {
+                            self.replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
+                        }else{
+                            if let replies = currentMessage.replyCount as? Int {
+                                self.replybutton.setTitle("\(replies) replies", for: .normal)
+                            }
                         }
+                    case .disabled, .enabled : self.replybutton.isHidden = true
                     }
-                }else{
-                    replybutton.isHidden = true
                 }
                 
                 if currentMessage.receiverType == .group {
@@ -91,9 +93,12 @@ class CometChatReceiverTextMessageBubble: UITableViewCell {
                 }
                 if let avatarURL = currentMessage.sender?.avatar  {
                     avatar.set(image: avatarURL, with: currentMessage.sender?.name ?? "")
+                }else{
+                    avatar.set(image: "", with: currentMessage.sender?.name ?? "")
                 }
+                
                 timeStamp.text = String().setMessageTime(time: currentMessage.sentAt)
-                 replybutton.tintColor = UIKitSettings.primaryColor
+                replybutton.tintColor = UIKitSettings.primaryColor
                 
                 let phoneParser1 = HyperlinkType.custom(pattern: RegexParser.phonePattern1)
                 let phoneParser2 = HyperlinkType.custom(pattern: RegexParser.phonePattern2)
@@ -338,12 +343,42 @@ class CometChatReceiverTextMessageBubble: UITableViewCell {
                if let profanity = profanityFilterDictionary["profanity"] as? String, let filteredMessage = profanityFilterDictionary["message_clean"] as? String {
                    
                    if profanity == "yes" {
-                       message.text = filteredMessage
+                       message.text = filteredMessage + " "
                    }else{
-                       message.text = forMessage.text
+                    
+                    if forMessage.text.containsOnlyEmojis() {
+                        if forMessage.text.count == 1 {
+                            message.font =  UIFont.systemFont(ofSize: 51, weight: .regular)
+                        }else if forMessage.text.count == 2 {
+                            message.font =  UIFont.systemFont(ofSize: 34, weight: .regular)
+                        }else if forMessage.text.count == 3{
+                            message.font =  UIFont.systemFont(ofSize: 25, weight: .regular)
+                        }else{
+                            message.font =  UIFont.systemFont(ofSize: 17, weight: .regular)
+                        }
+                      
+                    }else{
+                        message.font =  UIFont.systemFont(ofSize: 17, weight: .regular)
+                    }
+                    self.message.text = forMessage.text + " "
                    }
                }else{
-                   message.text = forMessage.text
+                
+                if forMessage.text.containsOnlyEmojis() {
+                    if forMessage.text.count == 1 {
+                        message.font =  UIFont.systemFont(ofSize: 51, weight: .regular)
+                    }else if forMessage.text.count == 2 {
+                        message.font =  UIFont.systemFont(ofSize: 34, weight: .regular)
+                    }else if forMessage.text.count == 3{
+                        message.font =  UIFont.systemFont(ofSize: 25, weight: .regular)
+                    }else{
+                        message.font =  UIFont.systemFont(ofSize: 17, weight: .regular)
+                    }
+                  
+                }else{
+                    message.font =  UIFont.systemFont(ofSize: 17, weight: .regular)
+                }
+                self.message.text = forMessage.text
                }
            }else{
                
@@ -367,7 +402,7 @@ class CometChatReceiverTextMessageBubble: UITableViewCell {
     
     func parseMaskedData(forMessage: TextMessage){
         if let metaData = forMessage.metaData , let injected = metaData["@injected"] as? [String : Any], let cometChatExtension =  injected["extensions"] as? [String : Any], let dataMaskingDictionary = cometChatExtension["data-masking"] as? [String : Any] {
-            print("forMessage: \(forMessage.stringValue())")
+          
             if let data = dataMaskingDictionary["data"] as? [String:Any], let sensitiveData = data["sensitive_data"] as? String {
                 
                 if sensitiveData == "yes" {
@@ -377,10 +412,10 @@ class CometChatReceiverTextMessageBubble: UITableViewCell {
                         message.text = forMessage.text
                     }
                 }else{
-                    message.text = forMessage.text
+                    self.parseProfanityFilter(forMessage: forMessage)
                 }
             }else{
-                message.text = forMessage.text
+                self.parseProfanityFilter(forMessage: forMessage)
             }
         }else{
             
@@ -397,7 +432,7 @@ class CometChatReceiverTextMessageBubble: UITableViewCell {
             }else{
                 message.font =  UIFont.systemFont(ofSize: 17, weight: .regular)
             }
-            self.message.text = forMessage.text
+            self.parseProfanityFilter(forMessage: forMessage)
         }
     }
     
@@ -424,6 +459,7 @@ class CometChatReceiverTextMessageBubble: UITableViewCell {
                    }
                }else{
                    self.parseProfanityFilter(forMessage: forMessage)
+                   self.parseMaskedData(forMessage: forMessage)
                }
            }else{
                if #available(iOS 13.0, *) {
@@ -436,9 +472,9 @@ class CometChatReceiverTextMessageBubble: UITableViewCell {
                spaceConstraint.constant = 0
                widthconstraint.constant = 0
                self.parseProfanityFilter(forMessage: forMessage)
+               self.parseMaskedData(forMessage: forMessage)
            }
        }
-    
 }
 
 

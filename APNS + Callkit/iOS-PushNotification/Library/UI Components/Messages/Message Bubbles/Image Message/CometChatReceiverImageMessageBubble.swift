@@ -30,6 +30,7 @@ class CometChatReceiverImageMessageBubble: UITableViewCell {
     
     // MARK: - Declaration of Variables
     var indexPath: IndexPath?
+    weak var mediaDelegate: MediaDelegate?
     var selectionColor: UIColor {
         set {
             let view = UIView()
@@ -43,6 +44,16 @@ class CometChatReceiverImageMessageBubble: UITableViewCell {
     
     var mediaMessage: MediaMessage!{
         didSet {
+            
+            imageMessage.layer.cornerRadius = 12
+            imageMessage.layer.borderWidth = 1
+            if #available(iOS 13.0, *) {
+                imageMessage.layer.borderColor = UIColor.systemFill.cgColor
+            } else {
+                imageMessage.layer.borderColor = UIColor.lightText.cgColor
+            }
+            imageMessage.clipsToBounds = true
+            
                 self.reactionView.parseMessageReactionForMessage(message: mediaMessage) { (success) in
                     if success == true {
                         self.reactionView.isHidden = false
@@ -62,38 +73,51 @@ class CometChatReceiverImageMessageBubble: UITableViewCell {
             timeStamp.text = String().setMessageTime(time: mediaMessage.sentAt)
             if let avatarURL = mediaMessage.sender?.avatar  {
                 avatar.set(image: avatarURL, with: mediaMessage.sender?.name ?? "")
+            }else{
+                avatar.set(image: "", with: mediaMessage.sender?.name ?? "")
             }
             if let mediaURL = mediaMessage.metaData, let imageUrl = mediaURL["fileURL"] as? String {
-                  let url = URL(string: imageUrl)
-                  if (url?.checkFileExist())! {
-                      do {
-                          let imageData = try Data(contentsOf: url!)
-                          let image = UIImage(data: imageData as Data)
-                          imageMessage.image = image
-                      } catch {
+                let url = URL(string: imageUrl)
+                if (url?.checkFileExist())! {
+                    do {
+                        let imageData = try Data(contentsOf: url!)
+                        let image = UIImage(data: imageData as Data)
+                        imageMessage.image = image
+                    } catch {
                         
-                      }
-                  }else{
-                      parseThumbnailForImage(forMessage: mediaMessage)
-                  }
-              }else{
-                  parseThumbnailForImage(forMessage: mediaMessage)
-              }
-              parseImageForModeration(forMessage: mediaMessage)
-            if mediaMessage.replyCount != 0 &&  UIKitSettings.threadedChats == .enabled {
-                
-                replybutton.isHidden = false
-                if mediaMessageInThread?.replyCount == 1 {
-                    replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
-                }else{
-                    if let replies = mediaMessageInThread?.replyCount {
-                        replybutton.setTitle("\(replies) replies", for: .normal)
                     }
+                }else{
+                    parseThumbnailForImage(forMessage: mediaMessage)
                 }
             }else{
-                replybutton.isHidden = true
+                parseThumbnailForImage(forMessage: mediaMessage)
             }
+              parseImageForModeration(forMessage: mediaMessage)
             replybutton.tintColor = UIKitSettings.primaryColor
+            let tapOnImageMessage = UITapGestureRecognizer(target: self, action: #selector(self.didImageMessagePressed(tapGestureRecognizer:)))
+            let tapOnImageMessage1 = UITapGestureRecognizer(target: self, action: #selector(self.didImageMessagePressed(tapGestureRecognizer:)))
+            let tapOnImageMessage2 = UITapGestureRecognizer(target: self, action: #selector(self.didImageMessagePressed(tapGestureRecognizer:)))
+            self.imageModerationView.isUserInteractionEnabled = true
+            self.imageModerationView.addGestureRecognizer(tapOnImageMessage)
+            self.unsafeContentView.isUserInteractionEnabled = true
+            self.unsafeContentView.addGestureRecognizer(tapOnImageMessage1)
+            self.imageMessage.isUserInteractionEnabled = true
+            self.imageMessage.addGestureRecognizer(tapOnImageMessage2)
+            
+            FeatureRestriction.isThreadedMessagesEnabled { (success) in
+                switch success {
+                case .enabled where self.mediaMessage.replyCount != 0 :
+                    self.replybutton.isHidden = false
+                    if self.mediaMessage.replyCount == 1 {
+                        self.replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
+                    }else{
+                        if let replies = self.mediaMessage.replyCount as? Int {
+                            self.replybutton.setTitle("\(replies) replies", for: .normal)
+                        }
+                    }
+                case .disabled, .enabled : self.replybutton.isHidden = true
+                }
+            }
         }
     }
     
@@ -140,8 +164,18 @@ class CometChatReceiverImageMessageBubble: UITableViewCell {
                timeStamp.text = "SENDING".localized()
                  name.text = LoggedInUser.name.capitalized + ":"
             }
+            if let avatarURL = mediaMessageInThread.sender?.avatar  {
+                avatar.set(image: avatarURL, with: mediaMessageInThread.sender?.name ?? "")
+            }else{
+                avatar.set(image: "", with: mediaMessageInThread.sender?.name ?? "")
+            }
            replybutton.isHidden = true
         }
+    }
+    
+    @objc func didImageMessagePressed(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        mediaDelegate?.didOpenMedia(forMessage: mediaMessage, cell: self)
     }
     
     // MARK: - Initialization of required Methods

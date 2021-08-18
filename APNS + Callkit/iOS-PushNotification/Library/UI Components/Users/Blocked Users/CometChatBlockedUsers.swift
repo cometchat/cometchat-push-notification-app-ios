@@ -140,8 +140,32 @@ class CometChatBlockedUsers: UIViewController {
                 self.navigationController?.navigationBar.isTranslucent = true
             }
             self.setLargeTitleDisplayMode(.always)
+            self.addBackButton(bool: true)
         }
     }
+    
+    private func addBackButton(bool: Bool) {
+        let backButton = UIButton(type: .custom)
+        if #available(iOS 13.0, *) {
+            let edit = UIImage(named: "users-back.png", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+             backButton.setImage(edit, for: .normal)
+            backButton.tintColor = UIKitSettings.primaryColor
+        } else {}
+        backButton.tintColor = UIKitSettings.primaryColor
+        backButton.setTitleColor(backButton.tintColor, for: .normal) // You can change the TitleColor
+        backButton.addTarget(self, action: #selector(self.didBackButtonPressed), for: .touchUpInside)
+        self.navigationItem.leftBarButtonItem = nil
+        if bool == true {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        }else{
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        }
+    }
+    
+    @objc func didBackButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     
     
     /**
@@ -175,10 +199,9 @@ class CometChatBlockedUsers: UIViewController {
             
         }, onError: { (error) in
             DispatchQueue.main.async {
-                    if let errorMessage = error?.errorDescription {
-                       let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: errorMessage, duration: .short)
-                        snackbar.show()
-                    }
+                if let error = error {
+                    CometChatSnackBoard.showErrorMessage(for: error)
+                }
                 self.activityIndicator?.stopAnimating()
                 self.tableView.tableFooterView?.isHidden = true
             }
@@ -272,19 +295,13 @@ extension CometChatBlockedUsers: UITableViewDelegate , UITableViewDataSource {
                     DispatchQueue.main.async {
                         self.blockedUsers.remove(at: indexPath.row)
                         tableView.deleteRows(at: [indexPath], with: .fade)
-                        
-                        if let name = selectedCell.user?.name {
-                            let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "\(name)" + " " + "UNBLOCKED_SUCCESSFULLY".localized(), duration: .short)
-                            snackbar.show()
-                        }
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didUserBlocked"), object: nil, userInfo: ["count": "\(self.blockedUsers.count)"])
                         
                     }
                 }) { (error) in
                     DispatchQueue.main.async {
-                        if let errorMessage = error?.errorDescription {
-                             let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: errorMessage, duration: .short)
-                             snackbar.show()
+                        if let error = error {
+                            CometChatSnackBoard.showErrorMessage(for: error)
                         }
                     }
                 }

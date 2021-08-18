@@ -180,7 +180,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B260F203224DE99F00CDCDBA /* Build configuration list for PBXNativeTarget "CometChatPro-PushNotification-SampleApp" */;
 			buildPhases = (
-				B39F7CC6E6C13FD215933176 /* [CP] Prepare Artifacts */,
 				B260F1ED224DE99D00CDCDBA /* Sources */,
 				B260F1EE224DE99D00CDCDBA /* Frameworks */,
 				B260F1EF224DE99D00CDCDBA /* Resources */,
@@ -286,26 +285,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		B39F7CC6E6C13FD215933176 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp-artifacts-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp-artifacts-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B260F1ED224DE99D00CDCDBA /* Sources */ = {
@@ -510,7 +489,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2;
 				PRODUCT_NAME = "Push Notification Sample";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -550,7 +529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2;
 				PRODUCT_NAME = "Push Notification Sample";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -570,7 +549,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev1.NotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -591,7 +570,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev1.NotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2.NotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

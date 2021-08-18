@@ -35,9 +35,35 @@ class PushNotification: UIViewController , UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector:#selector(self.didReceivedIncomingCall(_:)), name: NSNotification.Name(rawValue: "didReceivedIncomingCall"), object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(self.didAcceptButtonPressed(_:)), name: NSNotification.Name(rawValue: "didAcceptButtonPressed"), object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(self.didRejectButtonPressed(_:)), name: NSNotification.Name(rawValue: "didRejectButtonPressed"), object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(self.didReceivedMessageFromGroup(_:)), name: NSNotification.Name(rawValue: "didReceivedMessageFromGroup"), object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(self.didReceivedMessageFromUser(_:)), name: NSNotification.Name(rawValue: "didReceivedMessageFromUser"), object: nil)
+        
         self.setupAppearance()
         self.registerDelegates()
     }
+    
+    @objc func didReceivedMessageFromGroup(_ notification: NSNotification) {
+            if let group = notification.userInfo?["group"] as? Group {
+                DispatchQueue.main.async {
+                 let messageList = CometChatMessageList()
+                 let navigationController = UINavigationController(rootViewController:messageList)
+                  messageList.set(conversationWith: group, type: .group)
+                  self.present(navigationController, animated:true, completion:nil)
+                }
+            }
+        }
+        
+        @objc func didReceivedMessageFromUser(_ notification: NSNotification) {
+              print("didReceivedMessageFromUser")
+            if let user = notification.userInfo?["user"] as? User {
+                DispatchQueue.main.async {
+                 let messageList = CometChatMessageList()
+                 let navigationController = UINavigationController(rootViewController:messageList)
+                  messageList.set(conversationWith: user, type: .user)
+                  self.present(navigationController, animated:true, completion:nil)
+                }
+            }
+        }
     
     @objc func didReceivedIncomingCall(_ notification: NSNotification) {
             if let currentCall = notification.userInfo?["call"] as? Call {
@@ -55,14 +81,12 @@ class PushNotification: UIViewController , UITextViewDelegate {
      }
     
     @objc func didRejectButtonPressed(_ notification: NSNotification) {
-        print("didRejectButtonPressed")
         if let currentCall = call {
-            CometChat.rejectCall(sessionID: currentCall.sessionID ?? "", status: .rejected) { (call) in
-                
-            } onError: { (error) in
-                
-            }
-
+//            CometChat.rejectCall(sessionID: currentCall.sessionID ?? "", status: .rejected) { (call) in
+//                
+//            } onError: { (error) in
+//                
+//            }
         }
      }
 

@@ -39,46 +39,51 @@ class CometChatSenderStickerMessageBubble: UITableViewCell {
     var stickerMessage: CustomMessage! {
         didSet {
             receiptStack.isHidden = true
-            if let url = URL(string: stickerMessage.customData?["stickerUrl"] as? String ?? "") {
+            if let url = URL(string: stickerMessage.customData?["sticker_url"] as? String ?? "") {
                 imageMessage.cf.setImage(with: url, placeholder: UIImage(named: "default-image.png", in: UIKitSettings.bundle, compatibleWith: nil))
+            }else{
+                imageMessage.image = UIImage(named: "default-image.png", in: UIKitSettings.bundle, compatibleWith: nil)
             }
-                self.reactionView.parseMessageReactionForMessage(message: stickerMessage) { (success) in
-                    if success == true {
-                        self.reactionView.isHidden = false
-                    }else{
-                        self.reactionView.isHidden = true
-                    }
+            self.reactionView.parseMessageReactionForMessage(message: stickerMessage) { (success) in
+                if success == true {
+                    self.reactionView.isHidden = false
+                }else{
+                    self.reactionView.isHidden = true
                 }
+            }
             if stickerMessage.readAt > 0 {
-            receipt.image = UIImage(named: "read", in: UIKitSettings.bundle, compatibleWith: nil)
+            receipt.image = UIImage(named: "message-read", in: UIKitSettings.bundle, compatibleWith: nil)
             timeStamp.text = String().setMessageTime(time: Int(stickerMessage?.readAt ?? 0))
             }else if stickerMessage.deliveredAt > 0 {
-            receipt.image = UIImage(named: "delivered", in: UIKitSettings.bundle, compatibleWith: nil)
+            receipt.image = UIImage(named: "message-delivered", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             timeStamp.text = String().setMessageTime(time: Int(stickerMessage?.deliveredAt ?? 0))
             }else if stickerMessage.sentAt > 0 {
-            receipt.image = UIImage(named: "sent", in: UIKitSettings.bundle, compatibleWith: nil)
+            receipt.image = UIImage(named: "message-sent", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             timeStamp.text = String().setMessageTime(time: Int(stickerMessage?.sentAt ?? 0))
             }else if stickerMessage.sentAt == 0 {
-               receipt.image = UIImage(named: "wait", in: UIKitSettings.bundle, compatibleWith: nil)
+               receipt.image = UIImage(named: "messages-wait", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
                timeStamp.text = "SENDING".localized()
             }
-            if stickerMessage?.replyCount != 0 &&  UIKitSettings.threadedChats == .enabled {
-                replybutton.isHidden = false
-                if stickerMessage?.replyCount == 1 {
-                    replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
-                }else{
-                    if let replies = stickerMessage?.replyCount {
-                        replybutton.setTitle("\(replies) replies", for: .normal)
+            FeatureRestriction.isThreadedMessagesEnabled { (success) in
+                switch success {
+                case .enabled where self.stickerMessage.replyCount != 0 :
+                    self.replybutton.isHidden = false
+                    if self.stickerMessage.replyCount == 1 {
+                        self.replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
+                    }else{
+                        if let replies = self.stickerMessage.replyCount as? Int {
+                            self.replybutton.setTitle("\(replies) replies", for: .normal)
+                        }
                     }
+                case .disabled, .enabled : self.replybutton.isHidden = true
                 }
-            }else{
-                replybutton.isHidden = true
             }
             replybutton.tintColor = UIKitSettings.primaryColor
-            if UIKitSettings.showReadDeliveryReceipts == .disabled {
-                receipt.isHidden = true
-            }else{
-                receipt.isHighlighted = false
+            FeatureRestriction.isDeliveryReceiptsEnabled { (success) in
+                switch success {
+                case .enabled: self.receipt.isHidden = false
+                case .disabled: self.receipt.isHidden = true
+                }
             }
         }
     }

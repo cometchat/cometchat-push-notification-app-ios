@@ -30,6 +30,7 @@ class CometChatConversationListItem: UITableViewCell {
     @IBOutlet weak var unreadBadgeCount: CometChatBadgeCount!
     @IBOutlet weak var read: UIImageView!
     @IBOutlet weak var typing: UILabel!
+    @IBOutlet weak var isThread: UILabel!
     
     // MARK: - Declaration of Variables
     
@@ -44,6 +45,9 @@ class CometChatConversationListItem: UITableViewCell {
     weak var conversation: Conversation? {
         didSet {
             if let currentConversation = conversation {
+
+               
+                unreadBadgeCount.backgroundColor = UIKitSettings.primaryColor
                 switch currentConversation.conversationType {
                 case .user:
                     guard let user =  currentConversation.conversationWith as? User else {
@@ -54,10 +58,11 @@ class CometChatConversationListItem: UITableViewCell {
                     status.isHidden = false
                     status.set(status: user.status)
                     
-                    if UIKitSettings.showUserPresence == .disabled {
-                        status.isHidden = true
-                    }else{
-                        status.isHidden = false
+                    FeatureRestriction.isUserPresenceEnabled { (success) in
+                        switch success {
+                        case .enabled:  self.status.isHidden = false
+                        case .disabled: self.status.isHidden = true
+                        }
                     }
                 case .group:
                     guard let group =  currentConversation.conversationWith as? Group else {
@@ -71,39 +76,116 @@ class CometChatConversationListItem: UITableViewCell {
                 @unknown default:
                     break
                 }
-                
-                let senderName = currentConversation.lastMessage?.sender?.name
-                switch currentConversation.lastMessage!.messageCategory {
-                case .message:
-                    switch currentConversation.lastMessage?.messageType {
-                    case .text where currentConversation.conversationType == .user:
+
+                if let currentMessage = currentConversation.lastMessage {
+                    let senderName = currentMessage.sender?.name
+                    switch currentMessage.messageCategory {
+                    case .message:
                         
-                        if  let text = (currentConversation.lastMessage as? TextMessage)?.text as NSString? {
-                            message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                        if currentMessage.deletedAt > 0.0 {
+                            FeatureRestriction.isHideDeletedMessagesEnabled { (success) in
+                                switch success {
+                                case .enabled:
+                                    self.message.text = ""
+                                case .disabled:
+                                    self.message.text = "THIS_MESSAGE_DELETED".localized()
+                                }
+                            }
+                        }else {
+                            switch currentMessage.messageType {
+                            case .text where currentConversation.conversationType == .user:
+                                
+                                if let textMessage = currentConversation.lastMessage as? TextMessage {
+                                    self.parseProfanityFilter(forMessage: textMessage)
+                                    self.parseMaskedData(forMessage: textMessage)
+                                    self.parseSentimentAnalysis(forMessage: textMessage)
+                                }
+                                
+                            case .text where currentConversation.conversationType == .group:
+                                
+                                if let textMessage = currentConversation.lastMessage as? TextMessage {
+                                    self.parseProfanityFilter(forMessage: textMessage)
+                                    self.parseMaskedData(forMessage: textMessage)
+                                    self.parseSentimentAnalysis(forMessage: textMessage)
+                                }
+                                
+                            case .image where currentConversation.conversationType == .user:
+                                message.text = "MESSAGE_IMAGE".localized()
+                            case .image where currentConversation.conversationType == .group:
+                                message.text = senderName! + ":  " + "MESSAGE_IMAGE".localized()
+                            case .video  where currentConversation.conversationType == .user:
+                                message.text = "MESSAGE_VIDEO".localized()
+                            case .video  where currentConversation.conversationType == .group:
+                                message.text = senderName! + ":  " + "MESSAGE_VIDEO".localized()
+                            case .audio  where currentConversation.conversationType == .user:
+                                message.text = "MESSAGE_AUDIO".localized()
+                            case .audio  where currentConversation.conversationType == .group:
+                                message.text = senderName! + ":  " + "MESSAGE_AUDIO".localized()
+                            case .file  where currentConversation.conversationType == .user:
+                                message.text = "MESSAGE_FILE".localized()
+                            case .file  where currentConversation.conversationType == .group:
+                                message.text = senderName! + ":  " + "MESSAGE_FILE".localized()
+                            case .custom where currentConversation.conversationType == .user:
+                                
+                                if let customMessage = currentConversation.lastMessage as? CustomMessage {
+                                    if customMessage.type == "location" {
+                                        message.text = "CUSTOM_MESSAGE_LOCATION".localized()
+                                    }else if customMessage.type == "extension_poll" {
+                                        message.text = "CUSTOM_MESSAGE_POLL".localized()
+                                    }else if customMessage.type == "extension_sticker" {
+                                        message.text = "CUSTOM_MESSAGE_STICKER".localized()
+                                    }else if customMessage.type == "extension_whiteboard" {
+                                        message.text = "CUSTOM_MESSAGE_WHITEBOARD".localized()
+                                    }else if customMessage.type == "extension_document" {
+                                        message.text = "CUSTOM_MESSAGE_DOCUMENT".localized()
+                                    }else if customMessage.type == "meeting" {
+                                        message.text = "HAS_INITIATED_GROUP_AUDIO_CALL".localized()
+                                    }
+                                    
+                                }else{
+                                    message.text = "CUSTOM_MESSAGE".localized()
+                                }
+                                
+                            case .custom where currentConversation.conversationType == .group:
+                                if let customMessage = currentConversation.lastMessage as? CustomMessage {
+                                    if customMessage.type == "location" {
+                                        message.text = senderName! + ":  " + "CUSTOM_MESSAGE_LOCATION".localized()
+                                    }else if customMessage.type == "extension_poll" {
+                                        message.text = senderName! + ":  " + "CUSTOM_MESSAGE_POLL".localized()
+                                    }else if customMessage.type == "extension_sticker" {
+                                        message.text =  senderName! + ":  " + "CUSTOM_MESSAGE_STICKER".localized()
+                                    }else if customMessage.type == "extension_whiteboard" {
+                                        message.text = senderName! + ":  " + "CUSTOM_MESSAGE_WHITEBOARD".localized()
+                                    }else if customMessage.type == "extension_document" {
+                                        message.text = senderName! + ":  " + "CUSTOM_MESSAGE_DOCUMENT".localized()
+                                    }else if customMessage.type == "meeting" {
+                                        message.text = senderName! + ":  " + "HAS_INITIATED_GROUP_AUDIO_CALL".localized()
+                                    }
+                                }else{
+                                    message.text = senderName! +  ":  " +  "CUSTOM_MESSAGE".localized()
+                                }
+                            case .groupMember, .text, .image, .video,.audio, .file,.custom: break
+                            @unknown default: break
+                            }
                         }
-                        
-                    case .text where currentConversation.conversationType == .group:
-                        
-                        if  let text = senderName! + ":  " + (currentConversation.lastMessage as? TextMessage)!.text as NSString? {
-                            message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                    case .action:
+                        if currentConversation.conversationType == .user {
+                            if  let text = (currentConversation.lastMessage as? ActionMessage)?.message as NSString? {
+                                message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                            }
                         }
-                        
-                    case .image where currentConversation.conversationType == .user:
-                        message.text = "MESSAGE_IMAGE".localized()
-                    case .image where currentConversation.conversationType == .group:
-                        message.text = senderName! + ":  " + "MESSAGE_IMAGE".localized()
-                    case .video  where currentConversation.conversationType == .user:
-                        message.text = "MESSAGE_VIDEO".localized()
-                    case .video  where currentConversation.conversationType == .group:
-                        message.text = senderName! + ":  " + "MESSAGE_VIDEO".localized()
-                    case .audio  where currentConversation.conversationType == .user:
-                        message.text = "MESSAGE_AUDIO".localized()
-                    case .audio  where currentConversation.conversationType == .group:
-                        message.text = senderName! + ":  " + "MESSAGE_AUDIO".localized()
-                    case .file  where currentConversation.conversationType == .user:
-                        message.text = "MESSAGE_FILE".localized()
-                    case .file  where currentConversation.conversationType == .group:
-                        message.text = senderName! + ":  " + "MESSAGE_FILE".localized()
+                        if currentConversation.conversationType == .group {
+                            if  let text = ((currentConversation.lastMessage as? ActionMessage)?.message ?? "") as NSString? {
+                                message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                            }
+                        }
+                        if #available(iOS 13.0, *) {
+                            message.textColor = .label
+                        } else {
+                            message.textColor = .black
+                        }
+                    case .call:
+                        message.text = "HAS_SENT_A_CALL".localized()
                     case .custom where currentConversation.conversationType == .user:
                         
                         if let customMessage = currentConversation.lastMessage as? CustomMessage {
@@ -112,19 +194,16 @@ class CometChatConversationListItem: UITableViewCell {
                             }else if customMessage.type == "extension_poll" {
                                 message.text = "CUSTOM_MESSAGE_POLL".localized()
                             }else if customMessage.type == "extension_sticker" {
-                                message.text = "CUSTOM_MESSAGE_STICKER".localized()
-                            }else if customMessage.type == "extension_whiteboard" {
-                                message.text = "CUSTOM_MESSAGE_WHITEBOARD".localized()
-                            }else if customMessage.type == "extension_document" {
-                                message.text = "CUSTOM_MESSAGE_DOCUMENT".localized()
-                            }else if customMessage.type == "meeting" {
-                                message.text = "HAS_INITIATED_GROUP_AUDIO_CALL".localized()
-                            }
-                            
-                        }else{
-                            message.text = "CUSTOM_MESSAGE".localized()
+                                message.text =   "CUSTOM_MESSAGE_STICKER".localized()
+                           }else if customMessage.type == "extension_whiteboard" {
+                            message.text = "CUSTOM_MESSAGE_WHITEBOARD".localized()
+                        }else if customMessage.type == "extension_document" {
+                            message.text = "CUSTOM_MESSAGE_DOCUMENT".localized()
+                        }else if customMessage.type == "meeting" {
+                            message.text = "HAS_INITIATED_GROUP_AUDIO_CALL".localized()
                         }
-                       
+                        }
+                        
                     case .custom where currentConversation.conversationType == .group:
                         if let customMessage = currentConversation.lastMessage as? CustomMessage {
                             if customMessage.type == "location" {
@@ -140,69 +219,41 @@ class CometChatConversationListItem: UITableViewCell {
                         }else if customMessage.type == "meeting" {
                             message.text = senderName! + ":  " + "HAS_INITIATED_GROUP_AUDIO_CALL".localized()
                         }
-                        }else{
-                            message.text = senderName! +  ":  " +  "CUSTOM_MESSAGE".localized()
                         }
-                    case .groupMember:break
-                    case .none:break
-                    case .some(_):break
-                    }
-                case .action:
-                    if currentConversation.conversationType == .user {
-                        if  let text = (currentConversation.lastMessage as? ActionMessage)?.message as NSString? {
-                            message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
-                        }
-                    }
-                    if currentConversation.conversationType == .group {
-                        if  let text = ((currentConversation.lastMessage as? ActionMessage)?.message ?? "") as NSString? {
-                            message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
-                        }
-                    }
-                case .call:
-                    message.text = "HAS_SENT_A_CALL".localized()
-                case .custom where currentConversation.conversationType == .user:
-                    
-                    if let customMessage = currentConversation.lastMessage as? CustomMessage {
-                        if customMessage.type == "location" {
-                            message.text = "CUSTOM_MESSAGE_LOCATION".localized()
-                        }else if customMessage.type == "extension_poll" {
-                            message.text = "CUSTOM_MESSAGE_POLL".localized()
-                        }else if customMessage.type == "extension_sticker" {
-                            message.text =   "CUSTOM_MESSAGE_STICKER".localized()
-                       }else if customMessage.type == "extension_whiteboard" {
-                        message.text = "CUSTOM_MESSAGE_WHITEBOARD".localized()
-                    }else if customMessage.type == "extension_document" {
-                        message.text = "CUSTOM_MESSAGE_DOCUMENT".localized()
-                    }else if customMessage.type == "meeting" {
-                        message.text = "HAS_INITIATED_GROUP_AUDIO_CALL".localized()
-                    }
+                    @unknown default:
+                        break
                     }
                     
-                case .custom where currentConversation.conversationType == .group:
-                    if let customMessage = currentConversation.lastMessage as? CustomMessage {
-                        if customMessage.type == "location" {
-                            message.text = senderName! + ":  " + "CUSTOM_MESSAGE_LOCATION".localized()
-                        }else if customMessage.type == "extension_poll" {
-                            message.text = senderName! + ":  " + "CUSTOM_MESSAGE_POLL".localized()
-                        }else if customMessage.type == "extension_sticker" {
-                            message.text =  senderName! + ":  " + "CUSTOM_MESSAGE_STICKER".localized()
-                       }else if customMessage.type == "extension_whiteboard" {
-                        message.text = senderName! + ":  " + "CUSTOM_MESSAGE_WHITEBOARD".localized()
-                    }else if customMessage.type == "extension_document" {
-                        message.text = senderName! + ":  " + "CUSTOM_MESSAGE_DOCUMENT".localized()
-                    }else if customMessage.type == "meeting" {
-                        message.text = senderName! + ":  " + "HAS_INITIATED_GROUP_AUDIO_CALL".localized()
+                    if currentMessage.readAt > 0.0  {
+                        read.image = UIImage(named: "message-read", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                        read.isHidden = false
+                        read.tintColor = UIKitSettings.primaryColor
+                    }else if currentMessage.deliveredAt > 0.0  {
+                        read.image = UIImage(named: "message-delivered", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                        read.isHidden = false
+                        read.tintColor = UIKitSettings.secondaryColor
+                    }else if currentMessage.sentAt > 0  {
+                        read.image = UIImage(named: "message-sent", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                        read.isHidden = false
+                        read.tintColor = UIKitSettings.secondaryColor
+                    }else{
+                        read.isHidden = true
                     }
+                    if currentMessage.parentMessageId != 0 {
+                        isThread.isHidden = false
+                    }else {
+                        isThread.isHidden = true
                     }
-                @unknown default:
-                    break
-                }
-                timeStamp.text = String().setConversationsTime(time: Int(currentConversation.updatedAt))
-                if let readAt = currentConversation.lastMessage?.readAt, readAt > 0.0  {
-                    read.isHidden = false
                 }else{
                     read.isHidden = true
                 }
+                if #available(iOS 13.0, *) {
+                    message.textColor = .label
+                } else {
+                    message.textColor = .black
+                }
+                timeStamp.text = String().setConversationsTime(time: Int(currentConversation.updatedAt))
+                
                 unreadBadgeCount.set(count: currentConversation.unreadMessageCount)
             }
         }
@@ -240,6 +291,136 @@ class CometChatConversationListItem: UITableViewCell {
         boldString.addAttributes(boldFontAttribute, range: fullString.range(of: boldPartOfString as String, options: .caseInsensitive))
         return boldString
     }
-}
+
 
 /*  ----------------------------------------------------------------------------------------- */
+
+
+func parseProfanityFilter(forMessage: TextMessage){
+    if let metaData = forMessage.metaData , let injected = metaData["@injected"] as? [String : Any], let cometChatExtension =  injected["extensions"] as? [String : Any], let profanityFilterDictionary = cometChatExtension["profanity-filter"] as? [String : Any] {
+        
+        if let profanity = profanityFilterDictionary["profanity"] as? String, let filteredMessage = profanityFilterDictionary["message_clean"] as? String {
+            
+            if profanity == "yes" {
+                switch forMessage.messageType {
+                case .text where forMessage.receiverType == .user:
+                    
+                    if  let text = filteredMessage as NSString? {
+                        message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                    }
+                    
+                case .text where forMessage.receiverType == .group:
+                    let senderName = forMessage.sender?.name
+                    if  let text = senderName! + ":  " + filteredMessage as NSString? {
+                        message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                    }
+                    
+                case .text, .image, .video, .audio, .file, .custom,.groupMember: break
+                @unknown default: break
+                }
+            }else{
+                switch forMessage.messageType {
+                case .text where forMessage.receiverType == .user:
+                    message.attributedText =  addBoldText(fullString: forMessage.text as NSString, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                case .text where forMessage.receiverType == .group:
+                    let senderName = forMessage.sender?.name
+                    if  let text = senderName! + ":  " + filteredMessage as NSString? {
+                        message.attributedText =  addBoldText(fullString: forMessage.text as NSString, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                    }
+                case .text, .image, .video, .audio, .file, .custom,.groupMember: break
+                }
+            }
+        }else{
+            switch forMessage.messageType {
+            case .text where forMessage.receiverType == .user:
+                message.attributedText =  addBoldText(fullString: forMessage.text as NSString, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+            case .text where forMessage.receiverType == .group:
+                let senderName = forMessage.sender?.name
+                if  let text = senderName! + ":  " + forMessage.text as NSString? {
+                    message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                }
+            case .text, .image, .video, .audio, .file, .custom,.groupMember: break
+            }
+        }
+    }else{
+        switch forMessage.messageType {
+        case .text where forMessage.receiverType == .user:
+            message.attributedText =  addBoldText(fullString: forMessage.text as NSString, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+        case .text where forMessage.receiverType == .group:
+            let senderName = forMessage.sender?.name
+            if  let text = senderName! + ":  " + forMessage.text as NSString? {
+                message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+            }
+        case .text, .image, .video, .audio, .file, .custom,.groupMember: break
+        }
+    }
+}
+
+func parseMaskedData(forMessage: TextMessage){
+ if let metaData = forMessage.metaData , let injected = metaData["@injected"] as? [String : Any], let cometChatExtension =  injected["extensions"] as? [String : Any], let dataMaskingDictionary = cometChatExtension["data-masking"] as? [String : Any] {
+    
+     if let data = dataMaskingDictionary["data"] as? [String:Any], let sensitiveData = data["sensitive_data"] as? String {
+         
+         if sensitiveData == "yes" {
+             if let maskedMessage = data["message_masked"] as? String {
+                
+                switch forMessage.messageType {
+                case .text where forMessage.receiverType == .user:
+                    
+                    if  let text = maskedMessage as NSString? {
+                        message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                    }
+                    
+                case .text where forMessage.receiverType == .group:
+                    let senderName = forMessage.sender?.name
+                    if  let text = senderName! + ":  " + maskedMessage as NSString? {
+                        message.attributedText =  addBoldText(fullString: text, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+                    }
+                    
+                case .text, .image, .video, .audio, .file, .custom,.groupMember: break
+                @unknown default: break
+                }
+            
+             }else{
+                self.parseProfanityFilter(forMessage: forMessage)
+             }
+         }else{
+            self.parseProfanityFilter(forMessage: forMessage)
+         }
+     }else{
+        self.parseProfanityFilter(forMessage: forMessage)
+     }
+ }else{
+    self.parseProfanityFilter(forMessage: forMessage)
+ }
+}
+
+ func parseSentimentAnalysis(forMessage: TextMessage){
+    if let metaData = forMessage.metaData , let injected = metaData["@injected"] as? [String : Any], let cometChatExtension =  injected["extensions"] as? [String : Any], let sentimentAnalysisDictionary = cometChatExtension["sentiment-analysis"] as? [String : Any] {
+        if let sentiment = sentimentAnalysisDictionary["sentiment"] as? String {
+            if sentiment == "negative" {
+               
+                message.attributedText =  addBoldText(fullString: "MAY_CONTAIN_NEGATIVE_SENTIMENT".localized() as NSString, boldPartOfString: searchedText as NSString, font: normalSubtitlefont, boldFont: boldSubtitlefont)
+               
+            }else{
+                self.parseProfanityFilter(forMessage: forMessage)
+                self.parseMaskedData(forMessage: forMessage)
+            }
+        }else{
+            self.parseProfanityFilter(forMessage: forMessage)
+            self.parseMaskedData(forMessage: forMessage)
+        }
+    }else{
+        if #available(iOS 13.0, *) {
+            message.textColor = .label
+        } else {
+            message.textColor = .black
+        }
+        message.font =  UIFont.systemFont(ofSize: 17, weight: .regular)
+      
+        self.parseProfanityFilter(forMessage: forMessage)
+        self.parseMaskedData(forMessage: forMessage)
+    }
+}
+    
+}

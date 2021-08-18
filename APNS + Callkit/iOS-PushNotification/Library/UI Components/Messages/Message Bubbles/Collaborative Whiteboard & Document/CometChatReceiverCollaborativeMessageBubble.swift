@@ -40,7 +40,7 @@ class CometChatReceiverCollaborativeMessageBubble: UITableViewCell {
             return self.selectedBackgroundView?.backgroundColor ?? UIColor.clear
         }
     }
-    var collaborativeType: CollaborativeType = .whiteboard
+    var collaborativeType: WebViewType = .whiteboard
     weak var collaborativeDelegate: CollaborativeDelegate?
     var whiteboardMessage: CustomMessage? {
         didSet {
@@ -59,13 +59,14 @@ class CometChatReceiverCollaborativeMessageBubble: UITableViewCell {
                 nameView.isHidden = true
             }
             joinButton.setTitle("JOIN".localized(), for: .normal)
+            joinButton.tintColor = UIKitSettings.primaryColor
             if let userName = whiteboardMessage.sender?.name {
                 name.text = userName + ":"
                 title.text = "\(userName) " + "HAS_SHARED_WHITEBOARD".localized()
                 if #available(iOS 13.0, *) {
-                    icon.image = UIImage(named: "whiteboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate).withTintColor(.systemGray)
+                    icon.image = UIImage(named: "messages-collaborative-whiteboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate).withTintColor(.systemGray)
                 } else {
-                    icon.image = UIImage(named: "whiteboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    icon.image = UIImage(named: "messages-collaborative-whiteboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
                 }
             }
             icon.tintColor = UIKitSettings.primaryColor
@@ -76,20 +77,28 @@ class CometChatReceiverCollaborativeMessageBubble: UITableViewCell {
             if let avatarURL = whiteboardMessage.sender?.avatar  {
                 avatar.set(image: avatarURL, with: whiteboardMessage.sender?.name ?? "")
             }
-            
-            if whiteboardMessage.replyCount != 0  &&  UIKitSettings.threadedChats == .enabled {
-                replybutton.isHidden = false
-                if whiteboardMessage.replyCount == 1 {
-                    replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
-                }else{
-                    if let replies = whiteboardMessage.replyCount as? Int {
-                        replybutton.setTitle("\(replies) replies", for: .normal)
+                
+                FeatureRestriction.isThreadedMessagesEnabled { (success) in
+                    switch success {
+                    case .enabled where whiteboardMessage.replyCount != 0 :
+                        self.replybutton.isHidden = false
+                        if whiteboardMessage.replyCount == 1 {
+                            self.replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
+                        }else{
+                            if let replies = whiteboardMessage.replyCount as? Int {
+                                self.replybutton.setTitle("\(replies) replies", for: .normal)
+                            }
+                        }
+                    case .disabled, .enabled : self.replybutton.isHidden = true
                     }
                 }
-            }else{
-                replybutton.isHidden = true
-            }
+
             replybutton.tintColor = UIKitSettings.primaryColor
+                if let avatarURL = whiteboardMessage.sender?.avatar  {
+                    avatar.set(image: avatarURL, with: whiteboardMessage.sender?.name ?? "")
+                }else{
+                    avatar.set(image: "", with: whiteboardMessage.sender?.name ?? "")
+                }
             }
         }
     }
@@ -112,35 +121,41 @@ class CometChatReceiverCollaborativeMessageBubble: UITableViewCell {
                 nameView.isHidden = true
             }
             joinButton.setTitle("JOIN".localized(), for: .normal)
+            joinButton.tintColor = UIKitSettings.primaryColor
             if let userName = writeboardMessage.sender?.name {
                 name.text = userName + ":"
                 title.text = "\(userName) " +  "HAS_SHARED_COLLABORATIVE_DOCUMENT".localized()
                 if #available(iOS 13.0, *) {
-                    icon.image = UIImage(named: "writeboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate).withTintColor(.systemGray)
+                    icon.image = UIImage(named: "messages-collaborative-document", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate).withTintColor(.systemGray)
                 } else {
-                    icon.image = UIImage(named: "writeboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    icon.image = UIImage(named: "messages-collaborative-document", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
                 }
             }
             icon.tintColor = UIKitSettings.primaryColor
             joinButton.tintColor = UIKitSettings.primaryColor
                 timeStamp.text = String().setMessageTime(time: Int(writeboardMessage.sentAt))
             
-            if let avatarURL = writeboardMessage.sender?.avatar  {
-                avatar.set(image: avatarURL, with: writeboardMessage.sender?.name ?? "")
-            }
-            
-            if writeboardMessage.replyCount != 0  &&  UIKitSettings.threadedChats == .enabled {
-                replybutton.isHidden = false
-                if writeboardMessage.replyCount == 1 {
-                    replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
+          
+                if let avatarURL = writeboardMessage.sender?.avatar  {
+                    avatar.set(image: avatarURL, with: writeboardMessage.sender?.name ?? "")
                 }else{
-                    if let replies = writeboardMessage.replyCount as? Int{
-                        replybutton.setTitle("\(replies) replies", for: .normal)
+                    avatar.set(image: "", with: writeboardMessage.sender?.name ?? "")
+                }
+            
+                FeatureRestriction.isThreadedMessagesEnabled { (success) in
+                    switch success {
+                    case .enabled where writeboardMessage.replyCount != 0 :
+                        self.replybutton.isHidden = false
+                        if writeboardMessage.replyCount == 1 {
+                            self.replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
+                        }else{
+                            if let replies = writeboardMessage.replyCount as? Int {
+                                self.replybutton.setTitle("\(replies) replies", for: .normal)
+                            }
+                        }
+                    case .disabled, .enabled : self.replybutton.isHidden = true
                     }
                 }
-            }else{
-                replybutton.isHidden = true
-            }
             replybutton.tintColor = UIKitSettings.primaryColor
             }
         }
@@ -162,10 +177,11 @@ class CometChatReceiverCollaborativeMessageBubble: UITableViewCell {
                 name.text = userName + ":"
                 title.text = "\(userName) " + "HAS_SHARED_WHITEBOARD".localized()
                 if #available(iOS 13.0, *) {
-                    icon.image = UIImage(named: "whiteboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate).withTintColor(.systemGray)
+                    icon.image = UIImage(named: "messages-collaborative-whiteboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
                 } else {
-                    icon.image = UIImage(named: "whiteboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                    icon.image = UIImage(named: "messages-collaborative-whiteboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
                 }
+                
             }
             icon.tintColor = UIKitSettings.primaryColor
             joinButton.tintColor = UIKitSettings.primaryColor
@@ -187,6 +203,12 @@ class CometChatReceiverCollaborativeMessageBubble: UITableViewCell {
                  name.text = LoggedInUser.name.capitalized + ":"
             }
             replybutton.isHidden = true
+                
+                if let avatarURL = whiteboardMessageInThread.sender?.avatar  {
+                    avatar.set(image: avatarURL, with: whiteboardMessageInThread.sender?.name ?? "")
+                }else{
+                    avatar.set(image: "", with: whiteboardMessageInThread.sender?.name ?? "")
+                }
             }
         }
     }
@@ -205,12 +227,14 @@ class CometChatReceiverCollaborativeMessageBubble: UITableViewCell {
             if let userName = whiteboardMessageInThread.sender?.name {
                 name.text = userName + ":"
                 title.text = "\(userName) " + "HAS_SHARED_COLLABORATIVE_DOCUMENT".localized()
-                if #available(iOS 13.0, *) {
-                    icon.image = UIImage(named: "writeboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate).withTintColor(.systemGray)
-                } else {
-                    icon.image = UIImage(named: "writeboard", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-                }
+                icon.image = UIImage(named: "messages-collaborative-document", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+                icon.tintColor = UIKitSettings.primaryColor
             }
+                if let avatarURL = writeboardMessageInThread?.sender?.avatar  {
+                    avatar.set(image: avatarURL, with: writeboardMessageInThread?.sender?.name ?? "")
+                }else{
+                    avatar.set(image: "", with: whiteboardMessageInThread.sender?.name ?? "")
+                }
             icon.tintColor = UIKitSettings.primaryColor
             joinButton.tintColor = UIKitSettings.primaryColor
             if whiteboardMessageInThread.sentAt == 0 {
