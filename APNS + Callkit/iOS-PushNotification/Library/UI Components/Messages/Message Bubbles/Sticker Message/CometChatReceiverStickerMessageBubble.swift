@@ -49,27 +49,34 @@ class CometChatReceiverStickerMessageBubble: UITableViewCell {
             }else {
                 nameView.isHidden = true
             }
-            if let url = URL(string: stickerMessage.customData?["stickerUrl"] as? String ?? "") {
+            print("stickerMessage: \(stickerMessage.stringValue())")
+            if let url = URL(string: stickerMessage.customData?["sticker_url"] as? String ?? "") {
                 imageMessage.cf.setImage(with: url, placeholder: UIImage(named: "default-image.png", in: UIKitSettings.bundle, compatibleWith: nil))
+            }else{
+                imageMessage.image = UIImage(named: "default-image.png", in: UIKitSettings.bundle, compatibleWith: nil)
             }
             self.receiptStack.isHidden = true
             timeStamp.text = String().setMessageTime(time: stickerMessage.sentAt)
+       
             if let avatarURL = stickerMessage.sender?.avatar  {
                 avatar.set(image: avatarURL, with: stickerMessage.sender?.name ?? "")
+            }else{
+                avatar.set(image: "", with: stickerMessage.sender?.name ?? "")
             }
            
-            if stickerMessage.replyCount != 0 &&  UIKitSettings.threadedChats == .enabled {
-                
-                replyButton.isHidden = false
-                if stickerMessage?.replyCount == 1 {
-                    replyButton.setTitle("ONE_REPLY".localized(), for: .normal)
-                }else{
-                    if let replies = stickerMessage?.replyCount {
-                        replyButton.setTitle("\(replies) replies", for: .normal)
+            FeatureRestriction.isThreadedMessagesEnabled { (success) in
+                switch success {
+                case .enabled where self.stickerMessage.replyCount != 0 :
+                    self.replyButton.isHidden = false
+                    if self.stickerMessage.replyCount == 1 {
+                        self.replyButton.setTitle("ONE_REPLY".localized(), for: .normal)
+                    }else{
+                        if let replies = self.stickerMessage.replyCount as? Int {
+                            self.replyButton.setTitle("\(replies) replies", for: .normal)
+                        }
                     }
+                case .disabled, .enabled : self.replyButton.isHidden = true
                 }
-            }else{
-                replyButton.isHidden = true
             }
             replyButton.tintColor = UIKitSettings.primaryColor
             self.reactionView.parseMessageReactionForMessage(message: stickerMessage) { (success) in
@@ -85,7 +92,7 @@ class CometChatReceiverStickerMessageBubble: UITableViewCell {
     var stickerMessageInThread: CustomMessage! {
         didSet {
             receiptStack.isHidden = true
-            if let url = URL(string: stickerMessage.customData?["stickerUrl"] as? String ?? "") {
+            if let url = URL(string: stickerMessage.customData?["sticker_url"] as? String ?? "") {
                 imageMessage.cf.setImage(with: url, placeholder: UIImage(named: "default-image.png", in: UIKitSettings.bundle, compatibleWith: nil))
             }
             if stickerMessageInThread.sentAt == 0 {
@@ -105,6 +112,12 @@ class CometChatReceiverStickerMessageBubble: UITableViewCell {
                  name.text = LoggedInUser.name.capitalized + ":"
             }
             replyButton.isHidden = true
+            if let avatarURL = stickerMessageInThread.sender?.avatar  {
+                avatar.set(image: avatarURL, with: stickerMessageInThread.sender?.name ?? "")
+            }else{
+                avatar.set(image: "", with: stickerMessageInThread.sender?.name ?? "")
+            }
+           
         }
     }
     

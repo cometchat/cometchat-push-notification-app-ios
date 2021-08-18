@@ -16,7 +16,7 @@ class CometChatMeetingView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("CometChatMeetingView viewDidLoad")
+     
         
     }
     
@@ -40,34 +40,40 @@ class CometChatMeetingView: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
 
-                let callSettings = CallSettings.CallSettingsBuilder(callView: strongSelf.customView, sessionId: sessionID).setAudioOnlyCall(audioOnly: false).build()
+                let callSettings = CallSettings.CallSettingsBuilder(callView: strongSelf.customView, sessionId: sessionID).setAudioOnlyCall(audioOnly: false).startWithAudioMuted(audioMuted: false).build()
                 
-                CometChat.startCall(callSettings: callSettings, userJoined: { (userJoined) in
+                CometChat.startCall(callSettings: callSettings, onUserJoined: { (userJoined) in
                     DispatchQueue.main.async {
                         if let name = userJoined?.name {
                             let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "\(name) " + "JOINED".localized(), duration: .short)
                             snackbar.show()
                         }
                     }
-                }, userLeft: { (userLeft) in
+                }, onUserLeft: { (userLeft) in
                     DispatchQueue.main.async {
                         if let name = userLeft?.name {
                             let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "\(name) " + "LEFT_THE_CALL".localized(), duration: .short)
                             snackbar.show()
                         }
                     }
+                    
+                },onUserListUpdated: {(userListUpdated) in
+                    
+                }, onAudioModesUpdated: {(userListUpdated) in
+                    
                 }, onError: { (error) in
+
                     DispatchQueue.main.async {
-                        
-                        strongSelf.dismiss(animated: true, completion: nil)
-                        let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "Unable to start call.", duration: .short)
-                        snackbar.show()
+                        if let error = error {
+                            CometChatSnackBoard.showErrorMessage(for: error)
+                        }
                     }
+
                 }) { (ended) in
                     DispatchQueue.main.async {
-                        strongSelf.dismiss(animated: true, completion: nil)
-                        let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "CALL_ENDED".localized(), duration: .short)
-                        snackbar.show()
+                        strongSelf.dismiss(animated: true) {
+                            CometChatSnackBoard.display(message: "CALL_ENDED".localized(), mode: .info, duration: .short)
+                        }
                     }
                 }
             }
@@ -75,37 +81,45 @@ class CometChatMeetingView: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
                 
-                let callSettings = CallSettings.CallSettingsBuilder(callView: strongSelf.customView, sessionId: sessionID).setAudioOnlyCall(audioOnly: false).build()
+                let callSettings = CallSettings.CallSettingsBuilder(callView: strongSelf.customView, sessionId: sessionID).setAudioOnlyCall(audioOnly: false).startWithVideoMuted(videoMuted: false).startWithAudioMuted(audioMuted: false).build()
                 
-                CometChat.startCall(callSettings: callSettings, userJoined: { (userJoined) in
+                CometChat.startCall(callSettings: callSettings, onUserJoined: { (userJoined) in
                     DispatchQueue.main.async {
                         if let name = userJoined?.name {
                             let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "\(name) " + "JOINED".localized(), duration: .short)
                             snackbar.show()
                         }
                     }
-                }, userLeft: { (userLeft) in
+                }, onUserLeft: { (userLeft) in
                     DispatchQueue.main.async {
                         if let name = userLeft?.name {
                             let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "\(name) " + "LEFT_THE_CALL".localized(), duration: .short)
                             snackbar.show()
                         }
                     }
+                }, onUserListUpdated: {(userListUpdated) in
+                    
+                    
+                }, onAudioModesUpdated: {(audioModesUpdated) in
+
+                
                 }, onError: { (error) in
+
                     DispatchQueue.main.async {
-                        
                         strongSelf.view.removeFromSuperview()
                         strongSelf.dismiss(animated: true, completion: nil)
-                        let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "Unable to start call.", duration: .short)
-                        snackbar.show()
+                        if let error = error {
+                            CometChatSnackBoard.showErrorMessage(for: error)
+                        }
                     }
                 }) { (callEnded) in
                     DispatchQueue.main.async {
                        
                         strongSelf.view.removeFromSuperview()
-                        strongSelf.dismiss(animated: true, completion: nil)
-                        let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "CALL_ENDED".localized(), duration: .short)
-                        snackbar.show()
+                        
+                            strongSelf.dismiss(animated: true) {
+                                CometChatSnackBoard.display(message: "CALL_ENDED".localized(), mode: .info, duration: .short)
+                            }
                     }
                 }
             }

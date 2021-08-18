@@ -66,19 +66,19 @@ public enum Controller : String {
         groups.viewControllers = [groupList]
         more.viewControllers = [userInfo]
       
-        conversations.tabBarItem.image = UIImage(named: "chats.png", in: UIKitSettings.bundle, compatibleWith: nil)
+        conversations.tabBarItem.image = UIImage(named: "cometchatui-chats.png", in: UIKitSettings.bundle, compatibleWith: nil)
         conversations.tabBarItem.title = "CHATS".localized()
         
-        calls.tabBarItem.image = UIImage(named:"calls", in: UIKitSettings.bundle, compatibleWith: nil)
+        calls.tabBarItem.image = UIImage(named:"cometchatui-calls", in: UIKitSettings.bundle, compatibleWith: nil)
         calls.tabBarItem.title = "CALLS".localized()
         
-        users.tabBarItem.image = UIImage(named:"contacts", in: UIKitSettings.bundle, compatibleWith: nil)
+        users.tabBarItem.image = UIImage(named:"cometchatui-users", in: UIKitSettings.bundle, compatibleWith: nil)
         users.tabBarItem.title = "USERS".localized()
         
-        groups.tabBarItem.image = UIImage(named:"groups", in: UIKitSettings.bundle, compatibleWith: nil)
+        groups.tabBarItem.image = UIImage(named:"cometchatui-groups", in: UIKitSettings.bundle, compatibleWith: nil)
         groups.tabBarItem.title = "GROUPS".localized()
         
-        more.tabBarItem.image = UIImage(named:"more", in: UIKitSettings.bundle, compatibleWith: nil)
+        more.tabBarItem.image = UIImage(named:"cometchatui-more", in: UIKitSettings.bundle, compatibleWith: nil)
         more.tabBarItem.title = "MORE".localized()
         
      
@@ -90,8 +90,8 @@ public enum Controller : String {
         groupList.set(title: "GROUPS".localized(), mode: .automatic)
         userInfo.set(title: "MORE".localized(), mode: .automatic)
         
-        let color = UIKitSettings.primaryColor
-        self.tabBar.tintColor = color
+        self.tabBar.tintColor = UIKitSettings.primaryColor
+        self.tabBar.unselectedItemTintColor = UIKitSettings.secondaryColor
         
         
 //        Assigning Calling Delegate
@@ -117,24 +117,39 @@ public enum Controller : String {
 
         for tab in UIKitSettings.tabs {
             
-            if tab == .chats && UIKitSettings.conversations == .enabled {
-                controllers.append(conversations)
+            FeatureRestriction.isRecentChatListEnabled { (success) in
+                switch success {
+                case .enabled where tab == .chats: controllers.append(self.conversations)
+                case .disabled, .enabled: break
+                }
             }
             
-            if tab == .calls && UIKitSettings.calls == .enabled {
-                controllers.append(calls)
+            FeatureRestriction.isCallListEnabled { (success) in
+                switch success {
+                case .enabled where tab == .calls: controllers.append(self.calls)
+                case .disabled, .enabled: break
+                }
             }
             
-            if tab == .groups && UIKitSettings.groups == .enabled {
-                controllers.append(groups)
+            FeatureRestriction.isUserListEnabled { (success) in
+                switch success {
+                case .enabled where tab == .users: controllers.append(self.users)
+                case .disabled, .enabled: break
+                }
             }
             
-            if tab == .users && UIKitSettings.users == .enabled {
-                controllers.append(users)
+            FeatureRestriction.isGroupListEnabled { (success) in
+                switch success {
+                case .enabled where tab == .groups: controllers.append(self.groups)
+                case .disabled, .enabled: break
+                }
             }
-            
-            if tab == .settings && UIKitSettings.userSettings == .enabled {
-                controllers.append(more)
+
+            FeatureRestriction.isUserSettingsEnabled { (success) in
+                switch success {
+                case .enabled where tab == .settings: controllers.append(self.more)
+                case .disabled, .enabled: break
+                }
             }
         }
         

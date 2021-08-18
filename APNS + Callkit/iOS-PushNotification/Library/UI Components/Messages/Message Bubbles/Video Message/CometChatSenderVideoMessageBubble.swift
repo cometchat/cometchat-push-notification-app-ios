@@ -24,10 +24,12 @@ class CometChatSenderVideoMessageBubble: UITableViewCell {
     @IBOutlet weak var activityIndicator: CCActivityIndicator!
     @IBOutlet weak var receipt: UIImageView!
     @IBOutlet weak var receiptStack: UIStackView!
+    @IBOutlet weak var videoView: UIView!
     
     
     // MARK: - Declaration of Variables
     var indexPath: IndexPath?
+    weak var mediaDelegate: MediaDelegate?
     var selectionColor: UIColor {
         set {
             let view = UIView()
@@ -59,47 +61,65 @@ class CometChatSenderVideoMessageBubble: UITableViewCell {
                 timeStamp.text = String().setMessageTime(time: mediaMessage.sentAt)
             }
             if mediaMessage.readAt > 0 {
-            receipt.image = UIImage(named: "read", in: UIKitSettings.bundle, compatibleWith: nil)
+            receipt.image = UIImage(named: "message-read", in: UIKitSettings.bundle, compatibleWith: nil)
             timeStamp.text = String().setMessageTime(time: Int(mediaMessage?.readAt ?? 0))
             }else if mediaMessage.deliveredAt > 0 {
-            receipt.image = UIImage(named: "delivered", in: UIKitSettings.bundle, compatibleWith: nil)
+            receipt.image = UIImage(named: "message-delivered", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             timeStamp.text = String().setMessageTime(time: Int(mediaMessage?.deliveredAt ?? 0))
             }else if mediaMessage.sentAt > 0 {
-            receipt.image = UIImage(named: "sent", in: UIKitSettings.bundle, compatibleWith: nil)
+            receipt.image = UIImage(named: "message-sent", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
             timeStamp.text = String().setMessageTime(time: Int(mediaMessage?.sentAt ?? 0))
             }else if mediaMessage.sentAt == 0 {
-               receipt.image = UIImage(named: "wait", in: UIKitSettings.bundle, compatibleWith: nil)
+               receipt.image = UIImage(named: "messages-wait", in: UIKitSettings.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
                timeStamp.text = "SENDING".localized()
             }
             parseThumbnailForVideo(forMessage: mediaMessage)
            
-            if mediaMessage?.replyCount != 0 &&  UIKitSettings.threadedChats == .enabled {
-                  replybutton.isHidden = false
-                if mediaMessage?.replyCount == 1 {
-                    replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
-                }else{
-                    if let replies = mediaMessage?.replyCount {
-                        replybutton.setTitle("\(replies) replies", for: .normal)
+            FeatureRestriction.isThreadedMessagesEnabled { (success) in
+                switch success {
+                case .enabled where self.mediaMessage.replyCount != 0 :
+                    self.replybutton.isHidden = false
+                    if self.mediaMessage.replyCount == 1 {
+                        self.replybutton.setTitle("ONE_REPLY".localized(), for: .normal)
+                    }else{
+                        if let replies = self.mediaMessage.replyCount as? Int {
+                            self.replybutton.setTitle("\(replies) replies", for: .normal)
+                        }
                     }
+                case .disabled, .enabled : self.replybutton.isHidden = true
                 }
-            }else{
-                replybutton.isHidden = true
             }
             replybutton.tintColor = UIKitSettings.primaryColor
-            if UIKitSettings.showReadDeliveryReceipts == .disabled {
-                receipt.isHidden = true
-            }else{
-                receipt.isHighlighted = false
+            FeatureRestriction.isDeliveryReceiptsEnabled { (success) in
+                switch success {
+                case .enabled: self.receipt.isHidden = false
+                case .disabled: self.receipt.isHidden = true
+                }
             }
+            let tapOnVideoMessage = UITapGestureRecognizer(target: self, action: #selector(self.didVideoMessagePressed(tapGestureRecognizer:)))
+            self.imageMessage.isUserInteractionEnabled = true
+            self.imageMessage.addGestureRecognizer(tapOnVideoMessage)
+            self.videoView.isUserInteractionEnabled = true
+            self.videoView.addGestureRecognizer(tapOnVideoMessage)
         }
     }
     
      // MARK: - Initialization of required Methods
     @IBAction func didReplyButtonPressed(_ sender: Any) {
+        
         if let message = mediaMessage, let indexpath = indexPath {
             CometChatThreadedMessageList.threadDelegate?.startThread(forMessage: message, indexPath: indexpath)
         }
 
+    }
+    
+    @IBAction func didPlayButtonPressed(_ sender: Any) {
+        mediaDelegate?.didOpenMedia(forMessage: mediaMessage, cell: self)
+    }
+    
+    @objc func didVideoMessagePressed(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        mediaDelegate?.didOpenMedia(forMessage: mediaMessage, cell: self)
     }
     
     override func awakeFromNib() {

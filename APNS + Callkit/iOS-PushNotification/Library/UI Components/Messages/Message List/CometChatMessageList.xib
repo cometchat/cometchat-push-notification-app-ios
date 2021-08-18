@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -48,8 +48,15 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A6q-xQ-QZJ">
+                    <rect key="frame" x="0.0" y="44" width="414" height="1"/>
+                    <color key="backgroundColor" systemColor="systemFillColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="KlU-Xy-aVW"/>
+                    </constraints>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NJW-Ea-LuH">
-                    <rect key="frame" x="0.0" y="44" width="414" height="778"/>
+                    <rect key="frame" x="0.0" y="45" width="414" height="777"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBg-nj-c30" customClass="CometChatSmartRepliesPreview" customModule="CometChat_KitchenSink" customModuleProvider="target">
@@ -135,7 +142,7 @@
                                 <constraint firstAttribute="height" constant="30" id="W2q-Jf-aDb"/>
                             </constraints>
                             <color key="tintColor" systemColor="labelColor"/>
-                            <state key="normal" image="add.png"/>
+                            <state key="normal" image="add-circle-filled.png"/>
                             <connections>
                                 <action selector="attachmentButtonPressed:" destination="qtD-Ii-Ra0" eventType="touchUpInside" id="YnM-yp-UgL"/>
                             </connections>
@@ -154,7 +161,7 @@
                                         <constraint firstAttribute="height" constant="30" id="QxO-ZB-uZF"/>
                                         <constraint firstAttribute="width" constant="30" id="xcz-b6-plt"/>
                                     </constraints>
-                                    <state key="normal" image="send.png"/>
+                                    <state key="normal" image="send-message-filled.png"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="setCornerRadius">
                                             <real key="value" value="0.0"/>
@@ -170,7 +177,7 @@
                                         <constraint firstAttribute="height" constant="30" id="feW-Wk-mbS"/>
                                         <constraint firstAttribute="width" constant="30" id="rbY-gS-HLR"/>
                                     </constraints>
-                                    <state key="normal" image="microphone.png"/>
+                                    <state key="normal" image="microphone-circle.png"/>
                                     <connections>
                                         <action selector="microphoneButtonPressed:" destination="qtD-Ii-Ra0" eventType="touchUpInside" id="t9S-lY-hju"/>
                                     </connections>
@@ -263,7 +270,7 @@
                                 <constraint firstAttribute="height" constant="30" id="jnH-JS-cTG"/>
                             </constraints>
                             <color key="tintColor" systemColor="labelColor"/>
-                            <state key="normal" image="delete.png"/>
+                            <state key="normal" image="messages-delete.png"/>
                             <connections>
                                 <action selector="didAudioNoteDeletePressed:" destination="-1" eventType="touchUpInside" id="zKz-mL-iwA"/>
                             </connections>
@@ -291,7 +298,7 @@
                                 <constraint firstAttribute="height" constant="22" id="Ed2-IC-H4Q"/>
                                 <constraint firstAttribute="width" constant="22" id="Zz6-0j-Nmf"/>
                             </constraints>
-                            <state key="normal" image="close.png"/>
+                            <state key="normal" image="messages-close-circle.png"/>
                             <connections>
                                 <action selector="didCancelButtonPressed:" destination="-1" eventType="touchUpInside" id="02V-mu-XTj"/>
                             </connections>
@@ -362,7 +369,7 @@
                                         <constraint firstAttribute="width" constant="35" id="EaC-Vf-FEr"/>
                                         <constraint firstAttribute="height" constant="35" id="ldt-Me-50g"/>
                                     </constraints>
-                                    <state key="normal" image="send.png"/>
+                                    <state key="normal" image="send-message-filled.png"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="setCornerRadius">
                                             <real key="value" value="12"/>
@@ -469,11 +476,13 @@
                 <constraint firstItem="qtD-Ii-Ra0" firstAttribute="top" secondItem="NJW-Ea-LuH" secondAttribute="bottom" id="7Ky-Cy-erG"/>
                 <constraint firstItem="qtD-Ii-Ra0" firstAttribute="top" secondItem="XBg-nj-c30" secondAttribute="bottom" id="BU0-tB-CyU"/>
                 <constraint firstItem="aOW-hx-amp" firstAttribute="leading" secondItem="qtD-Ii-Ra0" secondAttribute="leading" id="CDN-1W-6Hz"/>
+                <constraint firstItem="A6q-xQ-QZJ" firstAttribute="top" secondItem="Xbf-dS-u0p" secondAttribute="top" id="CHZ-RO-0JY"/>
                 <constraint firstItem="Lza-5y-AJY" firstAttribute="bottom" secondItem="3kv-Cr-K8Y" secondAttribute="bottom" id="HT3-qi-tuX"/>
                 <constraint firstItem="NJW-Ea-LuH" firstAttribute="leading" secondItem="Xbf-dS-u0p" secondAttribute="leading" id="IsU-kH-itm"/>
                 <constraint firstItem="Xbf-dS-u0p" firstAttribute="trailing" secondItem="nLo-uN-P4v" secondAttribute="trailing" constant="10" id="Izv-fB-Cfi"/>
                 <constraint firstItem="r85-EN-byq" firstAttribute="leading" secondItem="Xbf-dS-u0p" secondAttribute="leading" id="KjT-1T-u0O"/>
                 <constraint firstItem="Xbf-dS-u0p" firstAttribute="trailing" secondItem="Lza-5y-AJY" secondAttribute="trailing" constant="5" id="LCn-HP-MeK"/>
+                <constraint firstItem="Xbf-dS-u0p" firstAttribute="trailing" secondItem="A6q-xQ-QZJ" secondAttribute="trailing" id="MML-f2-7fM"/>
                 <constraint firstItem="XBg-nj-c30" firstAttribute="top" secondItem="fmw-KX-M2d" secondAttribute="top" id="OYG-nW-ljo"/>
                 <constraint firstItem="NJW-Ea-LuH" firstAttribute="trailing" secondItem="Xbf-dS-u0p" secondAttribute="trailing" id="QSD-IC-yOw"/>
                 <constraint firstItem="qtD-Ii-Ra0" firstAttribute="top" secondItem="nLo-uN-P4v" secondAttribute="bottom" constant="20" id="Qbb-nf-u9q"/>
@@ -487,19 +496,20 @@
                 <constraint firstItem="XBg-nj-c30" firstAttribute="leading" secondItem="Xbf-dS-u0p" secondAttribute="leading" id="fZE-K5-4T0"/>
                 <constraint firstItem="Xbf-dS-u0p" firstAttribute="trailing" secondItem="NJW-Ea-LuH" secondAttribute="trailing" id="hQL-nV-Pyk"/>
                 <constraint firstItem="XBg-nj-c30" firstAttribute="trailing" secondItem="Xbf-dS-u0p" secondAttribute="trailing" id="pQM-Nn-vvz"/>
-                <constraint firstItem="NJW-Ea-LuH" firstAttribute="top" secondItem="Xbf-dS-u0p" secondAttribute="top" id="wrc-lP-s5r"/>
+                <constraint firstItem="A6q-xQ-QZJ" firstAttribute="leading" secondItem="Xbf-dS-u0p" secondAttribute="leading" id="qEo-8y-RXe"/>
+                <constraint firstItem="NJW-Ea-LuH" firstAttribute="top" secondItem="A6q-xQ-QZJ" secondAttribute="bottom" id="thg-rc-uEQ"/>
             </constraints>
             <point key="canvasLocation" x="186.95652173913044" y="-544.41964285714278"/>
         </view>
     </objects>
     <resources>
-        <image name="add.png" width="29" height="30"/>
-        <image name="close.png" width="16" height="16"/>
-        <image name="delete.png" width="24" height="24"/>
+        <image name="add-circle-filled.png" width="24" height="24"/>
         <image name="heart.png" width="30" height="25"/>
-        <image name="microphone.png" width="29" height="30"/>
+        <image name="messages-close-circle.png" width="24" height="24"/>
+        <image name="messages-delete.png" width="24" height="24"/>
+        <image name="microphone-circle.png" width="24" height="24"/>
         <image name="pause.fill" catalog="system" width="116" height="128"/>
-        <image name="send.png" width="30" height="31"/>
+        <image name="send-message-filled.png" width="24" height="24"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
