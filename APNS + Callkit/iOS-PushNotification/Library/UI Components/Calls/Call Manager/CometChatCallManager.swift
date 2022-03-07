@@ -9,6 +9,7 @@ import Foundation
 import  UIKit
 import  AVFoundation
 import CometChatPro
+import CallKit
 
 /*  ----------------------------------------------------------------------------------------- */
 
@@ -20,7 +21,6 @@ import CometChatPro
     @objc public static weak var outgoingCallDelegate: OutgoingCallDelegate?
     
     
-    
    /**
     This method register all real time events needs to be perform for calls.
      - Parameter application: This specifies an application class.
@@ -29,6 +29,27 @@ import CometChatPro
     */
     @objc public func registerForCalls(application: UIResponder){
         CometChat.calldelegate = application as? CometChatCallDelegate
+    }
+    
+    @objc public func startCall(call: Call){
+        let activeCall = CometChatCall()
+        activeCall.call = call
+        activeCall.modalPresentationStyle = .fullScreen
+        if let window = UIApplication.shared.windows.first , let rootViewController = window.rootViewController {
+            var currentController = rootViewController
+            while let presentedController = currentController.presentedViewController {
+                currentController = presentedController
+            }
+            currentController.present(activeCall, animated: true, completion: nil)
+        }
+    }
+    
+    @objc public func reject(call: Call){
+        CometChat.rejectCall(sessionID: call.sessionID ?? "", status: .rejected) { rejectedCall in
+            print("rejectedCall success: \(rejectedCall)")
+        } onError: { error in
+            print("rejectedCall error: \(error)")
+        }
     }
     
     
@@ -126,7 +147,6 @@ extension AppDelegate : CometChatCallDelegate {
                 }
             }
         }
-
     }
 
     /**

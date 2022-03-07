@@ -14,20 +14,34 @@ import CallKit
 import AudioToolbox
 import AVKit
 
+
+struct ActiveCall {
+   let uuid = UUID()
+   var call: Call
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var blockedUsersArray = [String]()
-    let manager = CallManager()
     let blockedUserRequest = BlockedUserRequest.BlockedUserRequestBuilder(limit: 100).build();
+
+    
     private let callController = CXCallController()
+    let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
+    var provider: CXProvider? = nil
+    var activeCall: ActiveCall? = nil
+    var timeout: DispatchTime = .now() + 20.0
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        self.initialization()
-        self.voipRegistration()
-    
+        initialization()
+        registerForPushNotifications(application: application)
+        registerForVoIP()
+        
+        CometChatCallManager().registerForCalls(application: self)
+        
         if CometChat.getLoggedInUser() != nil {
             self.window = UIWindow(frame: UIScreen.main.bounds)
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -46,7 +60,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.makeKeyAndVisible()
             getBlockedUser()
         }
-           
+
+        // [END register_for_notifications]
+        return true
+    }
+    
+    private func initialization(){
+        
+        let appSettings = AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(region: Constants.region).build()
+        
+        CometChat.init(appId: Constants.appId, appSettings: appSettings, onSuccess: { (Success) in
+            print("initialization Success: \(Success)")
+            
+        }) { (error) in
+            print( "Initialization Error \(error.errorDescription)")
+        }
+    }
+    
+    private func registerForPushNotifications(application: UIApplication) {
         // [START register_for_notifications]
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
@@ -63,26 +94,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerForRemoteNotifications()
 
-        // [END register_for_notifications]
-        return true
     }
     
-    private func initialization(){
-        
-        let appSettings = AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(region: Constants.region).build()
-        
-        CometChat.init(appId: Constants.appID, appSettings: appSettings, onSuccess: { (Success) in
-            print("initialization Success: \(Success)")
-            
-        }) { (error) in
-            print( "Initialization Error \(error.errorDescription)")
-        }
-    }
-    
-    private func voipRegistration() {
-        // Create a push registry object
-        let mainQueue = DispatchQueue.main
-        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
+    private func registerForVoIP() {
         voipRegistry.delegate = self
         voipRegistry.desiredPushTypes = [PKPushType.voIP]
     }
@@ -93,12 +107,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // [START receive_message]
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) { }
     
-//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-//                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-//       
-//        completionHandler(UIBackgroundFetchResult.newData)
-//    }
-
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print( "Unable to register for remote notifications: \(error.localizedDescription)")
     }
@@ -148,24 +156,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         
     }
-    
-    func presentCall(){
-        DispatchQueue.main.async {
-            if let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "incomingCall") as? IncomingCall {
-                if let window = self.window, let rootViewController = window.rootViewController {
-                    var currentController = rootViewController
-                    while let presentedController = currentController.presentedViewController {
-                        currentController = presentedController
-                    }
-                    controller.modalPresentationStyle = .custom
-                    currentController.present(controller, animated: true, completion: nil)
-                }
-            }
-        }
-        
-        
-    }
-    
     
 }
 
@@ -230,10 +220,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         completionHandler()
       }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceivent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("willPresent notification: \(notification.request.content.userInfo)")
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    }
+   
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         if let userInfo = notification.request.content.userInfo as? [String : Any], let messageObject =
             userInfo["message"], let dict = messageObject as? [String : Any] {
@@ -278,7 +268,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                   
                   }
         completionHandler([.alert, .badge, .sound])
+        
+        
     }
+    
 }
 
 // -------------------------------------------------------------------------------------------------------------//
@@ -290,7 +283,7 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
     func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
         print("didUpdate : \(pushCredentials)")
         let deviceToken = pushCredentials.token.reduce("", {$0 + String(format: "%02X", $1) })
-            print("voip token is: \(deviceToken)")
+        print("voip token is: \(deviceToken)")
         UserDefaults.standard.set(deviceToken, forKey: "voipToken")
         CometChat.registerTokenForPushNotification(token: deviceToken, settings: ["voip":true]) { (success) in
             print("registerTokenForPushNotification voip: \(success)")
@@ -304,6 +297,7 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
         
         print("didReceiveIncomingPushWith : \(payload.dictionaryPayload)")
         
+        
         if let userInfo = payload.dictionaryPayload as? [String : Any], let messageObject =
             userInfo["message"], let dict = messageObject as? [String : Any] {
 
@@ -313,95 +307,34 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
                           case .action: break
                           case .call:
                             if let call = baseMessage as? Call {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didReceivedIncomingCall"), object: nil, userInfo: ["call":call])
-                                }
-                                switch call.callType {
+                              
+                                let activeCall = ActiveCall(call: call)
+                                self.activeCall = activeCall
+
+                                  if let name = (call.sender)?.name {
+                                      let config = CXProviderConfiguration(localizedName: "APNS + Callkit")
+                                      config.iconTemplateImageData = #imageLiteral(resourceName: "cometchat_white").pngData()
+                                      config.includesCallsInRecents = false
+                                      config.ringtoneSound = "ringtone.caf"
+                                      config.supportsVideo = true
+                                      provider = CXProvider(configuration: config)
+                                      provider?.setDelegate(self, queue: nil)
+                                      let update = CXCallUpdate()
+                                      update.remoteHandle = CXHandle(type: .generic, value: name.capitalized)
+                                      if call.callType == .video {
+                                          update.hasVideo = true
+                                      }else{
+                                          update.hasVideo = false
+                                      }
+                                      provider?.reportNewIncomingCall(with: activeCall.uuid, update: update, completion: { error in
+                                          if error == nil {
+                                              self.configureAudioSession()
+                                          }
+                                     })
+                                  }
                                
-                                case .audio where call.receiverType == .user:
-                                    if let name = (call.sender)?.name {
-                                        let config = CXProviderConfiguration(localizedName: "")
-                                        config.iconTemplateImageData = #imageLiteral(resourceName: "cometchat_white").pngData()
-                                        config.includesCallsInRecents = false
-                                        config.ringtoneSound = "ringtone.caf"
-                                        config.supportsVideo = false
-                                        let provider = CXProvider(configuration: config)
-                                        provider.setDelegate(self, queue: nil)
-                                        let update = CXCallUpdate()
-                                        update.remoteHandle = CXHandle(type: .generic, value: name)
-                                        update.hasVideo = false
-                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in
-                                            if error == nil {
-                                                self.configureAudioSession()
-                                            }
-                                        })
-                                    }
-                                    
-                                case .audio where call.receiverType == .group:
-                                    if let group = (call.receiver as? Group)?.name {
-                                        let config = CXProviderConfiguration(localizedName: "APNS + Callkit")
-                                        config.iconTemplateImageData = #imageLiteral(resourceName: "cometchat_white").pngData()
-                                        config.includesCallsInRecents = false
-                                        config.ringtoneSound = "ringtone.caf"
-                                        config.supportsVideo = false
-                                        let provider = CXProvider(configuration: config)
-                                        provider.setDelegate(self, queue: nil)
-                                        let update = CXCallUpdate()
-                                        update.remoteHandle = CXHandle(type: .generic, value: group)
-                                        update.hasVideo = false
-                                        
-                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in
-                                            if error == nil {
-                                                self.configureAudioSession()
-                                            }
-                                        })
-                                    }
-                                    
-                                case .video where call.receiverType == .user:
-                                    if let name = (call.sender)?.name {
-                                        let config = CXProviderConfiguration(localizedName: "APNS + Callkit")
-                                        config.iconTemplateImageData = #imageLiteral(resourceName: "cometchat_white").pngData()
-                                        config.includesCallsInRecents = false
-                                        config.ringtoneSound = "ringtone.caf"
-                                        config.supportsVideo = true
-                                        let provider = CXProvider(configuration: config)
-                                        provider.setDelegate(self, queue: nil)
-                                        let update = CXCallUpdate()
-                                        update.remoteHandle = CXHandle(type: .generic, value: name)
-                                        update.hasVideo = true
-                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in
-                                            if error == nil {
-                                                self.configureAudioSession()
-                                            }
-                                        })
-                                        
-                                        
-                                    }
-                                case .video where call.receiverType == .group:
-                                    if let group = (call.receiver as? Group)?.name {
-                                        let config = CXProviderConfiguration(localizedName: "APNS + Callkit")
-                                        config.includesCallsInRecents = false
-                                        config.iconTemplateImageData = #imageLiteral(resourceName: "cometchat_white").pngData()
-                                        config.ringtoneSound = "ringtone.caf"
-                                        config.supportsVideo = true
-                                        let provider = CXProvider(configuration: config)
-                                        provider.setDelegate(self, queue: nil)
-                                        let update = CXCallUpdate()
-                                        update.remoteHandle = CXHandle(type: .generic, value: group)
-                                        update.hasVideo = true
-                                        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in
-                                            if error == nil {
-                                                self.configureAudioSession()
-                                            }
-                                        })
-                                    }
-                                case .audio: break
-                                case .video: break
-                                @unknown default: break
-                                }
-                                
                                 print("call is: \(call.stringValue())")
-                               
+                                print("call Status: \(call.callStatus.hashValue)")
                             }
                           case .custom:
                             if let customMessage = baseMessage as? CustomMessage {
@@ -411,8 +344,13 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
                           @unknown default: break
                           }
                       }
-                  
                   }
+        
+        DispatchQueue.main.asyncAfter(deadline: timeout) {
+            if let activeCall = self.activeCall {
+                self.end(call: activeCall)
+            }
+        }
     }
     
     func configureAudioSession() {
@@ -426,46 +364,75 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate {
     }
     
     func providerDidReset(_ provider: CXProvider) {
-        
+        if let uuid = activeCall?.uuid {
+            provider.reportCall(with: uuid, endedAt: Date(), reason: .unanswered)
+        }
+       
+
     }
     
     func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didAcceptButtonPressed"), object: nil, userInfo: nil)
-
+        if let activeCall = activeCall {
+            CometChatCallManager().startCall(call: activeCall.call)
+            provider.reportCall(with: activeCall.uuid, endedAt: Date(), reason: .remoteEnded)
+        }
         action.fulfill()
+        
     }
     
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         
        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didRejectButtonPressed"), object: nil, userInfo: nil)
+        if let activeCall = activeCall {
+            CometChatCallManager().reject(call: activeCall.call)
+            provider.reportCall(with: activeCall.uuid, endedAt: Date(), reason: .remoteEnded)
+        }
         action.fulfill()
     }
     
+    func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
+        print(#function)
+    }
+    
+    func provider(_ provider: CXProvider, timedOutPerforming action: CXAction) {
+        action.fulfill()
+        print(#function)
+    }
+    
+    func provider(_ provider: CXProvider, perform action: CXSetHeldCallAction) {
+        print(#function)
+    }
+    
+    func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
+        print(#function)
+    }
+
+    
+    func end(call: ActiveCall) {
+        let endCallAction = CXEndCallAction(call: call.uuid)
+        let transaction = CXTransaction()
+        transaction.addAction(endCallAction)
+        requestTransaction(transaction, action: "")
+    }
+
+    func setHeld(call: ActiveCall, onHold: Bool) {
+        let setHeldCallAction = CXSetHeldCallAction(call: call.uuid, onHold: onHold)
+        let transaction = CXTransaction()
+        transaction.addAction(setHeldCallAction)
+
+        requestTransaction(transaction, action: "")
+    }
+
+    private func requestTransaction(_ transaction: CXTransaction, action: String = "") {
+        callController.request(transaction) { error in
+            if let error = error {
+                print("Error requesting transaction: \(error)")
+            } else {
+                print("Requested transaction \(action) successfully")
+            }
+        }
+    }
+    
+    
 }
 
-// -------------------------------------------------------------------------------------------------------------//
-
-
-//extension String {
-//
-//    func stringTodictionary() -> [String:Any]? {
-//
-//        var dictonary:[String:Any]?
-//
-//        if let data = self.data(using: .utf8) {
-//
-//            do {
-//                dictonary = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-//
-//                if let myDictionary = dictonary
-//                {
-//                    return myDictionary;
-//                }
-//            } catch let error as NSError {
-//                print(error)
-//            }
-//
-//        }
-//        return dictonary;
-//    }
-//}

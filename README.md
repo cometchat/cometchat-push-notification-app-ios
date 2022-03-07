@@ -116,14 +116,30 @@ ___
 
 # Troubleshooting
 
-Facing any issues while integrating or installing the sample app please <a href="https://forum.cometchat.com/"> visit our forum</a>.
+- To read the full dcoumentation on UI Kit integration visit our [Documentation](https://prodocs.cometchat.com/docs/ios-ui-kit)  .
 
-___
+- Facing any issues while integrating or installing the UI Kit please <a href="https://app.cometchat.io/"> connect with us via real time support present in CometChat Dashboard.</a>
 
-# Contribute 
-   
-   Feel free to make a suggestion by creating a pull request.
+---
 
-___
+# Contributors
 
+Thanks to the following people who have contributed to this project:
 
+[@pushpsenairekar2911 👨‍💻](https://github.com/pushpsenairekar2911) <br>
+[@jeetkapadia 👨‍💻](https://github.com/jeetkapadia)
+<br>
+
+---
+
+# Contact
+
+Contact us via real time support present in [CometChat Dashboard.](https://app.cometchat.io/)
+
+---
+
+# License
+
+---
+
+This project uses the following [license](https://github.com/cometchat-pro/ios-swift-chat-app/blob/master/License.md).

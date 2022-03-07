@@ -830,6 +830,8 @@
 		585DCB1526CD2E2200E266B1 /* addIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 585DC7DE26CD2E2100E266B1 /* addIcon@3x.png */; };
 		585DCB1626CD2E2200E266B1 /* addIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 585DC7DF26CD2E2100E266B1 /* addIcon.png */; };
 		585DCB1726CD2E2200E266B1 /* UIKitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585DC7E126CD2E2100E266B1 /* UIKitSettings.swift */; };
+		58D7BA1027D61B8A00D0D4C0 /* CometChatCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D7BA0E27D61B8A00D0D4C0 /* CometChatCall.swift */; };
+		58D7BA1127D61B8A00D0D4C0 /* CometChatCall.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58D7BA0F27D61B8A00D0D4C0 /* CometChatCall.xib */; };
 		B260F1F5224DE99D00CDCDBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */; };
 		B260F1F7224DE99D00CDCDBA /* LoginWithDemoUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F6224DE99D00CDCDBA /* LoginWithDemoUsers.swift */; };
 		B260F1FA224DE99D00CDCDBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B260F1F8224DE99D00CDCDBA /* Main.storyboard */; };
@@ -839,7 +841,6 @@
 		DB2345DF23DEA56D00CDBA2F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2345DE23DEA56D00CDBA2F /* NotificationService.swift */; };
 		DB2345E323DEA56D00CDBA2F /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DB2345DC23DEA56D00CDBA2F /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DB5AAC6A22E04FB7007E7FC6 /* IncomingCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5AAC6922E04FB7007E7FC6 /* IncomingCall.swift */; };
-		DBBF8A3522E0BB4100248056 /* ring.wav in Resources */ = {isa = PBXBuildFile; fileRef = DBBF8A3422E0BB4100248056 /* ring.wav */; };
 		FB920AEC24A33C02006A11A5 /* LoginWithUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB920AEB24A33C02006A11A5 /* LoginWithUID.swift */; };
 /* End PBXBuildFile section */
 
@@ -1717,6 +1718,8 @@
 		585DC7DE26CD2E2100E266B1 /* addIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addIcon@3x.png"; sourceTree = "<group>"; };
 		585DC7DF26CD2E2100E266B1 /* addIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addIcon.png; sourceTree = "<group>"; };
 		585DC7E126CD2E2100E266B1 /* UIKitSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitSettings.swift; sourceTree = "<group>"; };
+		58D7BA0E27D61B8A00D0D4C0 /* CometChatCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CometChatCall.swift; path = "iOS-PushNotification/Library/UI Components/Calls/Start Call/CometChatCall.swift"; sourceTree = SOURCE_ROOT; };
+		58D7BA0F27D61B8A00D0D4C0 /* CometChatCall.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CometChatCall.xib; path = "iOS-PushNotification/Library/UI Components/Calls/Start Call/CometChatCall.xib"; sourceTree = SOURCE_ROOT; };
 		B260F1F1224DE99D00CDCDBA /* Push Notification Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Push Notification Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B260F1F6224DE99D00CDCDBA /* LoginWithDemoUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithDemoUsers.swift; sourceTree = "<group>"; };
@@ -1731,7 +1734,6 @@
 		DB2345E023DEA56D00CDBA2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB2345E723DEA5DA00CDBA2F /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		DB5AAC6922E04FB7007E7FC6 /* IncomingCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingCall.swift; sourceTree = "<group>"; };
-		DBBF8A3422E0BB4100248056 /* ring.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ring.wav; sourceTree = "<group>"; };
 		FB920AEB24A33C02006A11A5 /* LoginWithUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginWithUID.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1785,8 +1787,9 @@
 				585DC41C26CD2E2000E266B1 /* CometChatCallListItem */,
 				585DC41F26CD2E2000E266B1 /* Resources */,
 				585DC44926CD2E2000E266B1 /* CometChatProgressIndicatorItem */,
-				585DC44C26CD2E2000E266B1 /* Create Meeting */,
+				58D7BA0D27D61B6200D0D4C0 /* Start Call */,
 				585DC45126CD2E2000E266B1 /* Call Manager */,
+				585DC44C26CD2E2000E266B1 /* Create Meeting */,
 				585DC45326CD2E2000E266B1 /* Call Logs */,
 				585DC45726CD2E2000E266B1 /* Outgoing Call */,
 				585DC45A26CD2E2000E266B1 /* Incoming Call */,
@@ -3641,6 +3644,15 @@
 			path = "UIKit Settings";
 			sourceTree = "<group>";
 		};
+		58D7BA0D27D61B6200D0D4C0 /* Start Call */ = {
+			isa = PBXGroup;
+			children = (
+				58D7BA0E27D61B8A00D0D4C0 /* CometChatCall.swift */,
+				58D7BA0F27D61B8A00D0D4C0 /* CometChatCall.xib */,
+			);
+			path = "Start Call";
+			sourceTree = "<group>";
+		};
 		B260F1E8224DE99D00CDCDBA = {
 			isa = PBXGroup;
 			children = (
@@ -3665,7 +3677,6 @@
 			children = (
 				585DC41626CD2E2000E266B1 /* Library */,
 				B2A8EBCC224E239000E22217 /* iOS-PushNotification.entitlements */,
-				DBBF8A3422E0BB4100248056 /* ring.wav */,
 				B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */,
 				583362A92579480F0022F568 /* PushNotification.swift */,
 				B260F20A224DF86800CDCDBA /* AppConstants.swift */,
@@ -3863,7 +3874,6 @@
 				585DCAB526CD2E2200E266B1 /* blueTick@2x.png in Resources */,
 				585DCA7726CD2E2200E266B1 /* copy@2x.png in Resources */,
 				585DC86826CD2E2100E266B1 /* messages-attach.png in Resources */,
-				DBBF8A3522E0BB4100248056 /* ring.wav in Resources */,
 				585DC8C326CD2E2100E266B1 /* messages-audio-file@4x.png in Resources */,
 				585DC7F626CD2E2100E266B1 /* video-call@2x.png in Resources */,
 				585DC7EE26CD2E2100E266B1 /* calls-back@2x.png in Resources */,
@@ -3924,6 +3934,7 @@
 				585DC83326CD2E2100E266B1 /* CometChatSenderLinkPreviewBubble.xib in Resources */,
 				585DC9B426CD2E2100E266B1 /* successIcon.png in Resources */,
 				585DC89826CD2E2100E266B1 /* messages-audio-call@3x.png in Resources */,
+				58D7BA1127D61B8A00D0D4C0 /* CometChatCall.xib in Resources */,
 				585DC84226CD2E2100E266B1 /* CometChatReceiverPollMessageBubble.xib in Resources */,
 				585DCA3726CD2E2100E266B1 /* sticker@3x.png in Resources */,
 				585DCAE626CD2E2200E266B1 /* outgoingVideo.png in Resources */,
@@ -4446,6 +4457,7 @@
 				585DC9E126CD2E2100E266B1 /* AVAudioFileExtensions.swift in Sources */,
 				585DCA0C26CD2E2100E266B1 /* GIFAnimatedImage.swift in Sources */,
 				585DC85226CD2E2100E266B1 /* CometChatReceiverFileMessageBubble.swift in Sources */,
+				58D7BA1027D61B8A00D0D4C0 /* CometChatCall.swift in Sources */,
 				585DC99026CD2E2100E266B1 /* PassthroughView.swift in Sources */,
 				585DC81326CD2E2100E266B1 /* CometChatMeetingView.swift in Sources */,
 				585DCA0626CD2E2100E266B1 /* ImageFormat.swift in Sources */,

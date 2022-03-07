@@ -69,6 +69,13 @@ class PushNotification: UIViewController , UITextViewDelegate {
             if let currentCall = notification.userInfo?["call"] as? Call {
                 self.call = currentCall
             }
+        
+//        if let currentCall = call {
+//            let incomingCall = CometChatIncomingCall()
+//            incomingCall.acceptCall(withCall: currentCall)
+//            incomingCall.modalPresentationStyle = .fullScreen
+//            self.present(incomingCall, animated: true, completion: nil)
+//        }
      }
     
     @objc func didAcceptButtonPressed(_ notification: NSNotification) {
@@ -82,11 +89,11 @@ class PushNotification: UIViewController , UITextViewDelegate {
     
     @objc func didRejectButtonPressed(_ notification: NSNotification) {
         if let currentCall = call {
-//            CometChat.rejectCall(sessionID: currentCall.sessionID ?? "", status: .rejected) { (call) in
-//                
-//            } onError: { (error) in
-//                
-//            }
+            CometChat.rejectCall(sessionID: currentCall.sessionID ?? "", status: .rejected) { (call) in
+                
+            } onError: { (error) in
+                
+            }
         }
      }
 
