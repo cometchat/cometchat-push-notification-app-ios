@@ -49,9 +49,9 @@ ___
 
 # Running the sample app
 
-   To Run to sample App you have to do the following changes by Adding **APP_ID**, **API_KEY**and **REGION CODE** and s user's **UID** for which you wants to send the push notification.
+   To Run to sample App you have to do the following changes by Adding **APP_ID**, **AUTH_KEY**and **REGION CODE** and s user's **UID** for which you wants to send the push notification.
    
-   You can obtain your  *APP_ID* and *API_KEY* from [CometChat-Pro Dashboard](https://app.cometchat.com/)
+   You can obtain your  *APP_ID* and *AUTH_KEY* from [CometChat-Pro Dashboard](https://app.cometchat.com/)
    
    - Enable to Push notification Extension from  [CometChat-Pro Dashboard] . To Enable Push notification extension, please navigate to Extensions --> Push Notification --> Add Extension. 
    
@@ -65,7 +65,7 @@ ___
           
    - Go to CometChatPro-PushNotification-SampleApp -->  **Constants.swift**.
                   
-   - modify *apiKey* and *appID* with your own **apiKey** and **appID**.
+   - modify *authKey* and *appID* with your own **authKey** and **appID**.
    
    - Enter **toUserUID** for which you wants to send the push notification.
 
@@ -128,6 +128,8 @@ Thanks to the following people who have contributed to this project:
 
 [@pushpsenairekar2911 👨‍💻](https://github.com/pushpsenairekar2911) <br>
 [@jeetkapadia 👨‍💻](https://github.com/jeetkapadia)
+<br>
+[@ajayv-cometchat 👨‍💻](https://github.com/ajayv-cometchat)
 <br>
 
 ---

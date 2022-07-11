@@ -83,46 +83,43 @@ class LoginWithUID: UIViewController, UITextFieldDelegate {
     private func loginWithUID(UID:String){
         
         activityIndicator.startAnimating()
-        if(Constants.apiKey.contains(NSLocalizedString("Enter", comment: "")) || Constants.apiKey.contains(NSLocalizedString("ENTER", comment: "")) || Constants.apiKey.contains("NULL") || Constants.apiKey.contains("null") || Constants.apiKey.count == 0){
+        if(Constants.authKey.contains(NSLocalizedString("Enter", comment: "")) || Constants.authKey.contains(NSLocalizedString("ENTER", comment: "")) || Constants.authKey.contains("NULL") || Constants.authKey.contains("null") || Constants.authKey.count == 0){
             showAlert(title: NSLocalizedString("Warning!", comment: ""), msg: NSLocalizedString("Please fill the APP-ID and API-KEY in Constants.swift file.", comment: ""))
         }else{
-            CometChat.login(UID: UID, apiKey: Constants.apiKey, onSuccess: { (current_user) in
-                
-                   let userID:String = current_user.uid!
-                    let userTopic: String = Constants.appID + "_user_" + userID + "_ios"
-                    DispatchQueue.main.async {
-                        self.activityIndicator.stopAnimating()
-                    }
+            CometChat.login(UID: UID, apiKey: Constants.authKey, onSuccess: { (current_user) in
+
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
                     
-                    UserDefaults.standard.set(current_user.uid, forKey: "LoggedInUserID")
-                    UserDefaults.standard.set(userTopic, forKey: "firebase_user_topic")
-//                    Messaging.messaging().subscribe(toTopic: userTopic) { error in
-//                        print("Subscribed to \(userTopic) topic")
-//                    }
-                    let groupTopic: String = Constants.appID + "_group_" + Constants.toGroupUID + "_ios"
-                    
-                    UserDefaults.standard.set(groupTopic, forKey: "firebase_group_topic")
-//                    Messaging.messaging().subscribe(toTopic: groupTopic) { error in
-//                        print("Subscribed to \(groupTopic) topic")
-//                    }
-                    DispatchQueue.main.async {
-                        self.activityIndicator.stopAnimating()
-                         let mainVC = self.storyboard?.instantiateViewController(withIdentifier: "pushNotification") as! PushNotification
-                        let navigationController: UINavigationController = UINavigationController(rootViewController: mainVC)
-                        navigationController.modalPresentationStyle = .fullScreen
-                        navigationController.title = "Push Notification"
-                        navigationController.navigationBar.prefersLargeTitles = true
-                       if #available(iOS 13.0, *) {
-                                let navBarAppearance = UINavigationBarAppearance()
-                               navBarAppearance.configureWithOpaqueBackground()
-                                navBarAppearance.shadowColor = .clear
-                        navBarAppearance.backgroundColor = .systemBackground
-                        navigationController.navigationBar.standardAppearance = navBarAppearance
-                        navigationController.navigationBar.scrollEdgeAppearance = navBarAppearance
-                                self.navigationController?.navigationBar.isTranslucent = false
+                    if let token = UserDefaults.standard.value(forKey: "fcmToken") as?  String {
+                        print("Reached here for token: \(token)")
+                        CometChat.registerTokenForPushNotification(token: token, onSuccess: { (success) in
+                            print("onSuccess to  registerTokenForPushNotification: \(success)")
+                            
+                            DispatchQueue.main.async {
+                                self.activityIndicator.stopAnimating()
+                                let mainVC = self.storyboard?.instantiateViewController(withIdentifier: "pushNotification") as! PushNotification
+                                let navigationController: UINavigationController = UINavigationController(rootViewController: mainVC)
+                                navigationController.modalPresentationStyle = .fullScreen
+                                navigationController.title = "Push Notification"
+                                navigationController.navigationBar.prefersLargeTitles = true
+                                if #available(iOS 13.0, *) {
+                                    let navBarAppearance = UINavigationBarAppearance()
+                                    navBarAppearance.configureWithOpaqueBackground()
+                                    navBarAppearance.shadowColor = .clear
+                                    navBarAppearance.backgroundColor = .systemBackground
+                                    navigationController.navigationBar.standardAppearance = navBarAppearance
+                                    navigationController.navigationBar.scrollEdgeAppearance = navBarAppearance
+                                    self.navigationController?.navigationBar.isTranslucent = false
+                                }
+                                self.present(navigationController, animated: true, completion: nil)
+                            }                                }) { (error) in
+                                print("error to registerTokenForPushNotification")
                             }
-                        self.present(navigationController, animated: true, completion: nil)
                     }
+
+                }
+
             }) { (error) in
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()

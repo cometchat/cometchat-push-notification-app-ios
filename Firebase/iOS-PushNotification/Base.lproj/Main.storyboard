@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bYY-3K-Nbo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bYY-3K-Nbo">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -384,28 +384,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PEE-7j-iSi">
-                                <rect key="frame" x="20" y="135.5" width="335" height="212.5"/>
+                                <rect key="frame" x="20" y="139" width="335" height="210"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="CometChat  " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVf-hk-4nw">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="41"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
                                         <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="34"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Push Notification App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W9I-a0-XxA">
-                                        <rect key="frame" x="0.0" y="46" width="335" height="56.5"/>
+                                        <rect key="frame" x="0.0" y="45" width="335" height="56.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="47"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login using one of our sample users" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkV-qG-dOj">
-                                        <rect key="frame" x="0.0" y="107.5" width="335" height="60"/>
+                                        <rect key="frame" x="0.0" y="106.5" width="335" height="58.5"/>
                                         <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="25"/>
                                         <color key="textColor" systemColor="systemGrayColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kyc-zJ-eAq">
-                                        <rect key="frame" x="0.0" y="172.5" width="335" height="41"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qik-NM-xh0">
+                                        <rect key="frame" x="0.0" y="170" width="335" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="r9W-fG-9h9"/>
+                                        </constraints>
+                                    </view>
+                                    <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kyc-zJ-eAq">
+                                        <rect key="frame" x="0.0" y="210" width="335" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="qM5-iM-laP"/>
                                         </constraints>
@@ -417,7 +424,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="FJ0-rf-Bgu">
-                                <rect key="frame" x="20" y="558" width="335" height="89"/>
+                                <rect key="frame" x="20" y="558.5" width="335" height="88.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hT7-Au-Zil">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="55"/>
@@ -439,7 +446,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" ©  2020 CometChat Inc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ0-1O-yY8">
-                                        <rect key="frame" x="88.5" y="71" width="158.5" height="18"/>
+                                        <rect key="frame" x="83.5" y="71" width="168" height="17.5"/>
                                         <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -451,7 +458,7 @@
                                 </constraints>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cometchat_white" translatesAutoresizingMaskIntoConstraints="NO" id="me5-sM-2Ib">
-                                <rect key="frame" x="20" y="-8.5" width="124" height="124"/>
+                                <rect key="frame" x="20" y="-5" width="124" height="124"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="124" id="KDf-zo-QpO"/>
@@ -464,7 +471,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHp-gQ-Dcl">
-                                <rect key="frame" x="20" y="368" width="335" height="130"/>
+                                <rect key="frame" x="20" y="369" width="335" height="130"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="M3K-RB-qaf">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="130"/>
@@ -756,13 +763,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or else  continue with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANI-AV-7wN">
-                                <rect key="frame" x="20" y="518" width="231" height="30"/>
+                                <rect key="frame" x="20" y="519" width="243" height="29.5"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="25"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Dmz-ap-1qu">
-                                <rect key="frame" x="308" y="35" width="37" height="37"/>
+                                <rect key="frame" x="308" y="38.5" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ijY-vo-Eby"/>
@@ -792,7 +799,6 @@
                         <outlet property="superHero2View" destination="Ddw-uc-UYY" id="rku-i7-Fly"/>
                         <outlet property="superHero3View" destination="Z6r-8H-gar" id="fZv-9b-k7W"/>
                         <outlet property="superHero4View" destination="ktp-5j-zha" id="kgC-NI-DpH"/>
-                        <outlet property="typePN" destination="kyc-zJ-eAq" id="Bao-CL-uio"/>
                         <segue destination="TNt-BT-XAl" kind="show" identifier="presentPushNotification" id="SWv-Zu-O3d"/>
                     </connections>
                 </viewController>

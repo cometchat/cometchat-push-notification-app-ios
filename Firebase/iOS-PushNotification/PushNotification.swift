@@ -233,17 +233,12 @@ class PushNotification: UIViewController , UITextViewDelegate{
     }
     
     @IBAction func logoutPressed(_ sender: Any) {
-        let UID = UserDefaults.standard.object(forKey: "LoggedInUserID")
-        let alert = UIAlertController(title: "Logout", message: "Are you sure you want to Logout \(String(describing: UID!)) ?", preferredStyle: .alert)
+        let UID = CometChat.getLoggedInUser()?.uid ?? ""//UserDefaults.standard.object(forKey: "LoggedInUserID")
+        let alert = UIAlertController(title: "Logout", message: "Are you sure you want to Logout \(String(describing: UID)) ?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             switch action.style{
             case .default:
                 CometChat.logout(onSuccess: { (success) in
-                    let userTopic = UserDefaults.standard.object(forKey: "firebase_user_topic")
-                    let groupTopic = UserDefaults.standard.object(forKey: "firebase_group_topic")
-                    Messaging.messaging().unsubscribe(fromTopic: userTopic as! String)
-                    Messaging.messaging().unsubscribe(fromTopic: groupTopic as! String)
-                    
                     let login = self.storyboard?.instantiateViewController(withIdentifier: "loginWithDemoUsers") as! LoginWithDemoUsers
                     login.modalPresentationStyle = .fullScreen
                     self.present(login, animated: true, completion: nil)

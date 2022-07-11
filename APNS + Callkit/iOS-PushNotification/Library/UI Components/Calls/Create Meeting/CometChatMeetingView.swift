@@ -61,7 +61,15 @@ class CometChatMeetingView: UIViewController {
                     
                 }, onAudioModesUpdated: {(userListUpdated) in
                     
-                }, onError: { (error) in
+                },onUserMuted: { onUserMuted in
+                    
+                },onCallSwitchedToVideo: { onCallSwitchedToVideo in
+                    
+                },onRecordingStarted: { onRecordingStarted in
+                    
+                }, onRecordingStopped: { onRecordingStopped in
+                    
+                },onError: { (error) in
 
                     DispatchQueue.main.async {
                         if let error = error {
@@ -103,6 +111,14 @@ class CometChatMeetingView: UIViewController {
                 }, onAudioModesUpdated: {(audioModesUpdated) in
 
                 
+                },onUserMuted: { onUserMuted in
+                    
+                },onCallSwitchedToVideo: { onCallSwitchedToVideo in
+                    
+                },onRecordingStarted: { onRecordingStarted in
+                    
+                }, onRecordingStopped: { onRecordingStopped in
+                    
                 }, onError: { (error) in
 
                     DispatchQueue.main.async {

@@ -1,10 +1,7 @@
-//
 //  ViewController.swift
 //  Demo
-//
 //  Created by CometChat Inc. on 16/12/19.
 //  Copyright © 2020 CometChat Inc. All rights reserved.
-//
 
 import UIKit
 import Firebase
@@ -17,8 +14,7 @@ class LoginWithDemoUsers: UIViewController {
     @IBOutlet weak var superHero2View: UIView!
     @IBOutlet weak var superHero3View: UIView!
     @IBOutlet weak var superHero4View: UIView!
-    @IBOutlet weak var typePN: UISegmentedControl!
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         addObservers()
@@ -66,56 +62,30 @@ class LoginWithDemoUsers: UIViewController {
     
     private  func loginWithUID(UID:String){
         
-        if(Constants.apiKey.contains(NSLocalizedString("Enter", comment: "")) || Constants.apiKey.contains(NSLocalizedString("ENTER", comment: "")) || Constants.apiKey.contains("NULL") || Constants.apiKey.contains("null") || Constants.apiKey.count == 0){
+        if(Constants.authKey.contains(NSLocalizedString("Enter", comment: "")) || Constants.authKey.contains(NSLocalizedString("ENTER", comment: "")) || Constants.authKey.contains("NULL") || Constants.authKey.contains("null") || Constants.authKey.count == 0){
             showAlert(title: NSLocalizedString("Warning!", comment: ""), msg: NSLocalizedString("Please fill the APP-ID and API-KEY in Constants.swift file.", comment: ""))
         }else{
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             
-            CometChat.login(UID: UID, apiKey: Constants.apiKey, onSuccess: { (current_user) in
+            CometChat.login(UID: UID, apiKey: Constants.authKey, onSuccess: { (current_user) in
                
                 
                 DispatchQueue.main.async {
-                if self.typePN.selectedSegmentIndex == 0 {
-                    let userID:String = current_user.uid!
-                    let userTopic: String = Constants.appID + "_user_" + userID + "_ios"
-                    DispatchQueue.main.async {
-                        self.activityIndicator.stopAnimating()
-                    }
-                    
-                    UserDefaults.standard.set(current_user.uid, forKey: "LoggedInUserID")
-                    UserDefaults.standard.set(userTopic, forKey: "firebase_user_topic")
-                    Messaging.messaging().subscribe(toTopic: userTopic) { error in
-                        print("Subscribed to \(userTopic) topic")
-                    }
-                    let groupTopic: String = Constants.appID + "_group_" + Constants.toGroupUID + "_ios"
-                    
-                    UserDefaults.standard.set(groupTopic, forKey: "firebase_group_topic")
-                    Messaging.messaging().subscribe(toTopic: groupTopic) { error in
-                        print("Subscribed to \(groupTopic) topic")
-                    }
-                    
-                    DispatchQueue.main.async {self.activityIndicator.stopAnimating()
-                        print("login Sucess with Superhero4: \(current_user.stringValue())")
-                        self.performSegue(withIdentifier: "presentPushNotification", sender: nil)
-                    }
-                }else{
-                    
                     if let token = UserDefaults.standard.value(forKey: "fcmToken") as?  String {
                         print("Reached here for token: \(token)")
                         CometChat.registerTokenForPushNotification(token: token, onSuccess: { (success) in
                             print("onSuccess to  registerTokenForPushNotification: \(success)")
-                            
+
                             DispatchQueue.main.async {self.activityIndicator.stopAnimating()
                                 print("login Sucess with Superhero4: \(current_user.stringValue())")
                                 self.performSegue(withIdentifier: "presentPushNotification", sender: nil)
                             }
-                            
                         }) { (error) in
                             print("error to registerTokenForPushNotification")
                         }
                     }
-                }
+
                 }
             }) { (error) in
                 

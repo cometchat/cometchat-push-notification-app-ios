@@ -11,20 +11,22 @@ import CometChatPro
 import Firebase
 import UserNotifications
 import PushKit
+import FirebaseMessaging
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
     var blockedUsersArray = [String]()
     let blockedUserRequest = BlockedUserRequest.BlockedUserRequestBuilder(limit: 100).build();
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        
         self.initialization()
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
+        Messaging.messaging().isAutoInitEnabled = true
         CometChat.calldelegate = self
         CometChat.messagedelegate = self
         if((UserDefaults.standard.object(forKey: "LoggedInUserID")) != nil){
@@ -46,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 completionHandler: {_, _ in })
         } else {
             let settings: UIUserNotificationSettings =
-                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(settings)
         }
         
@@ -54,14 +56,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerForRemoteNotifications()
         
-//        Messaging.messaging().token { token, error in
-//          if let error = error {
-//            print("Error fetching FCM registration token: \(error)")
-//          } else if let token = token {
-//            print("FCM registration token: \(token)")
-//            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
-//          }
-//        }
+        //        Messaging.messaging().token { token, error in
+        //          if let error = error {
+        //            print("Error fetching FCM registration token: \(error)")
+        //          } else if let token = token {
+        //            print("FCM registration token: \(token)")
+        //            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
+        //          }
+        //        }
         
         // [END register_for_notifications]
         return true
@@ -85,13 +87,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-//    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-//
-//        register for voip notifications
-//        let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
-//        voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
-//        voipRegistry.delegate = self
-//    }
+    //    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+    //
+    //        register for voip notifications
+    //        let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
+    //        voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
+    //        voipRegistry.delegate = self
+    //    }
     
     // [START receive_message]
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
@@ -123,12 +125,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func getBlockedUser(){
-        
         blockedUserRequest.fetchNext(onSuccess : { (users) in
             print("blocked users : \(String(describing: users))")
             
             for user in users! {
-                
                 self.blockedUsersArray.append(user.uid!)
             }
             var defaults = UserDefaults.standard
@@ -154,12 +154,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Messaging.messaging().apnsToken = deviceToken
         
         let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
-                voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
-                voipRegistry.delegate = self
+        voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
+        voipRegistry.delegate = self
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        
         self.initialization()
     }
     
@@ -168,9 +167,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-    UserDefaults(suiteName: "group.com.inscripts.cometchat.dev2")?.set(1, forKey: "count")
-    UIApplication.shared.applicationIconBadgeNumber = 0
-    self.initialization()
+        UserDefaults(suiteName: "group.com.inscripts.cometchat.dev2")?.set(1, forKey: "count")
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        self.initialization()
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -205,9 +204,7 @@ extension AppDelegate : CometChatCallDelegate {
     
     
     func onIncomingCallReceived(incomingCall: Call?, error: CometChatException?) {
-        
         print("incoming Call Received : \(String(describing: incomingCall?.stringValue()))")
-        
         self.presentCall()
         
     }
@@ -248,6 +245,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             
 
             let messageObject = userInfo["message"]
+            
 //
 //            if let someString = messageObject as? String {
 //
@@ -301,8 +299,8 @@ extension AppDelegate : MessagingDelegate {
       NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         
         UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
-        if let token = fcmToken {
-
+        if let token = fcmToken , CometChat.getLoggedInUser() != nil {
+            
             CometChat.registerTokenForPushNotification(token: token, onSuccess: { (sucess) in
                 print("token registered \(sucess)")
             }) { (error) in
@@ -408,8 +406,10 @@ extension String {
             } catch let error as NSError {
                 print(error)
             }
-            
         }
         return dictonary;
     }
 }
+
+
+

@@ -23,6 +23,7 @@ class CometChatCall: UIViewController {
                     DispatchQueue.main.async {
                         let callSettings = CallSettings.CallSettingsBuilder(callView: self.view, sessionId: acceptedCall?.sessionID ?? "").setMode(mode: .MODE_SINGLE).build()
                       
+                
                         CometChat.startCall(callSettings: callSettings) { userJoined in
                             
                         } onUserLeft: { onUserLeft in
@@ -31,11 +32,19 @@ class CometChatCall: UIViewController {
                             
                         } onAudioModesUpdated: { onAudioModesUpdated in
                             
-                        } onError: { error in
+                        } onUserMuted: { onUserMuted in
+                            
+                        } onCallSwitchedToVideo: { onCallSwitchedToVideo in
+                            
+                        } onRecordingStarted: { onRecordingStarted in
+                            
+                        } onRecordingStopped: { onRecordingStopped in
+                            
+                        } onError: { onError in
                             DispatchQueue.main.async {
                                 self.dismiss(animated: true, completion: nil)
                             }
-                        } onCallEnded: { ended in
+                        } onCallEnded: { onCallEnded in
                             DispatchQueue.main.async {
                                 self.dismiss(animated: true, completion: nil)
                             }
@@ -47,7 +56,6 @@ class CometChatCall: UIViewController {
             }else{
                 
                 let callSettings = CallSettings.CallSettingsBuilder(callView: self.view, sessionId: call.sessionID ?? "").setMode(mode: .MODE_SINGLE).build()
-              
                 CometChat.startCall(callSettings: callSettings) { userJoined in
                     
                 } onUserLeft: { onUserLeft in
@@ -56,15 +64,24 @@ class CometChatCall: UIViewController {
                     
                 } onAudioModesUpdated: { onAudioModesUpdated in
                     
-                } onError: { error in
+                } onUserMuted: { onUserMuted in
+                    
+                } onCallSwitchedToVideo: { onCallSwitchedToVideo in
+                    
+                } onRecordingStarted: { onRecordingStarted in
+                    
+                } onRecordingStopped: { onRecordingStopped in
+                    
+                } onError: { onError in
                     DispatchQueue.main.async {
                         self.dismiss(animated: true, completion: nil)
                     }
-                } onCallEnded: { ended in
+                } onCallEnded: { onCallEnded in
                     DispatchQueue.main.async {
                         self.dismiss(animated: true, completion: nil)
                     }
                 }
+
             }
         }
 
