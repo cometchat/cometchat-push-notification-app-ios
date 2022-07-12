@@ -56,16 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerForRemoteNotifications()
         
-        //        Messaging.messaging().token { token, error in
-        //          if let error = error {
-        //            print("Error fetching FCM registration token: \(error)")
-        //          } else if let token = token {
-        //            print("FCM registration token: \(token)")
-        //            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
-        //          }
-        //        }
-        
-        // [END register_for_notifications]
         return true
     }
     
@@ -86,14 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
     }
-    
-    //    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-    //
-    //        register for voip notifications
-    //        let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
-    //        voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
-    //        voipRegistry.delegate = self
-    //    }
+
     
     // [START receive_message]
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {

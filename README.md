@@ -15,15 +15,17 @@ ___
 
 1. [Installation](#Installation)
 
-2. [Running the sample app](#Running-the-sample-app)
+2. [Xcode and iOS compatible version](#Xcode-and-iOS-compatible-version)
 
-3. [Add Push Notification inside your project](#Add-Push-Notification-inside-your-project)
+3. [Running the sample app](#Running-the-sample-app)
 
-4. [Increment Badge Count](#Increment-Badge-Count)
+4. [Add Push Notification inside your project](#Add-Push-Notification-inside-your-project)
 
-5. [Hide Push Notifications from Blocked Users](#Hide-Push-Notifications-from-Blocked-Users)
+5. [Increment Badge Count](#Increment-Badge-Count)
 
-6. [Troubleshooting](#Troubleshooting)
+6. [Hide Push Notifications from Blocked Users](#Hide-Push-Notifications-from-Blocked-Users)
+
+7. [Troubleshooting](#Troubleshooting)
 
 
 
@@ -43,9 +45,10 @@ ___
   4. Create certificates for your bundle ID as per mentioned in our [documentation](https://prodocs.cometchat.com/docs/ios-extensions-enhanced-push-notification).
 
   5.  Build and run the Sample App.
-   
   
+# Xcode and iOS compatible versions
 
+  To build the sample app you are required to have **xcode** version greater than or equal to **11.4** and **iOS** version should be greater than or equal to **11.0**
 
 # Running the sample app
 
