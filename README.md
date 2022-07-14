@@ -58,7 +58,7 @@ ___
    
    - Enable to Push notification Extension from [CometChat-Pro Dashboard]. To Enable Push notification extension, please navigate to Extensions --> Enable Push Notification 
    
-   <img align="center" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/addExtension.png"> <br></br> <br></br>
+   <img align="center" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/addExtension.png"> <br></br>
    
    - Click on **Settings** button.
    
@@ -67,24 +67,24 @@ ___
      
    - Select platform for which you wish to implement Push Notifications.
    
-   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/platformSelection.png"> <br></br> 
+   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/platformSelection.png"> <br></br><br></br> 
    
    - There are two ways to implement Push Notifications:
      a. For Firebase Cloud Messaging (FCM)
         - Add the **Server Key** which was generated after registering the app in firebase console.
         
-        <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/fcmServerKey.png"> <br></br>
+        <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/fcmServerKey.png"> <br></br><br></br>
         
         **Notification Payload Setting**
         - You can control if the notification key should be in the payload or not.
         
-        <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/notificationPayload.png"> <br></br><br></br>
+        <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/notificationPayload.png"> <br></br> <br></br>
         
      b. For Apple Push Notifications (APNs)
         - Enable Apple Push Notification.
         - Upload .p8 or .p12 file
         
-        <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/apnsEnabling.png"> <br></br>
+        <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/apnsEnabling.png"> <br></br> <br></br>
                 
    - Select the triggers for sending the Push Notifications.
    
