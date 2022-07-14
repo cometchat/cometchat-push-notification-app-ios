@@ -88,7 +88,7 @@ ___
                 
    - Select the triggers for sending the Push Notifications.
    
-    <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/triggerSelection.png"> <br></br>
+    <img align="center" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/triggerSelection.png"> <br></br>
    
    - Save the settings.
    
