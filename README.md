@@ -58,7 +58,7 @@ ___
    
    - Enable to Push notification Extension from [CometChat-Pro Dashboard]. To Enable Push notification extension, please navigate to Extensions --> Enable Push Notification 
    
-   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/addExtension.png"> <br></br> 
+   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/addExtension.png"> <br></br> <br></br>
    
    - Click on **Settings** button.
    
@@ -78,7 +78,7 @@ ___
         **Notification Payload Setting**
         - You can control if the notification key should be in the payload or not.
         
-        <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/notificationPayload.png"> <br></br>
+        <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/notificationPayload.png"> <br></br><br></br>
         
      b. For Apple Push Notifications (APNs)
         - Enable Apple Push Notification.
