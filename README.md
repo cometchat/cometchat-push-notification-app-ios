@@ -67,20 +67,17 @@ ___
      
    - Select platform for which you wish to implement Push Notifications.
    
-   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/platformSelection.png"> <br></br><br></br> 
-   
+   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/platformSelection.png"> <br></br><br></br>  
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;    
    - There are two ways to implement Push Notifications:
-
 ___   
-
-<br></br>
 
    ##  For Firebase Cloud Messaging (FCM)
      
   - Add the **Server Key** which was generated after registering the app in firebase console.
         
   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/fcmServerKey.png"> <br></br><br></br>
-        
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;    
    **Notification Payload Setting**
    - You can control if the notification key should be in the payload or not.
         
@@ -89,7 +86,7 @@ ___
     
  <br></br>
    ___  
-    
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
     
    ## For Apple Push Notifications (APNs)
     
@@ -97,7 +94,7 @@ ___
    - Upload .p8 or .p12 file
         
    <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/apnsEnabling.png"> <br></br> <br></br>
-                
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;               
    - Select the triggers for sending the Push Notifications.
    
    <img align="center" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/triggerSelection.png"> <br></br>
