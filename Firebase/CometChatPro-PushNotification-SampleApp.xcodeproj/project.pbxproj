@@ -489,7 +489,7 @@
 					"\"${PODS_ROOT}/Headers/Public/nanopb\"",
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
-					$SDKROOT/usr/include/libxml2,
+					"$SDKROOT/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "iOS-PushNotification/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -532,7 +532,7 @@
 					"\"${PODS_ROOT}/Headers/Public/nanopb\"",
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
-					$SDKROOT/usr/include/libxml2,
+					"$SDKROOT/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "iOS-PushNotification/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
