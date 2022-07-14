@@ -58,7 +58,7 @@ ___
    
    - Enable to Push notification Extension from [CometChat-Pro Dashboard]. To Enable Push notification extension, please navigate to Extensions --> Enable Push Notification 
    
-   <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/addExtension.png"> <br></br> <br></br>
+   <img align="center" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/addExtension.png"> <br></br> <br></br>
    
    - Click on **Settings** button.
    
