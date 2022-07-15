@@ -65,12 +65,12 @@ class LoginWithDemoUsers: UIViewController {
     private  func loginWithUID(UID:String){
         
         if(Constants.authKey.contains(NSLocalizedString("Enter", comment: "")) || Constants.authKey.contains(NSLocalizedString("ENTER", comment: "")) || Constants.authKey.contains("NULL") || Constants.authKey.contains("null") || Constants.authKey.count == 0){
-            showAlert(title: NSLocalizedString("Warning!", comment: ""), msg: NSLocalizedString("Please fill the APP-ID and API-KEY in Constants.swift file.", comment: ""))
+            showAlert(title: NSLocalizedString("Warning!", comment: ""), msg: NSLocalizedString("Please fill the APP-ID and AUTH-KEY in Constants.swift file.", comment: ""))
         }else{
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             
-            CometChat.login(UID: UID, apiKey: Constants.authKey, onSuccess: { (current_user) in
+            CometChat.login(UID: UID, authKey: Constants.authKey, onSuccess: { (current_user) in
                 
                 DispatchQueue.main.async {
                     if let apnsToken = UserDefaults.standard.value(forKey: "apnsToken") as?  String {

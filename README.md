@@ -40,6 +40,11 @@ ___
    ```
    $ pod install
   ```
+     if using **M1** chip then use the following command to install the required pods.
+     
+   ``` 
+   arch -x86_64 pod install
+   ```
 
   
   4. Create certificates for your bundle ID as per mentioned in our [documentation](https://prodocs.cometchat.com/docs/ios-extensions-enhanced-push-notification).
@@ -90,7 +95,7 @@ ___
     
    ## For Apple Push Notifications (APNs)
     
-   - Enable Apple Push Notification.
+   - Enable Apple Push Notifications.
    - Upload .p8 or .p12 file
         
    <img align="left" src="https://github.com/cometchat-pro-extensions/ios-swift-push-notifications-app/blob/master/Screenshots/apnsEnabling.png"> <br></br> <br></br>
@@ -113,12 +118,22 @@ ___
 
 # Add Push Notification inside your project
    
-   1. Add CometChat SDK.
+   1. Add CocoaPods.
    
-   We recommend using CocoaPods, as they are the most advanced way of managing iOS project dependencies. Open a terminal   window, move to your project directory, and then update the SDK  by running the following command.
+   We recommend using CocoaPods, because they are the most advanced way of managing iOS project dependencies. Open a terminal window, move to your project directory, and then run the following command.
    
    ```
    $ pod install
+   ```
+   
+   If installing the pod on **M1** chip then run the following commands.
+   
+   ```
+   sudo arch -x86_64 gem install ffi
+   ```
+   
+   ```
+   arch -x86_64 pod instal
    ```
    
    If the pod installation fails due to Cocoapods dependancy issue then use the below command to install the framework through cocoapods.
@@ -126,6 +141,12 @@ ___
   ```
    pod install --repo-update
    ```
+   If the installation fails on **M1** chip then use the following command.
+   
+   ```
+   arch -x86_64 pod install --repo-update
+   ```
+   
    2. We are providing two ways to implement push notification for your app. 
    
    1. [Firebase](https://prodocs.cometchat.com/docs/ios-extensions-enhanced-push-notification)
