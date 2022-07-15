@@ -133,7 +133,7 @@ ___
    ```
    
    ```
-   arch -x86_64 pod instal
+   arch -x86_64 pod install
    ```
    
    If the pod installation fails due to Cocoapods dependancy issue then use the below command to install the framework through cocoapods.
