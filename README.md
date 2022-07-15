@@ -40,7 +40,7 @@ ___
    ```
    $ pod install
   ```
-     if using **M1** chip then use the following command to install the required pods.
+   if using **M1** chip then use the following command to install the required pods.
      
    ``` 
    arch -x86_64 pod install
