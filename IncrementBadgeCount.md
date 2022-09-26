@@ -67,6 +67,7 @@ ___
 
 ### Step 3. Setup user suit for storing badge count. 
 
+
 1. Open `AppDelegate.swift` and add below code in `applicationWillEnterForeground(_ application: UIApplication)`.
 
 ```swift
