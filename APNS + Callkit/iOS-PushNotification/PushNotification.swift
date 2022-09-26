@@ -453,6 +453,9 @@ extension PushNotification:  CometChatCallDelegate {
     
     func onOutgoingCallRejected(rejectedCall: Call?, error: CometChatException?) {
         DispatchQueue.main.async{
+            if let rejectedCall = rejectedCall {
+                CometChatCallManager.outgoingCallDelegate?.onOutgoingCallRejected(rejectedCall: rejectedCall, error: error)
+            }
             let snackbar: CometChatSnackbar = CometChatSnackbar.init(message: "Call Rejected", duration: .short)
             snackbar.show()
         }
