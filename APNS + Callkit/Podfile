@@ -1,11 +1,12 @@
-
+platform :ios, '13.0'
+use_frameworks!
 
 target 'PushNotificationSample-APNS' do
-        pod 'CometChatPro','3.0.1'
-        pod 'CometChatCalls','2.1.0'
+        pod 'CometChatPro','3.0.918'
+        pod 'CometChatCalls','3.0.2'
 end
 
 target 'NotificationServiceExtension' do
-        pod 'CometChatPro','3.0.1'
-        pod 'CometChatCalls','2.1.0'
+        pod 'CometChatPro','3.0.918'
+        pod 'CometChatCalls','3.0.2'
 end

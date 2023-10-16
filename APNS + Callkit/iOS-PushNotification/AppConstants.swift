@@ -1,4 +1,4 @@
-//
+    //
 //  Authentication.swift
 //  iOS-PushNotification
 //
@@ -10,10 +10,10 @@ import Foundation
 
 class Constants {
     
-    static var appID =  "ENTER APP ID"
-    static var apiKey = "ENTER API KEY"
-    static var region = "ENTER REGION CODE"
-    static var toGroupUID = "supergroup"  // Enter the GUID Of the group for which you want to send push notification.
+    static var appID =  "236481bb592f83ce"
+    static var apiKey = "c559dd7780bf19e7f9d6a2e5d5e656e345835e5f"
+    static var region = "us"
+    static var toGroupUID = ""  // Enter the GUID Of the group for which you want to send push notification.
     
 }
 

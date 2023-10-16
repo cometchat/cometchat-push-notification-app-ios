@@ -29,10 +29,12 @@ class PushNotification: UIViewController , UITextViewDelegate {
     var receiverType:CometChat.ReceiverType = .user
     var UID:String?
     var call: Call?
+    var incomingCall = APNsCallViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector:#selector(self.didReceivedIncomingCall(_:)), name: NSNotification.Name(rawValue: "didReceivedIncomingCall"), object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(self.didCallEnded(_:)), name: NSNotification.Name(rawValue: "didCallEnded"), object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(self.didAcceptButtonPressed(_:)), name: NSNotification.Name(rawValue: "didAcceptButtonPressed"), object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(self.didRejectButtonPressed(_:)), name: NSNotification.Name(rawValue: "didRejectButtonPressed"), object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(self.didReceivedMessageFromGroup(_:)), name: NSNotification.Name(rawValue: "didReceivedMessageFromGroup"), object: nil)
@@ -71,22 +73,28 @@ class PushNotification: UIViewController , UITextViewDelegate {
             }
      }
     
+    @objc func didCallEnded(_ notification: NSNotification) {
+        DispatchQueue.main.async {
+            self.incomingCall.dismiss(animated: true)
+        }
+    }
+    
     @objc func didAcceptButtonPressed(_ notification: NSNotification) {
         if let currentCall = call {
-            let incomingCall = CometChatIncomingCall()
+            incomingCall = APNsCallViewController()
             incomingCall.acceptCall(withCall: currentCall)
             incomingCall.modalPresentationStyle = .fullScreen
-            self.present(incomingCall, animated: true, completion: nil)
+            self.present(incomingCall, animated: true)
         }
      }
     
     @objc func didRejectButtonPressed(_ notification: NSNotification) {
         if let currentCall = call {
-//            CometChat.rejectCall(sessionID: currentCall.sessionID ?? "", status: .rejected) { (call) in
-//                
-//            } onError: { (error) in
-//                
-//            }
+            CometChat.rejectCall(sessionID: currentCall.sessionID ?? "", status: .rejected) { (call) in
+                
+            } onError: { (error) in
+                
+            }
         }
      }
 
