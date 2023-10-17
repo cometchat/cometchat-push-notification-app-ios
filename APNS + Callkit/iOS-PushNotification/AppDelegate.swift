@@ -329,6 +329,7 @@ extension AppDelegate: PKPushRegistryDelegate , CXProviderDelegate, CXCallObserv
         config.includesCallsInRecents = true
         config.ringtoneSound = "ringtone.caf"
         config.iconTemplateImageData = #imageLiteral(resourceName: "cometchat_white").pngData()
+        config.supportsVideo = true
         
         provider = CXProvider(configuration: config)
         provider?.setDelegate(self, queue: nil)
