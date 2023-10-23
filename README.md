@@ -4,7 +4,7 @@
 
 <br></br><br></br>
 
-CometChat Push Notification Sample App (built using **CometChat Pro SDK**) is a fully functional push notification app capable of **one-on-one** (private) and **group** messaging as well as Calling. This sample app enables users to send and receive push notifications for  **text** and **multimedia messages like  images, videos, documents** as well as ** Custom Messages** . Also, users can make  push notifications for **Audio** and **Video** calls to other users or groups.
+CometChat Push Notification Sample App (built using **CometChatSDK**) is a fully functional push notification app capable of **one-on-one** (private) and **group** messaging as well as Calling. This sample app enables users to send and receive push notifications for  **text** and **multimedia messages like  images, videos, documents** as well as ** Custom Messages** . Also, users can make  push notifications for **Audio** and **Video** calls to other users or groups.
 
 
 ___
@@ -51,7 +51,7 @@ ___
 
    To Run to sample App you have to do the following changes by Adding **APP_ID**, **API_KEY**and **REGION CODE** and s user's **UID** for which you wants to send the push notification.
    
-   You can obtain your  *APP_ID* and *API_KEY* from [CometChat-Pro Dashboard](https://app.cometchat.com/)
+   You can obtain your  *APP_ID* and *API_KEY* from [CometChat-Dashboard](https://app.cometchat.com/)
    
    - Enable to Push notification Extension from  [CometChat-Pro Dashboard] . To Enable Push notification extension, please navigate to Extensions --> Push Notification --> Add Extension. 
    
@@ -101,11 +101,6 @@ ___
    
  <br></br>  
 
-___
-
-# Increment Badge Count
-
-Learn more about how to [Increment Badge Count](https://github.com/cometchat-pro-samples/ios-swift-push-notifications-app/blob/master/IncrementBadgeCount.md) using Notification service Extension.
 ___
 
 # Hide Push Notifications from Blocked Users

@@ -1,0 +1,49 @@
+//
+//  AppDelegate + VoIP.swift
+//  CometChatPushNotification
+//
+//  Created by SuryanshBisen on 07/09/23.
+//
+
+import Foundation
+import PushKit
+import CallKit
+import CometChatSDK
+import CometChatCallsSDK
+
+extension AppDelegate: PKPushRegistryDelegate, CXProviderDelegate {
+    
+    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
+        cometchatAPNsHelper.registerForVoIPCalls(pushCredentials: pushCredentials)
+    }
+    
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
+        
+        //provider will only return when new call is trigged if its an update to an exciting call than it will just return nil
+        let provider = cometchatAPNsHelper.didReceiveIncomingPushWith(payload: payload)
+        provider?.setDelegate(self, queue: nil)
+        completion()
+    }
+    
+    func providerDidReset(_ provider: CXProvider) {
+        cometchatAPNsHelper.onProviderDidReset(provider: provider)
+    }
+    
+    func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
+        cometchatAPNsHelper.onAnswerCallAction(action: action)
+    }
+    
+    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
+        cometchatAPNsHelper.onEndCallAction(action: action)
+        action.fulfill()
+    }
+    
+    func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
+        CometChatCalls.audioMuted(action.isMuted)
+        action.fulfill()
+    }
+    
+    
+    
+    
+}
