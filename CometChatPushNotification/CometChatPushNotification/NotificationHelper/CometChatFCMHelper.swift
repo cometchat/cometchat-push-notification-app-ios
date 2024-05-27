@@ -34,16 +34,37 @@ class CometChatFCMHelper {
     
     public func registerTokenForPushNotification(deviceToken: Data) {
         
+        guard CometChat.getLoggedInUser() != nil else {
+            return
+        }
         let hexString = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         UserDefaults.standard.set(hexString, forKey: "apnspuToken")
-        Messaging.messaging().apnsToken = deviceToken
         
-        CometChat.registerTokenForPushNotification(token: hexString, settings: ["voip":false]) { (success) in
-            print("registerTokenForPushNotification: \(success)")
-        } onError: { (error) in
-            print("registerTokenForPushNotification error: \(String(describing: error))")
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error fetching FCM token: \(error)")
+                return
+            }
+            
+            guard let fcmToken = token else {
+                print("No FCM token available")
+                return
+            }
+            
+            let pushToken = fcmToken
+            let platform = CometChatNotifications.PushPlatforms.FCM_IOS
+            let providerId = "Enter your FCM provider ID here"
+            
+            CometChatNotifications.registerPushToken(
+                pushToken: pushToken,
+                platform: platform,
+                providerId: providerId,
+                onSuccess: { (success) in
+                    print("registerPushToken: \(success)")
+                }) { (error) in
+                    print("registerPushToken: \(error.errorCode) \(error.errorDescription)")
+                }
         }
-        
     }
     //end for APNs Push notification
     

@@ -8,15 +8,20 @@
 import UIKit
 import CometChatUIKitSwift
 import CometChatSDK
+import CometChatCallsSDK
 import Firebase
 import PushKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    var pushRegistry: PKPushRegistry!
     let cometchatAPNsHelper = CometChatAPNsHelper()
     let cometchatFCMHelper = CometChatFCMHelper()
-
+    var currentChatIdentifier: String?
+    var currentChatType: String?
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         UNUserNotificationCenter.current().delegate = self
@@ -30,10 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             cometchatAPNsHelper.configurePushNotification(application: application, delegate: self)
         }
         //MARK: Configuring PushNotification Ends
-        
-        
         initializeUIKit()
-        
         return true
     }
 
@@ -64,6 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 .build()
             
             let metaInfo = [
+                "sampleAppFor": "enhanced-push-notification",
                 "name": "iOS \(Constants.notificationMode == .FCM ? "FCM" : "APNs") Push Notification Sample App",
                 "type": "sample",
                 "version": Bundle.main.infoDictionary!["CFBundleShortVersionString"],

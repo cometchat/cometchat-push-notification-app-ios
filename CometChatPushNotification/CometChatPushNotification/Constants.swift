@@ -7,10 +7,10 @@ import Foundation
 import UIKit
 
 class Constants {
-    static var appId =  "236481bb592f83ce"
-    static var authKey = "c559dd7780bf19e7f9d6a2e5d5e656e345835e5f"
-    static var region = "us"
-    static let notificationMode = NotificationMode.FCM //set this as FCM if using FCM PN
+    static var appId =  "Enter your AppId here"
+    static var authKey = "Enter your Authkey here"
+    static var region = "Enter your Region here"
+    static let notificationMode = NotificationMode.APNs //set this as FCM if using FCM PN
 }
 
 enum NotificationMode {

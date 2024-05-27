@@ -8,12 +8,12 @@
 import UIKit
 import CometChatUIKitSwift
 import CometChatSDK
+import PushKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var logedInNavigationControler: UINavigationController?
-
+  
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -99,17 +99,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         UIView.transition(with: window,
-                              duration: 0.3,
-                              options: .transitionCrossDissolve,
-                              animations: nil,
-                              completion: nil)
-
+                          duration: 0.3,
+                          options: .transitionCrossDissolve,
+                          animations: nil,
+                          completion: nil)
+        
+    }
+    public func deRegisterPushNotificationExtention() {
+        CometChatNotifications.unregisterPushToken { success in
+            print("unregisterPushToken: \(success)")
+        } onError: { error in
+            print("unregisterPushToken: \(error.errorCode) \(error.errorDescription)")
+        }
+        
+        
     }
     
     @objc func onLogoutButtonClicked() {
         DispatchQueue.main.async {
             CustomLoader.instance.showLoaderView()
         }
+        
+        self.deRegisterPushNotificationExtention()
         CometChatUIKit.logout(user: CometChat.getLoggedInUser()!) { status in
             
             DispatchQueue.main.async {
@@ -127,9 +138,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 navigationController.modalPresentationStyle = .fullScreen
                 
                 guard let window = self.window else {
-                        self.window?.rootViewController = vc
-                        self.window?.makeKeyAndVisible()
-                        return
+                    self.window?.rootViewController = vc
+                    self.window?.makeKeyAndVisible()
+                    return
                 }
                 
                 

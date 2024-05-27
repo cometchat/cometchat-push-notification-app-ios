@@ -21,6 +21,24 @@ class NotificationService: UNNotificationServiceExtension {
             
             CometChat.setExtensionGroupID(id: "group.notification.for.markAsDelivered")
             CometChat.markAsDelivered(withNotificationPayload: bestAttemptContent.userInfo)
+            
+            //here we are setting the sender avatar
+            if let avatarURLString = bestAttemptContent.userInfo["senderAvatar"] as? String,
+               let avatarURL = URL(string: avatarURLString),
+               let imageData = try? Data(contentsOf: avatarURL) {
+                
+                do {
+                    let fileManager = FileManager.default
+                    let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
+                    let fileURL = temporaryDirectory.appendingPathComponent("avatar.png")
+                    try imageData.write(to: fileURL)
+                    let attachment = try UNNotificationAttachment(identifier: "avatar", url: fileURL, options: nil)
+                    bestAttemptContent.attachments = [attachment]
+                } catch {
+                    print("Error creating notification attachment: \(error.localizedDescription)")
+                }
+            }
+            
             contentHandler(bestAttemptContent)
             
         }
