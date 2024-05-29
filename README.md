@@ -18,14 +18,11 @@ The CometChat iOS [Push Notifications (Extension)](https://www.cometchat.com/doc
    $ pod install
 ```
 
-3. Create certificates for your bundle ID as mentioned in our [documentation](https://prodocs.cometchat.com/docs/ios-extensions-enhanced-push-notification).
-4. Build and run the Sample App.
-
 # Running the sample app
 
-To Run the sample App make the following changes by Adding **APP_ID**, **API_KEY**and **REGION** and the user's **UID** for which you want to send the push notification.
+To Run the sample App make the following changes by Adding **APP_ID**, **AUTH_KEY**and **REGION**.
 
-You can obtain your _APP_ID_ and _API_KEY_ from [CometChat Dashboard](https://app.cometchat.com/)
+You can obtain your _APP_ID_ and _AUTH_KEY_ from [CometChat Dashboard](https://app.cometchat.com/)
 
 - Enable to Push notification Extension from [CometChat Dashboard](https://app.cometchat.com/). To Enable Push notification extension, please navigate to Extensions --> Push Notification --> Add Extension.
 
