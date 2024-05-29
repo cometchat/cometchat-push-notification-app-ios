@@ -12,7 +12,7 @@ The sample triggers Push notifications using:
 2. Firebase Cloud Messaging - FCM.
 
 > [!NOTE]
-> If you use Push Notifications (Extension), please refer to our [iOS Push Notifications (Extension)](https://github.com/cometchat/cometchat-push-notification-app-ios/tree/v4-push-notifications-extension) Sample app for guidance
+> If you are using Push Notifications (Extension), please refer to our [iOS Push Notifications (Extension)](https://github.com/cometchat/cometchat-push-notification-app-ios/tree/v4-push-notifications-extension) sample app.
 
 ## Pre-requisite
 
