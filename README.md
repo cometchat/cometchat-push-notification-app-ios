@@ -26,7 +26,7 @@ You can obtain your _APP_ID_ and _AUTH_KEY_ from [CometChat Dashboard](https://a
 
 - Enable to Push notification Extension from [CometChat Dashboard](https://app.cometchat.com/). To Enable Push notification extension, please navigate to Extensions --> Push Notification --> Add Extension.
 
-- Add Firebase Server Key received from Firebase Console.
+- Add the Bundle ID, .p8 certificate, Key ID and Team ID.
 - Open the project in Xcode.
 - Go to CometChatPro-PushNotification-SampleApp --> **Constants.swift**.
 - Enter your _APP_ID_, _REGION_ and _AUTH_KEY_
