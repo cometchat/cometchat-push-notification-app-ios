@@ -39,6 +39,11 @@
 		84A77CBE2BE8B07900682646 /* NotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 84964B2E2AAF3E5D007B1395 /* NotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84ADFA0B2AD5CC4A00F9BF62 /* CometChatUIKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 84ADFA0A2AD5CC4A00F9BF62 /* CometChatUIKitSwift */; };
 		84ADFA0E2AD5CD7E00F9BF62 /* CometChatCallsSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 84ADFA0D2AD5CD7E00F9BF62 /* CometChatCallsSDK */; };
+		84DD52A22C24570300A3E897 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52A12C24570300A3E897 /* Networking.swift */; };
+		84DD52A42C24575700A3E897 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52A32C24575700A3E897 /* LoginButton.swift */; };
+		84DD52A62C2457A300A3E897 /* sample_app_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DD52A52C2457A300A3E897 /* sample_app_data.json */; };
+		84DD52A92C2457CC00A3E897 /* SampleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52A82C2457CC00A3E897 /* SampleUser.swift */; };
+		84DD52AB2C2457DD00A3E897 /* SampleUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52AA2C2457DD00A3E897 /* SampleUsers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +117,11 @@
 		84A5A3182AA78DE40026CCF2 /* JsonDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonDecoding.swift; sourceTree = "<group>"; };
 		84A5A3222AA78DF00026CCF2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		84A5A32D2AA861520026CCF2 /* CometChatPushNotification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CometChatPushNotification.entitlements; sourceTree = "<group>"; };
+		84DD52A12C24570300A3E897 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		84DD52A32C24575700A3E897 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		84DD52A52C2457A300A3E897 /* sample_app_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_app_data.json; sourceTree = "<group>"; };
+		84DD52A82C2457CC00A3E897 /* SampleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUser.swift; sourceTree = "<group>"; };
+		84DD52AA2C2457DD00A3E897 /* SampleUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUsers.swift; sourceTree = "<group>"; };
 		9F7C22AAE7CAA55CE6C24917 /* Pods-CometChatPushNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CometChatPushNotification.release.xcconfig"; path = "Target Support Files/Pods-CometChatPushNotification/Pods-CometChatPushNotification.release.xcconfig"; sourceTree = "<group>"; };
 		D5A9E562E37A8D960AE21F89 /* Pods-NotificationExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationExtension/Pods-NotificationExtension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,6 +193,9 @@
 		84A5A2DE2AA759AF0026CCF2 /* CometChatPushNotification */ = {
 			isa = PBXGroup;
 			children = (
+				84DD52A72C2457BB00A3E897 /* Models */,
+				84DD529F2C2456E100A3E897 /* Utils */,
+				84DD529E2C2456D500A3E897 /* Components */,
 				844FB7D32BE38BB70079D319 /* GoogleService-Info.plist */,
 				84A5A32D2AA861520026CCF2 /* CometChatPushNotification.entitlements */,
 				84A5A3092AA78DE40026CCF2 /* Helpers */,
@@ -283,6 +296,40 @@
 				84A5A3182AA78DE40026CCF2 /* JsonDecoding.swift */,
 			);
 			path = CustomJson;
+			sourceTree = "<group>";
+		};
+		84DD529E2C2456D500A3E897 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52A02C2456F100A3E897 /* Login */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		84DD529F2C2456E100A3E897 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52A12C24570300A3E897 /* Networking.swift */,
+				84DD52A52C2457A300A3E897 /* sample_app_data.json */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		84DD52A02C2456F100A3E897 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52A32C24575700A3E897 /* LoginButton.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		84DD52A72C2457BB00A3E897 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52A82C2457CC00A3E897 /* SampleUser.swift */,
+				84DD52AA2C2457DD00A3E897 /* SampleUsers.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		BBA84182F8A032D5E51C40FF /* Frameworks */ = {
@@ -400,6 +447,7 @@
 				84A5A31C2AA78DE40026CCF2 /* customLoading.gif in Resources */,
 				844FB7D42BE38BB70079D319 /* GoogleService-Info.plist in Resources */,
 				84A5A2E72AA759AF0026CCF2 /* Main.storyboard in Resources */,
+				84DD52A62C2457A300A3E897 /* sample_app_data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,15 +519,19 @@
 				84A5A31B2AA78DE40026CCF2 /* LoadingGif.swift in Sources */,
 				84A5A2F92AA7838A0026CCF2 /* AppDelegate + PN.swift in Sources */,
 				84A5A2F52AA759E80026CCF2 /* CometChatAPNsHelper.swift in Sources */,
+				84DD52AB2C2457DD00A3E897 /* SampleUsers.swift in Sources */,
 				84A5A3212AA78DE40026CCF2 /* JsonDecoding.swift in Sources */,
 				84A5A2E02AA759AF0026CCF2 /* AppDelegate.swift in Sources */,
 				84A5A31F2AA78DE40026CCF2 /* ModulesJson.swift in Sources */,
 				84A5A2E22AA759AF0026CCF2 /* SceneDelegate.swift in Sources */,
 				84A5A3202AA78DE40026CCF2 /* CustomJsonModel.swift in Sources */,
+				84DD52A22C24570300A3E897 /* Networking.swift in Sources */,
 				846315802BFB93320070B3F1 /* CometChatPNHelper.swift in Sources */,
 				84A5A31A2AA78DE40026CCF2 /* ShowAlert.swift in Sources */,
+				84DD52A92C2457CC00A3E897 /* SampleUser.swift in Sources */,
 				84A5A3082AA78CDC0026CCF2 /* Login.swift in Sources */,
 				84A5A3072AA78CDC0026CCF2 /* CreateUser.swift in Sources */,
+				84DD52A42C24575700A3E897 /* LoginButton.swift in Sources */,
 				84A5A31D2AA78DE40026CCF2 /* ViewTransformation.swift in Sources */,
 				84A5A31E2AA78DE40026CCF2 /* DeviceDetection.swift in Sources */,
 				84676A282AE6E71700F8F53B /* CometChatFCMHelper.swift in Sources */,
