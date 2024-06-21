@@ -787,6 +787,11 @@
 		845890142ADE751E004D04EC /* addIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84588D0A2ADE751E004D04EC /* addIcon.png */; };
 		845890152ADE751E004D04EC /* UIKitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84588D0C2ADE751E004D04EC /* UIKitSettings.swift */; };
 		84C653B92ADD5DCF00D931F7 /* APNsCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C653B82ADD5DCF00D931F7 /* APNsCallViewController.swift */; };
+		84DD52932C244F3400A3E897 /* SampleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52922C244F3400A3E897 /* SampleUser.swift */; };
+		84DD52952C244F4D00A3E897 /* SampleUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52942C244F4D00A3E897 /* SampleUsers.swift */; };
+		84DD52982C244F8400A3E897 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52972C244F8400A3E897 /* LoginButton.swift */; };
+		84DD529B2C244FCC00A3E897 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD529A2C244FCC00A3E897 /* Networking.swift */; };
+		84DD529D2C24501900A3E897 /* sample_user_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DD529C2C24501900A3E897 /* sample_user_data.json */; };
 		87FBCA5B743DCEBA88FE923B /* Pods_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF9FB993D2AB0B30815C59AE /* Pods_NotificationServiceExtension.framework */; };
 		B260F1F5224DE99D00CDCDBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */; };
 		B260F1F7224DE99D00CDCDBA /* LoginWithDemoUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F6224DE99D00CDCDBA /* LoginWithDemoUsers.swift */; };
@@ -1634,6 +1639,11 @@
 		84588D0A2ADE751E004D04EC /* addIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addIcon.png; sourceTree = "<group>"; };
 		84588D0C2ADE751E004D04EC /* UIKitSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitSettings.swift; sourceTree = "<group>"; };
 		84C653B82ADD5DCF00D931F7 /* APNsCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsCallViewController.swift; sourceTree = "<group>"; };
+		84DD52922C244F3400A3E897 /* SampleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUser.swift; sourceTree = "<group>"; };
+		84DD52942C244F4D00A3E897 /* SampleUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUsers.swift; sourceTree = "<group>"; };
+		84DD52972C244F8400A3E897 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		84DD529A2C244FCC00A3E897 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		84DD529C2C24501900A3E897 /* sample_user_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_user_data.json; sourceTree = "<group>"; };
 		8C85F8C579F4124B8063F94D /* Pods-PushNotificationSample-APNS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushNotificationSample-APNS.release.xcconfig"; path = "Target Support Files/Pods-PushNotificationSample-APNS/Pods-PushNotificationSample-APNS.release.xcconfig"; sourceTree = "<group>"; };
 		B260F1F1224DE99D00CDCDBA /* Push Notification Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Push Notification Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1677,6 +1687,8 @@
 		845889742ADE751D004D04EC /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				84DD52992C244F9E00A3E897 /* Utils */,
+				84DD52912C244F2100A3E897 /* Models */,
 				845889752ADE751D004D04EC /* UI Components */,
 				84588B892ADE751E004D04EC /* UIKit Resources */,
 				84588D0B2ADE751E004D04EC /* UIKit Settings */,
@@ -1687,6 +1699,7 @@
 		845889752ADE751D004D04EC /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				84DD52962C244F7300A3E897 /* Login */,
 				845889762ADE751D004D04EC /* Calls */,
 				845889BB2ADE751D004D04EC /* CometChat UI */,
 				845889D02ADE751D004D04EC /* Messages */,
@@ -3476,6 +3489,32 @@
 			path = "UIKit Settings";
 			sourceTree = "<group>";
 		};
+		84DD52912C244F2100A3E897 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52922C244F3400A3E897 /* SampleUser.swift */,
+				84DD52942C244F4D00A3E897 /* SampleUsers.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		84DD52962C244F7300A3E897 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52972C244F8400A3E897 /* LoginButton.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		84DD52992C244F9E00A3E897 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				84DD529A2C244FCC00A3E897 /* Networking.swift */,
+				84DD529C2C24501900A3E897 /* sample_user_data.json */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		B11F6AD29E3F747A35959D98 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -4265,6 +4304,7 @@
 				845890042ADE751E004D04EC /* 􀁝@3x.png in Resources */,
 				84588E0C2ADE751E004D04EC /* reply-message@4x.png in Resources */,
 				84588DEB2ADE751E004D04EC /* messages-stickers.png in Resources */,
+				84DD529D2C24501900A3E897 /* sample_user_data.json in Resources */,
 				84588FF52ADE751E004D04EC /* missedAudio@3x.png in Resources */,
 				84588F982ADE751E004D04EC /* 􀈂.png in Resources */,
 				84588F632ADE751E004D04EC /* close1@3x.png in Resources */,
@@ -4399,6 +4439,7 @@
 				84588EFF2ADE751E004D04EC /* SwiftMessagesSegue.swift in Sources */,
 				84588E182ADE751E004D04EC /* ReactionCell.swift in Sources */,
 				84588D3E2ADE751E004D04EC /* CometChatMeetingView.swift in Sources */,
+				84DD52952C244F4D00A3E897 /* SampleUsers.swift in Sources */,
 				84588E7A2ADE751E004D04EC /* CometChatAddAdministrators.swift in Sources */,
 				84588D3D2ADE751E004D04EC /* CometChatCreateMeetingView.swift in Sources */,
 				84588D7B2ADE751E004D04EC /* CometChatActionMessageBubble.swift in Sources */,
@@ -4449,6 +4490,7 @@
 				84588E5C2ADE751E004D04EC /* CometChatSharedMediaItem.swift in Sources */,
 				84588EEF2ADE751E004D04EC /* CornerRoundingView.swift in Sources */,
 				84588E792ADE751E004D04EC /* CometChatAddMembers.swift in Sources */,
+				84DD52932C244F3400A3E897 /* SampleUser.swift in Sources */,
 				84588EBB2ADE751E004D04EC /* Error.swift in Sources */,
 				845890152ADE751E004D04EC /* UIKitSettings.swift in Sources */,
 				84588D712ADE751E004D04EC /* CometChatReceiverImageMessageBubble.swift in Sources */,
@@ -4497,6 +4539,7 @@
 				84588F022ADE751E004D04EC /* HyperlinkLabel.swift in Sources */,
 				84588E4D2ADE751E004D04EC /* FeatureRestriction.swift in Sources */,
 				84588EA22ADE751E004D04EC /* CometChatConversationListItem.swift in Sources */,
+				84DD529B2C244FCC00A3E897 /* Networking.swift in Sources */,
 				84588EF62ADE751E004D04EC /* Identifiable.swift in Sources */,
 				84588E362ADE751E004D04EC /* ActionsCell.swift in Sources */,
 				84588EFC2ADE751E004D04EC /* UILayoutPriority+Extensions.swift in Sources */,
@@ -4512,6 +4555,7 @@
 				84C653B92ADD5DCF00D931F7 /* APNsCallViewController.swift in Sources */,
 				84588D742ADE751E004D04EC /* CometChatSenderLocationMessageBubble.swift in Sources */,
 				84588E142ADE751E004D04EC /* CometChatMessageReactions.swift in Sources */,
+				84DD52982C244F8400A3E897 /* LoginButton.swift in Sources */,
 				84588D0E2ADE751E004D04EC /* CometChatCallDetailsLogItem.swift in Sources */,
 				84588E852ADE751E004D04EC /* CometChatUserList.swift in Sources */,
 				84588F1A2ADE751E004D04EC /* LargeTitleDisplayMode+String.swift in Sources */,

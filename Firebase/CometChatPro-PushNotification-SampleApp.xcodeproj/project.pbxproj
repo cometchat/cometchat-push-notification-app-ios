@@ -3,11 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		583362AA2579480F0022F568 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583362A92579480F0022F568 /* PushNotification.swift */; };
+		623E7F3286A078F12E5A80C0 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 316DD04D6F849C19D43DE6FE /* libPods-NotificationServiceExtension.a */; };
+		8463B2582C0E440700D7DD45 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8463B2572C0E440700D7DD45 /* FirebaseMessaging */; };
+		8463B25B2C0E464200D7DD45 /* CometChatPro in Frameworks */ = {isa = PBXBuildFile; productRef = 8463B25A2C0E464200D7DD45 /* CometChatPro */; };
+		84DD52BF2C24611300A3E897 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52BE2C24611300A3E897 /* LoginButton.swift */; };
+		84DD52C12C24612300A3E897 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52C02C24612300A3E897 /* Networking.swift */; };
+		84DD52C32C24613800A3E897 /* SampleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52C22C24613800A3E897 /* SampleUser.swift */; };
+		84DD52C52C24614700A3E897 /* SampleUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD52C42C24614700A3E897 /* SampleUsers.swift */; };
+		84DD52C72C24616D00A3E897 /* sample_user_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 84DD52C62C24616D00A3E897 /* sample_user_data.json */; };
+		8D80CB5CFB7FE43C2C9E0FAF /* libPods-CometChatPro-PushNotification-SampleApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39E4586020C7EDAE5AD57C08 /* libPods-CometChatPro-PushNotification-SampleApp.a */; };
 		B260F1F5224DE99D00CDCDBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */; };
 		B260F1F7224DE99D00CDCDBA /* LoginWithDemoUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B260F1F6224DE99D00CDCDBA /* LoginWithDemoUsers.swift */; };
 		B260F1FA224DE99D00CDCDBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B260F1F8224DE99D00CDCDBA /* Main.storyboard */; };
@@ -59,7 +68,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		316DD04D6F849C19D43DE6FE /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39E4586020C7EDAE5AD57C08 /* libPods-CometChatPro-PushNotification-SampleApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CometChatPro-PushNotification-SampleApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		492F1BB2851869C42858D604 /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		583362A92579480F0022F568 /* PushNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushNotification.swift; path = "iOS-PushNotification/PushNotification.swift"; sourceTree = SOURCE_ROOT; };
+		59DB4C8292827F406158CD0F /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		7D1C4465ABBC81AA959AD024 /* Pods-CometChatPro-PushNotification-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CometChatPro-PushNotification-SampleApp.debug.xcconfig"; path = "Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		84DD52BE2C24611300A3E897 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		84DD52C02C24612300A3E897 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		84DD52C22C24613800A3E897 /* SampleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUser.swift; sourceTree = "<group>"; };
+		84DD52C42C24614700A3E897 /* SampleUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUsers.swift; sourceTree = "<group>"; };
+		84DD52C62C24616D00A3E897 /* sample_user_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_user_data.json; sourceTree = "<group>"; };
+		94638B45B9421CE0849A5997 /* Pods-CometChatPro-PushNotification-SampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CometChatPro-PushNotification-SampleApp.release.xcconfig"; path = "Target Support Files/Pods-CometChatPro-PushNotification-SampleApp/Pods-CometChatPro-PushNotification-SampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		B260F1F1224DE99D00CDCDBA /* Push Notification Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Push Notification Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B260F1F6224DE99D00CDCDBA /* LoginWithDemoUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithDemoUsers.swift; sourceTree = "<group>"; };
@@ -86,6 +106,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8463B2582C0E440700D7DD45 /* FirebaseMessaging in Frameworks */,
+				8463B25B2C0E464200D7DD45 /* CometChatPro in Frameworks */,
+				8D80CB5CFB7FE43C2C9E0FAF /* libPods-CometChatPro-PushNotification-SampleApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,12 +116,56 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				623E7F3286A078F12E5A80C0 /* libPods-NotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		479B1B21378D653903DE6B03 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				39E4586020C7EDAE5AD57C08 /* libPods-CometChatPro-PushNotification-SampleApp.a */,
+				316DD04D6F849C19D43DE6FE /* libPods-NotificationServiceExtension.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		84DD52BA2C2460DC00A3E897 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52C22C24613800A3E897 /* SampleUser.swift */,
+				84DD52C42C24614700A3E897 /* SampleUsers.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		84DD52BB2C2460E500A3E897 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52C02C24612300A3E897 /* Networking.swift */,
+				84DD52C62C24616D00A3E897 /* sample_user_data.json */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		84DD52BC2C2460ED00A3E897 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52BD2C24610100A3E897 /* Login */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		84DD52BD2C24610100A3E897 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				84DD52BE2C24611300A3E897 /* LoginButton.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		B260F1E8224DE99D00CDCDBA = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +173,7 @@
 				DB2345DD23DEA56D00CDBA2F /* NotificationServiceExtension */,
 				B260F1F2224DE99D00CDCDBA /* Products */,
 				F5BBE2B1C427915DC168BBA8 /* Pods */,
+				479B1B21378D653903DE6B03 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,6 +189,9 @@
 		B260F1F3224DE99D00CDCDBA /* iOS-PushNotification */ = {
 			isa = PBXGroup;
 			children = (
+				84DD52BC2C2460ED00A3E897 /* Components */,
+				84DD52BB2C2460E500A3E897 /* Utils */,
+				84DD52BA2C2460DC00A3E897 /* Models */,
 				B2A8EBCC224E239000E22217 /* iOS-PushNotification.entitlements */,
 				DBBF8A3422E0BB4100248056 /* ring.wav */,
 				B260F1F4224DE99D00CDCDBA /* AppDelegate.swift */,
@@ -150,6 +221,10 @@
 		F5BBE2B1C427915DC168BBA8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				7D1C4465ABBC81AA959AD024 /* Pods-CometChatPro-PushNotification-SampleApp.debug.xcconfig */,
+				94638B45B9421CE0849A5997 /* Pods-CometChatPro-PushNotification-SampleApp.release.xcconfig */,
+				492F1BB2851869C42858D604 /* Pods-NotificationServiceExtension.debug.xcconfig */,
+				59DB4C8292827F406158CD0F /* Pods-NotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -180,6 +255,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B260F203224DE99F00CDCDBA /* Build configuration list for PBXNativeTarget "CometChatPro-PushNotification-SampleApp" */;
 			buildPhases = (
+				ADAAEE5F90A0135F6E640A70 /* [CP] Check Pods Manifest.lock */,
 				B260F1ED224DE99D00CDCDBA /* Sources */,
 				B260F1EE224DE99D00CDCDBA /* Frameworks */,
 				B260F1EF224DE99D00CDCDBA /* Resources */,
@@ -192,6 +268,10 @@
 				DB2345E223DEA56D00CDBA2F /* PBXTargetDependency */,
 			);
 			name = "CometChatPro-PushNotification-SampleApp";
+			packageProductDependencies = (
+				8463B2572C0E440700D7DD45 /* FirebaseMessaging */,
+				8463B25A2C0E464200D7DD45 /* CometChatPro */,
+			);
 			productName = "iOS-PushNotification";
 			productReference = B260F1F1224DE99D00CDCDBA /* Push Notification Sample.app */;
 			productType = "com.apple.product-type.application";
@@ -200,6 +280,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB2345E423DEA56D00CDBA2F /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
 			buildPhases = (
+				B3E49DB11AD1E6F7D199CCC7 /* [CP] Check Pods Manifest.lock */,
 				DB2345D823DEA56D00CDBA2F /* Sources */,
 				DB2345D923DEA56D00CDBA2F /* Frameworks */,
 				DB2345DA23DEA56D00CDBA2F /* Resources */,
@@ -254,6 +335,10 @@
 				Base,
 			);
 			mainGroup = B260F1E8224DE99D00CDCDBA;
+			packageReferences = (
+				8463B2562C0E43C300D7DD45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8463B2592C0E464200D7DD45 /* XCRemoteSwiftPackageReference "chat-sdk-ios" */,
+			);
 			productRefGroup = B260F1F2224DE99D00CDCDBA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -271,6 +356,7 @@
 			files = (
 				DBBF8A3522E0BB4100248056 /* ring.wav in Resources */,
 				B260F1FF224DE99F00CDCDBA /* LaunchScreen.storyboard in Resources */,
+				84DD52C72C24616D00A3E897 /* sample_user_data.json in Resources */,
 				B260F207224DE9C700CDCDBA /* GoogleService-Info.plist in Resources */,
 				B260F1FC224DE99F00CDCDBA /* Assets.xcassets in Resources */,
 				B260F1FA224DE99D00CDCDBA /* Main.storyboard in Resources */,
@@ -286,12 +372,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		ADAAEE5F90A0135F6E640A70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CometChatPro-PushNotification-SampleApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3E49DB11AD1E6F7D199CCC7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B260F1ED224DE99D00CDCDBA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B260F1F7224DE99D00CDCDBA /* LoginWithDemoUsers.swift in Sources */,
+				84DD52C12C24612300A3E897 /* Networking.swift in Sources */,
+				84DD52BF2C24611300A3E897 /* LoginButton.swift in Sources */,
+				84DD52C32C24613800A3E897 /* SampleUser.swift in Sources */,
+				84DD52C52C24614700A3E897 /* SampleUsers.swift in Sources */,
 				FB920AF324A3D8F6006A11A5 /* NavigationController.swift in Sources */,
 				B260F1F5224DE99D00CDCDBA /* AppDelegate.swift in Sources */,
 				FB920AEC24A33C02006A11A5 /* LoginWithUID.swift in Sources */,
@@ -458,6 +595,7 @@
 		};
 		B260F204224DE99F00CDCDBA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D1C4465ABBC81AA959AD024 /* Pods-CometChatPro-PushNotification-SampleApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -482,14 +620,15 @@
 					"\"${PODS_ROOT}/Headers/Public/nanopb\"",
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
-					"$SDKROOT/usr/include/libxml2",
+					$SDKROOT/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "iOS-PushNotification/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.testing;
 				PRODUCT_NAME = "Push Notification Sample";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -498,6 +637,7 @@
 		};
 		B260F205224DE99F00CDCDBA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94638B45B9421CE0849A5997 /* Pods-CometChatPro-PushNotification-SampleApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -522,14 +662,16 @@
 					"\"${PODS_ROOT}/Headers/Public/nanopb\"",
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
-					"$SDKROOT/usr/include/libxml2",
+					$SDKROOT/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "iOS-PushNotification/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.testing;
 				PRODUCT_NAME = "Push Notification Sample";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -538,6 +680,7 @@
 		};
 		DB2345E523DEA56D00CDBA2F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 492F1BB2851869C42858D604 /* Pods-NotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -549,7 +692,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2.NotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.testing.notification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -559,6 +702,7 @@
 		};
 		DB2345E623DEA56D00CDBA2F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59DB4C8292827F406158CD0F /* Pods-NotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -570,7 +714,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.dev2.NotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inscripts.cometchat.testing.notification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -609,6 +753,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8463B2562C0E43C300D7DD45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.16.0;
+			};
+		};
+		8463B2592C0E464200D7DD45 /* XCRemoteSwiftPackageReference "chat-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cometchat/chat-sdk-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.918;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8463B2572C0E440700D7DD45 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8463B2562C0E43C300D7DD45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		8463B25A2C0E464200D7DD45 /* CometChatPro */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8463B2592C0E464200D7DD45 /* XCRemoteSwiftPackageReference "chat-sdk-ios" */;
+			productName = CometChatPro;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B260F1E9224DE99D00CDCDBA /* Project object */;
 }

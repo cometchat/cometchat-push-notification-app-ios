@@ -152,10 +152,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print( "deviceToken: \(tokenString)")
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
-        
-        let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
-                voipRegistry.desiredPushTypes = Set([PKPushType.voIP])
-                voipRegistry.delegate = self
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
