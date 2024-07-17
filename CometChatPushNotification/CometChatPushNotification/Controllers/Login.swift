@@ -19,6 +19,7 @@ class Login: UIViewController {
     @IBOutlet weak var uidView: UIView!
     @IBOutlet weak var uid: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var loginButtons: UIStackView!
     @IBOutlet weak var loginBackground: GradientImageView!
     
     //MARK: LIFE CYCLE
@@ -30,7 +31,6 @@ class Login: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        reloadGradients()
     }
     
     
@@ -109,23 +109,6 @@ class Login: UIViewController {
         }
     }
     
-    private func reloadGradients() {
-        DispatchQueue.main.async {
-            let gradLayer = self.loginBackground.layer.sublayers?.compactMap { $0 as? CAGradientLayer }
-            gradLayer?.first?.frame = self.loginBackground.bounds
-            let gradLayerSuperHero1 = self.superHero1Background.layer.sublayers?.compactMap { $0 as? CAGradientLayer }
-            gradLayerSuperHero1?.first?.frame = self.superHero1Background.bounds
-
-            let gradLayerSuperHero2 = self.superHero2Background.layer.sublayers?.compactMap { $0 as? CAGradientLayer }
-            gradLayerSuperHero2?.first?.frame = self.superHero2Background.bounds
-
-            let gradLayerSuperHero3 = self.superHero3Background.layer.sublayers?.compactMap { $0 as? CAGradientLayer }
-            gradLayerSuperHero3?.first?.frame = self.superHero3Background.bounds
-
-            let gradLayerSuperHero4 = self.superHero4Background.layer.sublayers?.compactMap { $0 as? CAGradientLayer }
-            gradLayerSuperHero4?.first?.frame = self.superHero4Background.bounds
-        }
-    }
     
     fileprivate func registerObservers(){
         //Register Notifications

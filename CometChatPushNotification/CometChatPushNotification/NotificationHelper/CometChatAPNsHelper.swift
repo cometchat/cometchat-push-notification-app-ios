@@ -253,8 +253,10 @@ extension CometChatAPNsHelper {
                 }
                 
                 let callSettingsBuilder = CallingDefaultBuilder.callSettingsBuilder
-                callSettingsBuilder.setIsAudioOnly(isAudioCall)
-                cometChatOngoingCall.set(callSettingsBuilder: callSettingsBuilder)
+                if let _callSettingsBuilder = callSettingsBuilder as? CallSettingsBuilder{
+                    _callSettingsBuilder.setIsAudioOnly(isAudioCall)
+                    cometChatOngoingCall.set(callSettingsBuilder: _callSettingsBuilder)
+                }
                 cometChatOngoingCall.set(callWorkFlow: .defaultCalling)
                 cometChatOngoingCall.set(sessionId: call?.sessionID ?? "")
                 cometChatOngoingCall.modalPresentationStyle = .fullScreen
